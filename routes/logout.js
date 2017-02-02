@@ -8,8 +8,9 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.post("/", (req, res) => {
-    //logout
-  })
+    req.session = null;
+    res.redirect("/");
+  });
 
   return router;
 }

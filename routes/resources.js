@@ -23,6 +23,7 @@ module.exports = (knex) => {
 
   router.get("/:resource_id", (req, res) => {
     // shows the resource's page
+
   });
 
   router.get("/:resource_id/likes", (req, res) => {

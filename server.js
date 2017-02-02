@@ -30,7 +30,7 @@ const resources = require("./routes/resources")
 const login = require("./routes/login")
 const logout = require("./routes/logout")
 const register = require("./routes/register")
-const user = require("./routes/user")
+const users = require("./routes/users")
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -45,6 +45,7 @@ app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
 }));
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
@@ -56,40 +57,23 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-//app.use("/api/users", usersRoutes(knex));
 app.use("/resources", resources);
 app.use("/login", login);
 app.use("/logout", logout);
 app.use("/register", register);
+app.use("/users", users);
 
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  if (!req.session_id) {
+    var templateVars = {placeholder: 0}; //knex request for user info
+  } else {
+    var templateVars = {placeholder: 0}; //no user info, revert to default
+  }
+  res.render("index", templateVars);
 });
 
-app.get("/user", (req, res) => {
-  res.render("user");
-});
-
-app.get("/resources/:id", (req, res) => {
-
-  let templateVars = { resource_id: req.params.id
-                     };
-  res.render("show", templateVars);
-
-});
-
-app.get("/search", (req, res) => {
-  $.ajax({
-        method: "Get",
-        url: "/search"
-      }).done((resources) => {
-        for (resource of resources) {
-          $("<div>").html(pin.title).appendTo($("body"));
-        }
-      })
-})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
