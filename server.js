@@ -26,6 +26,11 @@ const db = require('./db/queries')(knex);
 // console.log(db.getResourcesByUser(3));
 // Seperated Routes for each Resource
 const resources = require("./routes/resources")
+const login = require("./routes/login")
+const logout = require("./routes/logout")
+const register = require("./routes/register")
+const user = require("./routes/user")
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -47,7 +52,10 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 //app.use("/api/users", usersRoutes(knex));
-app.use("/search", resources) ;
+app.use("/resources", resources);
+app.use("/login", login);
+app.use("/logout", logout);
+app.use("/register", register);
 
 
 // Home page
