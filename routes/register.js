@@ -1,6 +1,6 @@
 "use strict";
 
-const queries = require('../db/queries.js');
+const db = require('../db/queries.js');
 
 const express = require('express');
 const router  = express.Router();
@@ -11,14 +11,14 @@ module.exports = (knex) => {
 
   router.post("/", (req,res) => {
     //register new user
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-    const user_id = shortid.generate();
 
-    req.session.user_id = user_id
-    queries.saveUser({name: name, email: email, password: password}, function (user) {
-      res.session_id = user.id;
+    const password_hash = bcrypt.hashSync(req.body.password, 10);
+    const new_user = {name:     req.body.name,
+                      email:    req.body.email,
+                      password: password_hash};
+
+    db.saveUser(new_user, function (user) {
+      req.session_id = user.id;
     });
 
     res.redirect('/');

@@ -64,17 +64,16 @@ app.get("/", (req, res) => {
     db.getAllResources(function(resources) {
       // console.log('resources', resources);
       templateVars.resources = resources;
+      console.log('templateVars', templateVars);
       // console.log('templateVars.resources', templateVars.resources);
 
       res.render("index", templateVars);
     });
+  } else {
+    var templateVars = {placeholder: 0}; //no user info, revert to default
   }
-  // else {
-  //   var templateVars = {placeholder: 0}; //no user info, revert to default
-  // }
-  // console.log('templateVars', templateVars);
-  // var templateVars = {resources: 0};
-  // res.render("index", templateVars);
+  var templateVars = {resources: 0};
+  res.render("index", templateVars);
 });
 
 
