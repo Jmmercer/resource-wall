@@ -11,8 +11,8 @@ module.exports = (knex) => {
       .select('*')
       .from('resources')
       .where('id', resourceID)
-      .then((allResourcesArr) => {
-        console.log(allResourcesArr[0]);
+      .then((thisResourcesArr) => {
+        callback(thisResourcesArr[0]);
       });
     },
 
@@ -25,7 +25,7 @@ module.exports = (knex) => {
       .select('*')
       .from('resources')
       .then((allResourcesArr) => {
-        console.log(allResourcesArr);
+        callback(allResourcesArr);
       });
     },
 
@@ -40,7 +40,7 @@ module.exports = (knex) => {
       .innerJoin('resource_categories', 'resources.id', 'resource_id')
       .where('category_id', categoryID)
       .then((catResourcesArr) => {
-        console.log(catResourcesArr);
+        callback(catResourcesArr);
       });
     },
 
@@ -61,7 +61,7 @@ module.exports = (knex) => {
       .orWhere('resources.url', 'like', approximateTerm)
       .orWhere('categories.name', 'like',approximateTerm)
       .then((catResourcesArr) => {
-        console.log(catResourcesArr);
+        callback(catResourcesArr);
       });
     },
 
@@ -75,7 +75,7 @@ module.exports = (knex) => {
       .from('resources')
       .where('user_id', userID)
       .then((userResourcesArr) => {
-        console.log(userResourcesArr);
+        callback(userResourcesArr);
       });
     },
 
@@ -90,7 +90,7 @@ module.exports = (knex) => {
       .innerJoin('likes', 'likes.resource_id', 'resources.id')
       .where('likes.user_id', userID)
       .then((userLikedResourcesArr) => {
-        console.log(userLikedResourcesArr);
+        callback(userLikedResourcesArr);
       });
     },
 
