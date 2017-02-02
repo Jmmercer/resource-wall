@@ -17,10 +17,13 @@ const knexLogger  = require('knex-logger');
 // Query functions object with knex injection
 const db = require('./db/queries')(knex);
 // Testing db - to remove
-console.log("another array begins", db.getAllResources());
-console.log("another array begins", db.getResourcesByUser(2));
-console.log("another array begins", db.getResourceByCategory(1));
-console.log("another array begins", db.getResourcesBySearch('ahoo'));
+// console.log(db.getResource(1));
+// console.log(db.getAllResources());
+// console.log(db.getResourcesByUser(2));
+// console.log(db.getResourcesByCategory(1));
+// console.log(db.getResourcesBySearch('ahoo'));
+// console.log(db.getResourcesByUserLiked(3));
+// console.log(db.getResourcesByUser(3));
 // Seperated Routes for each Resource
 const resources = require("./routes/resources")
 
