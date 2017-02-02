@@ -8,4 +8,5 @@ $(() => {
       $("<div>").html(pin.title).appendTo($("body"));
     }
   })
+
 });

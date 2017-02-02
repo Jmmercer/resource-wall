@@ -1,6 +1,6 @@
 "use strict";
 
-const db = require('./db');
+//const db = require('../db');
 
 const express = require('express');
 const router  = express.Router();
@@ -8,10 +8,12 @@ const router  = express.Router();
 module.exports = () => {
 
   router.get("/", (req, res) => {
-    db.getResources((results) => {
-        res.json(results);
-    });
+    //knex select query here
   });
+
+  router.get("/search", (req, res) => {
+    //knex select query here
+  })
 
   return router;
 }
