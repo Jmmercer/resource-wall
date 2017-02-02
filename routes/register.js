@@ -11,12 +11,18 @@ module.exports = (knex) => {
 
   router.post("/", (req,res) => {
     //register new user
-
     const name = req.body.name;
     const email = req.body.email;
+    const password: req.body.password;
+    const password = 'asdas';
     const user_id = shortid.generate();
+
     req.session.user_id = user_id
-    //knex stuff here
+    queries.saveUser({name: name, email: email, password: password}, function (user) {
+      res.session_id = user.id;
+    });
+
+    res.redirect('/');
 
   })
 
