@@ -8,7 +8,9 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.post("/", (req,res) => {
-    //register
+    //register new user
+    const name = req.body.name;
+    const email = req.body.email;
   })
 
   return router;
