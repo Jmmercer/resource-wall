@@ -27,14 +27,17 @@ module.exports = (knex) => {
                       title:        title,
                       description:  description,
                     }
-    db.saveResource(resource, function(){
+    db.saveResource(resource, function(resource){
       console.log(resource.id);
     });
     res.redirect("/");
   })
 
   router.get("/:resource_id", (req, res) => {
-    // shows the resource's page
+    resource_id = req.params.resource_id;
+    db.getResource(req.params.resource_id, function(resource) {
+      res.render('show', resource);
+    })
 
   });
 

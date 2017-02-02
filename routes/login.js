@@ -11,7 +11,7 @@ const shortid = require('shortid')
 module.exports = (knex) => {
 
   router.post("/", (req, res) => {
-    //login
+
 
   })
 
