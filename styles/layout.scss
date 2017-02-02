@@ -1,29 +1,9 @@
+@import 'Header';
 
 main {
-  margin-top: 105px;
+  margin-top: auto;
   height: auto;
 }
 body {
   background-color: #ffffff;
-}
-h1 {
-  padding-left: 1.5em;
-  color: #000000;
-}
-header{
-  position: fixed;
-  top: 0;
-  z-index: 1;
-  width: 100%;
-  color: #cacdd1;
-  background-color: #efeded;
-  border-color: #ef0000;
-  border-bottom-style: solid;
-  border-width: 0.5em;
-  border-bottom-right-radius: 1em;
-}
-
-header.form {
-  display: flex;
-  align-items: center;
 }

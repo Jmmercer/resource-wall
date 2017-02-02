@@ -1,5 +1,6 @@
 "use strict";
 
+
 require('dotenv').config();
 
 const PORT        = process.env.PORT || 8080;
@@ -13,7 +14,6 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
@@ -42,6 +42,10 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get('/bstest', (req, res) =>{
+  res.render('bsTest')
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
