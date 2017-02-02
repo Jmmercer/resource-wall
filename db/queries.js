@@ -11,8 +11,8 @@ module.exports = (knex) => {
       .select('*')
       .from('resources')
       .where('id', resourceID)
-      .then((allResourcesArr) => {
-        callback(allResourcesArr[0]);
+      .then((thisResourcesArr) => {
+        callback(thisResourcesArr[0]);
       });
     },
 
@@ -94,8 +94,19 @@ module.exports = (knex) => {
       });
     },
 
+    // Gets a user by email
+    getUserByEmail: (email, callback) => {
+      knex
+      .select('*')
+      .from('users')
+      .where('email', email)
+      then((userArr) =>{
+        callback(userArr[0]);
+      });
+    },
+
     // Set / Save methods
-    setResource: (resource, callback) => {
+    saveResource: (resource, callback) => {
       resource.likes_count = 0;
       resource.avg_rating = 0;
       resource.comments_count = 0;
@@ -117,7 +128,28 @@ module.exports = (knex) => {
       .catch(function(err){
         console.log('Error', err.message);
       });
-    }
+    },
+
+    saveUser: (user, callback) => {
+      knex
+      .returning('id')
+      .insert({
+        name:        user.name,
+        email:       user.email,
+        password:    user.password
+      }).into('users')
+      .then((idArr) => {
+        resource.id = idArr[0];
+        callback(user);
+      })
+      .catch(function(err){
+        console.log('Error', err.message);
+      });
+    },
+
+
+    // Update Methods
+    
   };
 
 }
