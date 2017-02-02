@@ -9,6 +9,7 @@ module.exports = () => {
 
   router.get("/", (req, res) => {
     //knex select query here
+    
   });
 
   router.get("/search", (req, res) => {
