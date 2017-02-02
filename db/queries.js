@@ -20,7 +20,7 @@ module.exports = (knex) => {
       });
     },
 
-    getResourceByCategory: (categoryID, callback) => {
+    getResourcesByCategory: (categoryID, callback) => {
       knex
       .select('*')
       .from('resources')
@@ -55,7 +55,7 @@ module.exports = (knex) => {
       .then((userResourcesArr) => {
         console.log(userResourcesArr);
       });
-    }
+    },
 
     getResourcesByUserLiked: (userID, callback) => {
       knex
