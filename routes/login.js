@@ -4,7 +4,7 @@ const queries = require('../db/queries.js');
 
 const express = require('express');
 const router  = express.Router();
-const bcrypt  = require('bcrypt-nodejs');
+const bcrypt  = require('bcrypt');
 const shortid = require('shortid')
 
 
