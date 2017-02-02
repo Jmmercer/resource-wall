@@ -94,6 +94,17 @@ module.exports = (knex) => {
       });
     },
 
+    // Gets a user by email
+    getUserByEmail: (email, callback) => {
+      knex
+      .select('*')
+      .from('users')
+      .where('email', email)
+      then((userArr) =>{
+        callback(userArr[0]);
+      });
+    },
+
     // Set / Save methods
     saveResource: (resource, callback) => {
       resource.likes_count = 0;
@@ -134,7 +145,11 @@ module.exports = (knex) => {
       .catch(function(err){
         console.log('Error', err.message);
       });
-    }
+    },
+
+
+    // Update Methods
+    
   };
 
 }
