@@ -19,7 +19,7 @@ const usersRoutes = require("./routes/users");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+// The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
@@ -41,6 +41,18 @@ app.use("/api/users", usersRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+app.get("/user", (req, res) => {
+  res.render("user");
+});
+
+app.get("/resources/:id", (req, res) => {
+
+  let templateVars = { resource_id: req.params.id
+                     };
+  res.render("show", templateVars);
+
 });
 
 app.listen(PORT, () => {
