@@ -61,10 +61,20 @@ app.use("/users", users);
 app.get("/", (req, res) => {
   if (!req.session_id) {
     var templateVars = {placeholder: 0}; //knex request for user info
-  } else {
-    var templateVars = {placeholder: 0}; //no user info, revert to default
+    db.getAllResources(function(resources) {
+      // console.log('resources', resources);
+      templateVars.resources = resources;
+      // console.log('templateVars.resources', templateVars.resources);
+
+      res.render("index", templateVars);
+    });
   }
-  res.render("index", templateVars);
+  // else {
+  //   var templateVars = {placeholder: 0}; //no user info, revert to default
+  // }
+  // console.log('templateVars', templateVars);
+  // var templateVars = {resources: 0};
+  // res.render("index", templateVars);
 });
 
 

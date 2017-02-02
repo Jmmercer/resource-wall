@@ -13,8 +13,7 @@ module.exports = (knex) => {
     //register new user
     const name = req.body.name;
     const email = req.body.email;
-    const password: req.body.password;
-    const password = 'asdas';
+    const password = req.body.password;
     const user_id = shortid.generate();
 
     req.session.user_id = user_id
