@@ -1,18 +1,20 @@
 "use strict";
 
+const queries = require('../db/queries.js');
+
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = () => {
 
   router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("users")
-      .then((results) => {
-        res.json(results);
-    });
+    // What does get /users do?
   });
+
+  router.get("/:user_id", (req, res) => {
+    // Shows user's page
+  });
+
 
   return router;
 }
