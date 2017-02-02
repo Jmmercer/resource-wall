@@ -25,7 +25,7 @@ module.exports = (knex) => {
       .select('*')
       .from('resources')
       .then((allResourcesArr) => {
-        console.log(allResourcesArr);
+        callback(allResourcesArr);
       });
     },
 
