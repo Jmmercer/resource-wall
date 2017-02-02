@@ -112,4 +112,62 @@ img {
 
   display: flex;
 }
+.login-content input {
+  display:list-item;
+       width: 100%;
+   }
+.login-content {
+text-align: justify;
+background:#ff8282;
+color:#FFF;
+position: absolute;;
+top: -250px;
+left: 23%;
+width: 30%;
+height: 100px;
+padding: 20px;
+transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+overflow: hidden;
+box-sizing: border-box;
+}
+#Go {
+  background-color: #ef0000;
+  color: white;
+  border-radius: 1em;
+  border-color: #cc2222;
+}
+#toggle {
+  position: absolute;
+  appearance:none;
+  cursor:pointer;
+  left:-100%;
+  top:-100%;
+}
+#toggle + label {
+  cursor:pointer;
+  display: inline-block;
+  background: #ef0000;
+border-radius: 3px;
+color: #FFF;
+line-height:20px;
+font-size:12px;
+text-align:center;
+-webkit-font-smoothing: antialiased;
+cursor: pointer;
+  transition:all 500ms ease;
+}
+#toggle:checked ~ .login-content {
+  top: 0px;
+}
+#toggle:checked ~ .container {
+  margin-top: 100px;
+}
+
+#toggle:checked + label {
+
+}
+
+#toggle:checked + label:after {
+  content:''
+}
 }
