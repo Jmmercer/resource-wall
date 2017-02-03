@@ -19,8 +19,6 @@ const cookieSession = require('cookie-session');
 // Query functions object with knex injection
 const db = require('./db/queries')(knex);
 
-db.getResourcesBySearch('swahili');
-db.getAllResources(console.log)
 
 // Seperated Routes for each Resource
 const resources = require("./routes/resources")
@@ -67,6 +65,7 @@ app.get("/", (req, res) => {
   // TODO Have a container for the error message
   console.log('error:', req.session.error_message);
   }
+
 
   if (!req.session_id) {
     var templateVars = {placeholder: 0}; //knex request for user info

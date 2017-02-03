@@ -4,16 +4,28 @@ $(() => {
 $('.new-resource').click(function (event){
   event.preventDefault()
   //const new_url = $(RESOURCE-URL-INPUT).value();
-  const new_url = 'http://www.cbc.ca/'
+  const new_url = 'https://www.google.ca/'
+  console.log('new_url', new_url);
+
 
   $.ajax({
-    method: "POST"
-    url: `/resources/new`,
+    method: "GET",
+    url: `/resources/new/`,
     context: document.body,
-    data: JSON.stringify({ url: new_url}),
+    data: {new_url: new_url},
     success: function(response){
-      console.log(response);
-      $(location).attr('href', '/resources/new');
+      const html = $.parseHTML(response);
+      console.log('html', html);
+      console.log($(html).find('#mngb'));
+      // console.log('response', response);
+      // console.log('HTML ' + JSON.stringify(html));
+      // $(location).attr('href', '/');
+    },
+    error: function( request, status, error ) {
+      console.log( "Request failed: " + request.responseText );
+    },
+    fail: function( sdkkjfb, request ) {
+      console.log( "Request failed: " + request );
     }
   });
 

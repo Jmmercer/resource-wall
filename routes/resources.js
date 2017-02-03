@@ -1,7 +1,7 @@
 "use strict";
 
 const db      = require('../db/queries.js');
-const scraper = require('../public/scripts/scraper.js');
+const scraper_request = require('../public/scripts/scraper.js');
 
 const express = require('express');
 const router  = express.Router();
@@ -16,8 +16,14 @@ module.exports = (knex) => {
   router.get("/new/", (req, res) => {
     // Show 'new resource' page, including all images from webpage for selection
     // use scraper.js to get html from url, then send it back
+
     const url = req.query.new_url;
-    res.html = scraper(url);
+    console.log('url', url);
+    scraper_request(url, function(body){;
+    console.log('body', body);
+    //res.html = body;
+    res.send(body);
+    })
   })
 
   router.get("/search", (req, res) => {
@@ -39,7 +45,6 @@ module.exports = (knex) => {
                       description:  description,
                     }
     db.saveResource(resource, function(resource){
-      console.log(resource.id);
     });
     res.redirect("/");
   })

@@ -1,6 +1,7 @@
 const scraper = function (url) {
 
-  var http = require('http');
+  var http = require('https');
+
   function getLocation(href) {
     var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/);
     return match && {
@@ -24,6 +25,7 @@ const scraper = function (url) {
     hostname: url_breakdown.hostname,
     port: url_breakdown.port,
     path: url_breakdown.pathname,
+    protocol: url_breakdown.protocol,
     method: 'GET',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -38,15 +40,13 @@ const scraper = function (url) {
     console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
     res.setEncoding('utf8');
     res.on('data', (chunk) => {
-      //console.log(`BODY: ${chunk}`);
+      // console.log(`BODY: ${chunk}`);
       doc_response.push(chunk);
     });
     res.on('end', () => {
       doc_response = doc_response.join('');
       console.log('No more data in response.');
       return doc_response;
-      // TODO return data to ajax request
-      //console.log('doc_response', doc_response);
     });
 
 
@@ -61,4 +61,20 @@ const scraper = function (url) {
   req.end();
 }
 
-module.exports.scraper = scraper;
+// module.exports = scraper;
+
+//console.log(scraper('https://www.yahoo.ca/'));
+
+const request = require('request');
+
+
+const scraper_request = function (url, cb) {
+var url = 'http://www.google.ca';
+
+request.get(url, function (err, res, body) {
+  console.log(res.statusCode);
+  cb(body);
+});
+}
+
+module.exports = scraper_request;
