@@ -59,20 +59,38 @@ module.exports = (knex) => {
     // Input => categoryID and a callback function to handle the result
     // Output => an array resource objects
     // Example: ('exa', console.log) logs [{id: 1, user_id: '#', url: 'example.com', title: 'tadah'....},...]
-    getResourcesBySearch: (searchTerm, callback) => {
-      const approximateTerm = `%${searchTerm}%`;
-      knex
-      .select('resources.id', 'resources.url', 'resources.title', 'resources.description', 'resources.likes_count', 'resources.avg_rating', 'resources.comments_count')
-      .from('resource_categories')
-      .innerJoin('resources', 'resources.id', 'resource_id')
-      .innerJoin('categories', 'categories.id', 'category_id')
-      .where('resources.title', 'like', approximateTerm)
-      .orWhere('resources.description', 'like', approximateTerm)
-      .orWhere('resources.url', 'like', approximateTerm)
-      .orWhere('categories.name', 'like',approximateTerm)
-      .then((catResourcesArr) => {
-        callback(catResourcesArr);
+    getResourcesBySearch: (searchTerm, categoryIDs, callback) => {
+      const approximateTerm = `%${searchTerm}%`; // think about escaping searchTerm
+      categoryIDs = categoryIDs || knex.select('id').from('categories');
+
+      // console.log(categoryIDs);
+
+      return knex
+      .distinct('resource_id').select().from('resource_categories').where('category_id', 'in', categoryIDs)
+      .then((result) => {
+        result = result.map(obj => obj.resource_id);
+        return knex.select('*').from('resources').where('id', 'in', result);
+      }).then((r) => {
+        // console.log(r);
+        let searchResult = r.filter(res => {
+          return res.title.includes(searchTerm) ||
+          res.url.includes(searchTerm) ||
+          res.description.includes(searchTerm);
+        });
+        console.log(searchResult);
       });
+      // knex
+      // .select('resources.id', 'resources.url', 'resources.title', 'resources.description', 'resources.likes_count', 'resources.avg_rating', 'resources.comments_count')
+      // .from('resource_categories')
+      // .innerJoin('resources', 'resources.id', 'resource_id')
+      // .innerJoin('categories', 'categories.id', 'category_id')
+      // .where('resources.title', 'like', approximateTerm)
+      // .orWhere('resources.description', 'like', approximateTerm)
+      // .orWhere('resources.url', 'like', approximateTerm)
+      // .orWhere('categories.name', 'like',approximateTerm)
+      // .then((catResourcesArr) => {
+      //   callback(catResourcesArr);
+      // });
     },
 
     getResourcesBySearchFiltered: (searchTerm, categoryIDS, callback) => {
@@ -178,6 +196,10 @@ module.exports = (knex) => {
       }).into('resources')
       .then((idArr) => {
         resource.id = idArr[0];
+        let categoryMap = resource.categories.map(catID => ({category_id: catID, resource_id: resource.id}));
+        return knex.insert(categoryMap).into('resource_categories');
+      })
+      .then(() => {
         callback(resource);
       })
       .catch(function(err){
