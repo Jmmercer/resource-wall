@@ -7,6 +7,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+
   router.get("/", (req, res) => {
     // What does get /resources do?
   })
@@ -17,7 +18,9 @@ module.exports = (knex) => {
     // ajax request for new resources
   })
 
-  router.post("/new", (req, res) => {
+  router.post("/", (req, res) => {
+    //Create new resource
+
     const user_id = req.session_id;
     const title = req.body.title;
     const description = req.body.description;

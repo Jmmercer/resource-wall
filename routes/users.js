@@ -1,18 +1,27 @@
 "use strict";
 
-const queries = require('../db/queries.js');
+
 
 const express = require('express');
 const router  = express.Router();
 
-module.exports = () => {
+module.exports = (knex) => {
+  const db = require('../db/queries.js')(knex);
 
   router.get("/", (req, res) => {
-    // What does get /users do?
+    // What does get /users do? Anything?
   });
 
   router.get("/:user_id", (req, res) => {
-    // Shows user's page
+    // Show user page
+    const user_id = req.params.user_id;
+
+    db.getResourcesByUser(user_id, function (resources) {
+      const templateVars = {resources: resources,
+                            user_id: user_id}
+      res.render('user', resources);
+    })
+
   });
 
 
