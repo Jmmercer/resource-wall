@@ -181,6 +181,7 @@ module.exports = (knex) => {
       .select('*')
       .from('likes')
       .where('likes.user_id', '=', likeObj.user_id)
+      .andWhere('likes.resource_id', '=', likeObj.resource_id)
       .then((likeArr) => {
         if (likeArr.length < 1) {
           return knex.insert(likeObj).into('likes')
@@ -205,16 +206,18 @@ module.exports = (knex) => {
       .select('*')
       .from('ratings')
       .where('ratings.user_id', '=', ratingObj.user_id)
+      .andWhere('ratings.resource_id', '=', ratingObj.resource_id)
       .then((ratingArr) => {
         if (ratingArr.length < 1) {
-          return knex.insert(ratingObj).into('ratings')
-            .select().avg('value as avgRating').where('resource_id', ratingObj.resource_id)
-            .returning('avgRating')
+          return knex.insert(ratingObj).into('ratings').then(() => {
+          return knex('ratings').avg('value as avgRating').where('resource_id', ratingObj.resource_id)
+            .returning('avgRating'); })
           .then((avgRating) => {
             return knex('resources').where('id', ratingObj.resource_id)
-            .update('avg_rating', avgRating[0]).returning('avg_rating');
+            .update('avg_rating', Math.round(avgRating[0])).returning('avg_rating');
           });
         } else {
+          return ['already rated this']
           // return knex('ratings').where('user_id', ratingObj.user_id).del()
           // .then(() => {
           //   return knex('resources').where('id', ratingObj.resource_id)
