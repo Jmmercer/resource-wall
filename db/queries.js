@@ -7,12 +7,22 @@ module.exports = (knex) => {
     // Output => a resource object
     // Example: (1, console.log) logs {id: 1, user_id: '#', url: 'example.com', title: 'tadah'....}
     getResource: (resourceID, callback) => {
+      let resrc;
       knex
       .select('*')
       .from('resources')
-      .where('id', resourceID)
+      .where('resources.id', resourceID)
       .then((thisResourcesArr) => {
-        callback(thisResourcesArr[0]);
+        resrc = thisResourcesArr[0];
+      }).then(() => {
+        knex
+        .select('*')
+        .from('comments')
+        .where('resource_id', resourceID)
+        .then((commentsArr) => {
+          resrc.comments = commentsArr;
+          callback(resrc);
+        })
       });
     },
 
@@ -52,7 +62,7 @@ module.exports = (knex) => {
     getResourcesBySearch: (searchTerm, callback) => {
       const approximateTerm = `%${searchTerm}%`;
       knex
-      .select('*')
+      .select('resources.id', 'resources.url', 'resources.title', 'resources.description', 'resources.likes_count', 'resources.avg_rating', 'resources.comments_count')
       .from('resource_categories')
       .innerJoin('resources', 'resources.id', 'resource_id')
       .innerJoin('categories', 'categories.id', 'category_id')
@@ -60,6 +70,23 @@ module.exports = (knex) => {
       .orWhere('resources.description', 'like', approximateTerm)
       .orWhere('resources.url', 'like', approximateTerm)
       .orWhere('categories.name', 'like',approximateTerm)
+      .then((catResourcesArr) => {
+        callback(catResourcesArr);
+      });
+    },
+
+    getResourcesBySearchFiltered: (searchTerm, categoryIDS, callback) => {
+      const approximateTerm = `%${searchTerm}%`;
+      knex
+      .select('resources.id', 'resources.url', 'resources.title', 'resources.description', 'resources.likes_count', 'resources.avg_rating', 'resources.comments_count')
+      .from('resource_categories')
+      .innerJoin('resources', 'resources.id', 'resource_id')
+      .innerJoin('categories', 'categories.id', 'category_id')
+      .where('resources.title', 'like', approximateTerm)
+      .orWhere('resources.description', 'like', approximateTerm)
+      .orWhere('resources.url', 'like', approximateTerm)
+      .orWhere('categories.name', 'like',approximateTerm)
+      .andWhere('category_id', 'in', categoryIDS)
       .then((catResourcesArr) => {
         callback(catResourcesArr);
       });
@@ -100,7 +127,7 @@ module.exports = (knex) => {
       .select('*')
       .from('users')
       .where('email', email)
-      then((userArr) =>{
+      .then((userArr) =>{
         callback(userArr[0]);
       });
     },
