@@ -133,6 +133,34 @@ module.exports = (knex) => {
     },
 
     // Set / Save methods
+
+    // Input => comment object e.g {user_id: 1, resource_id: 3, text: 'lorem'} and a callback
+    // Output => comment object (now including the id and created_at), then comments_count update on the resource
+    saveComment: (comment, callback) => {
+      knex
+      .returning(['id', 'created_at'])
+      .insert({
+        user_id:        comment.user_id,
+        resource_id:    comment.resource_id,
+        text:           comment.text
+      }).into('comments')
+      .then((returnedArr) => {
+        const returnedObj = returnedArr[0];
+        comment.id = returnedObj.id;
+        comment.created_at = returnedObj.created_at;
+      })
+      .then(() => {
+        return knex('resources').where('id', comment.resource_id)
+            .increment('comments_count', 1).returning('comments_count');
+      })
+      .then((count) => {
+        callback([comment, count[0]]);
+      })
+      .catch(function(err){
+        console.log('Error', err.message);
+      });
+    },
+
     saveResource: (resource, callback) => {
       resource.likes_count = 0;
       resource.avg_rating = 0;
