@@ -51,32 +51,33 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/resources", resources);
-app.use("/login", login);
-app.use("/logout", logout);
-app.use("/register", register);
-app.use("/users", users);
+app.use("/resources", resources(knex));
+app.use("/login", login(knex));
+app.use("/logout", logout(knex));
+app.use("/register", register(knex));
+app.use("/users", users(knex));
 
 
 // Home page
 app.get("/", (req, res) => {
+  if (req.session.error_message) {
+  console.log('error:', req.session.error_message);
+  }
+
   if (!req.session_id) {
     var templateVars = {placeholder: 0}; //knex request for user info
     db.getAllResources(function(resources) {
-      // console.log('resources', resources);
-      templateVars.resources = resources;
-      console.log('templateVars', templateVars);
-      // console.log('templateVars.resources', templateVars.resources);
 
+      // TODO Get user by req.session_id, display info on home page
+      templateVars.resources = resources;
       res.render("index", templateVars);
+
     });
   } else {
     var templateVars = {placeholder: 0}; //no user info, revert to default
+    res.render("index", templateVars);
   }
-  var templateVars = {resources: 0};
-  res.render("index", templateVars);
 });
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

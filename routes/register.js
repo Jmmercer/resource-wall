@@ -1,6 +1,6 @@
 "use strict";
 
-const db = require('../db/queries.js');
+
 
 const express = require('express');
 const router  = express.Router();
@@ -8,21 +8,32 @@ const bcrypt  = require('bcrypt');
 const shortid = require('shortid');
 
 module.exports = (knex) => {
+  const db = require('../db/queries.js')(knex);
 
   router.post("/", (req,res) => {
-    //register new user
 
+    //register new user
     const password_hash = bcrypt.hashSync(req.body.password, 10);
     const new_user = {name:     req.body.name,
                       email:    req.body.email,
                       password: password_hash};
 
-    db.saveUser(new_user, function (user) {
-      req.session_id = user.id;
-    });
+    db.getUserByEmail(new_user.email, (user) => {
 
-    res.redirect('/');
+      if (user) {
 
+        console.log('User already exists');
+        req.session.error_message = 'User already exists';
+        res.status(405).redirect('/');
+
+      } else {
+
+        db.saveUser(new_user, function (user) {
+          req.session_id = user.id;
+          res.redirect('/');
+        });
+      }
+    })
   })
 
   return router;

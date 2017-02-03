@@ -166,7 +166,8 @@ module.exports = (knex) => {
         password:    user.password
       }).into('users')
       .then((idArr) => {
-        resource.id = idArr[0];
+        user.id = idArr[0];
+        console.log('user.id', user.id);
         callback(user);
       })
       .catch(function(err){
@@ -223,6 +224,7 @@ module.exports = (knex) => {
         callback(newCountArr[0]);
       });
     }
+
   };
 
 }
