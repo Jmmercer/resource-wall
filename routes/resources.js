@@ -1,6 +1,7 @@
 "use strict";
 
-const db = require('../db/queries.js');
+const db      = require('../db/queries.js');
+const scraper = require('../public/scripts/scraper.js');
 
 const express = require('express');
 const router  = express.Router();
@@ -9,7 +10,14 @@ module.exports = (knex) => {
 
 
   router.get("/", (req, res) => {
-    // What does get /resources do?
+    // What does get /resources do? Anything?
+  })
+
+  router.get("/new/", (req, res) => {
+    // Show 'new resource' page, including all images from webpage for selection
+    // use scraper.js to get html from url, then send it back
+    const url = req.query.new_url;
+    res.html = scraper(url);
   })
 
   router.get("/search", (req, res) => {

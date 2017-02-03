@@ -22,6 +22,7 @@ module.exports = function (knex) {
 
         req.session.error_message = 'Incorrect login information';
         res.status(401).redirect('/');
+        return;
 
       }
     })
