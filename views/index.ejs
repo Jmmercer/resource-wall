@@ -9,7 +9,19 @@
   <% include ../views/_Header %>
   </header>
     <main>
-    <h3>Here be text</h3>
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Register</h2>
+		<a class="close" href="#">×</a>
+		<div class="content">
+    <form name email password>
+      <label for="register"></label>
+      <input type="name" placeholder="Name"/>
+      <input type="email" placeholder="E-mail"/>
+      <input type="password" placeholder="Password"/>
+      <button id="Go"type="submit">Go!</button>
+	</div>
+</div>
   </main>
   </body>
 </html>
