@@ -26,6 +26,7 @@ div#maincontent:hover figure:not(:hover) {
   column-break-inside: avoid;
     img {
     width: 100%; height: auto;
+    max-height: 1000px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 15px;
     margin-bottom: 5px;
