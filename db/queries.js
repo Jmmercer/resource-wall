@@ -176,7 +176,53 @@ module.exports = (knex) => {
 
 
     // Update Methods
-    
+    updateLikes: (likeObj, callback) => {
+      knex
+      .select('*')
+      .from('likes')
+      .where('likes.user_id', '=', likeObj.user_id)
+      .then((likeArr) => {
+        if (likeArr.length < 1) {
+          return knex.insert(likeObj).into('likes')
+          .then(() => {
+            return knex('resources').where('id', likeObj.resource_id)
+            .increment('likes_count', 1).returning('likes_count');
+          });
+        } else {
+          return knex('likes').where('user_id', likeObj.user_id).del()
+          .then(() => {
+            return knex('resources').where('id', likeObj.resource_id)
+            .decrement('likes_count', 1).returning('likes_count');
+          });
+        }
+      }).then((newCountArr) => {
+        callback(newCountArr[0]);
+      });
+    },
+
+    updateRating: (likeObj, callback) => {
+      knex
+      .select('*')
+      .from('likes')
+      .where('likes.user_id', '=', likeObj.user_id)
+      .then((likeArr) => {
+        if (likeArr.length < 1) {
+          return knex.insert(likeObj).into('likes')
+          .then(() => {
+            return knex('resources').where('id', likeObj.resource_id)
+            .increment('likes_count', 1).returning('likes_count');
+          });
+        } else {
+          return knex('likes').where('user_id', likeObj.user_id).del()
+          .then(() => {
+            return knex('resources').where('id', likeObj.resource_id)
+            .decrement('likes_count', 1).returning('likes_count');
+          });
+        }
+      }).then((newCountArr) => {
+        callback(newCountArr[0]);
+      });
+    }
   };
 
 }
