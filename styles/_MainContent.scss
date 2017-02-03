@@ -21,7 +21,7 @@ div#maincontent:hover figure:not(:hover) {
 	margin: 0 2px 15px;
 	padding: 20px;
 	padding-bottom: 10px;
-	transition: opacity 1s, box-shadow 1s, padding 1s ease-in-out;
+	transition: opacity 0.5s, box-shadow 0.5s, padding 0.5s ease-in-out;
   display: inline-block;
   column-break-inside: avoid;
     img {
