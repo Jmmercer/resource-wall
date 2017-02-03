@@ -1,9 +1,13 @@
 @import 'Header';
+@import 'Regpop';
+@import 'MainContent';
 
 main {
   margin-top: auto;
   height: auto;
+  background-color: white;
 }
 body {
-  background-color: #ffffff;
+  color: black;
+  background-color: white;
 }
