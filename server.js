@@ -18,7 +18,10 @@ const cookieSession = require('cookie-session');
 
 // Query functions object with knex injection
 const db = require('./db/queries')(knex);
-db.getResource(1, console.log);
+
+db.getResourcesBySearch('swahili');
+db.getAllResources(console.log)
+
 // Seperated Routes for each Resource
 const resources = require("./routes/resources")
 const login = require("./routes/login")
