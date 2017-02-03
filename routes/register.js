@@ -24,7 +24,7 @@ module.exports = (knex) => {
 
         console.log('User already exists');
         req.session.error_message = 'User already exists';
-        res.status(401).redirect('/');
+        res.status(405).redirect('/');
 
       } else {
 

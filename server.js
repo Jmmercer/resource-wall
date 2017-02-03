@@ -67,18 +67,17 @@ app.get("/", (req, res) => {
   if (!req.session_id) {
     var templateVars = {placeholder: 0}; //knex request for user info
     db.getAllResources(function(resources) {
-      // console.log('resources', resources);
-      templateVars.resources = resources;
-      // console.log('templateVars.resources', templateVars.resources);
 
+      // TODO Get user by req.session_id, display info on home page
+      templateVars.resources = resources;
       res.render("index", templateVars);
+
     });
   } else {
     var templateVars = {placeholder: 0}; //no user info, revert to default
     res.render("index", templateVars);
   }
 });
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
