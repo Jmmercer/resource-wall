@@ -1,13 +1,14 @@
 @import 'Header';
 @import 'Regpop';
 @import 'MainContent';
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond');
 
 main {
   margin-top: auto;
   height: auto;
-  background-color: white;
+  background:url(../images/rice-paper.png);
 }
 body {
   color: black;
-  background-color: white;
+  background:url(../images/rice-paper.png);
 }
