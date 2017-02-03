@@ -4,7 +4,7 @@ $(() => {
 $('.new-resource').click(function (event){
   event.preventDefault()
   //const new_url = $(RESOURCE-URL-INPUT).value();
-  const new_url = 'https://www.google.ca/'
+  const new_url = 'https://www.ctv.ca/'
   console.log('new_url', new_url);
 
 
@@ -14,9 +14,13 @@ $('.new-resource').click(function (event){
     context: document.body,
     data: {new_url: new_url},
     success: function(response){
-      const html = $.parseHTML(response);
-      console.log('html', html);
-      console.log($(html).find('#mngb'));
+      let mybody = '<body ' + response.split('<body')[1].split('</body>')[0] + '</body>';
+
+      console.log(mybody);
+
+      // const html = $.parseHTML(response);
+      // console.log('html', html);
+      // console.log($(html).find('#mngb'));
       // console.log('response', response);
       // console.log('HTML ' + JSON.stringify(html));
       // $(location).attr('href', '/');
