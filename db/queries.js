@@ -190,7 +190,8 @@ module.exports = (knex) => {
             .increment('likes_count', 1).returning('likes_count');
           });
         } else {
-          return knex('likes').where('user_id', likeObj.user_id).del()
+          return knex('likes').where('user_id', likeObj.user_id)
+            .andWhere('likes.resource_id', '=', likeObj.resource_id).del()
           .then(() => {
             return knex('resources').where('id', likeObj.resource_id)
             .decrement('likes_count', 1).returning('likes_count');
@@ -212,16 +213,22 @@ module.exports = (knex) => {
           return knex.insert(ratingObj).into('ratings').then(() => {
           return knex('ratings').avg('value as avgRating').where('resource_id', ratingObj.resource_id)
             .returning('avgRating'); })
-          .then((avgRating) => {
+          .then((avgRatingArr) => {
+            const rating = Math.round(Number(avgRatingArr[0].avgRating));
             return knex('resources').where('id', ratingObj.resource_id)
-            .update('avg_rating', Math.round(avgRating[0])).returning('avg_rating');
+            .update('avg_rating', rating).returning('avg_rating');
           });
         } else {
-          return ['already rated this']
-          // return knex('ratings').where('user_id', ratingObj.user_id).del()
-          // .then(() => {
-          //   return knex('resources').where('id', ratingObj.resource_id)
-          //   .decrement('ratings_count', 1).returning('likes_count');
+          return knex('ratings').where('user_id', ratingObj.user_id)
+            .andWhere('ratings.resource_id', '=', ratingObj.resource_id).del()
+          .then(() => {
+          return knex('ratings').avg('value as avgRating').where('resource_id', ratingObj.resource_id)
+            .returning('avgRating'); })
+          .then((avgRatingArr) => {
+            const rating = Math.round(Number(avgRatingArr[0].avgRating));
+            return knex('resources').where('id', ratingObj.resource_id)
+            .update('avg_rating', rating).returning('avg_rating');
+          });
         }
       }).then((newCountArr) => {
         callback(newCountArr[0]);
