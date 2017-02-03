@@ -8,12 +8,15 @@ const bcrypt  = require('bcrypt');
 const shortid = require('shortid')
 
 
-module.exports = (knex) => {
+module.exports = function (knex) {
 
   router.post("/", (req, res) => {
-
-
+    //login
   })
+
+  router.get("/", (req, res) => {
+    res.render("login_test");
+  });
 
   return router;
 }

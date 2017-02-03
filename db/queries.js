@@ -100,7 +100,7 @@ module.exports = (knex) => {
       .select('*')
       .from('users')
       .where('email', email)
-      then((userArr) =>{
+      .then((userArr) =>{
         callback(userArr[0]);
       });
     },
@@ -139,7 +139,8 @@ module.exports = (knex) => {
         password:    user.password
       }).into('users')
       .then((idArr) => {
-        resource.id = idArr[0];
+        user.id = idArr[0];
+        console.log('user.id', user.id);
         callback(user);
       })
       .catch(function(err){
@@ -149,7 +150,7 @@ module.exports = (knex) => {
 
 
     // Update Methods
-    
+
   };
 
 }
