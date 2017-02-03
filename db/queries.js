@@ -4,8 +4,9 @@ module.exports = (knex) => {
 
     // getResource returns a resource object
     // Input => resourceID and a callback function to handle the result
-    // Output => a resource object
-    // Example: (1, console.log) logs {id: 1, user_id: '#', url: 'example.com', title: 'tadah'....}
+    // Output => a resource object including the comments array
+    // Example: (1, console.log) logs {id: 1, user_id: '#', url: 'example.com', title: 'tadah',
+    //  comments: [{commentobj1},..], ....}
     getResource: (resourceID, callback) => {
       let resrc;
       knex
@@ -54,16 +55,15 @@ module.exports = (knex) => {
       });
     },
 
-    // getResourcesBySearch returns an array resource objects that has the searched term
-    // its title, description, url or its category
-    // Input => categoryID and a callback function to handle the result
+    // getResourcesBySearch returns an array of resource objects that has the searched term
+    // its title, description, url
+    // Input => searchTerm, e.g 'some string', categoryIDs[,optional] e.g [1, 2] and a callback function to handle the result
+    // Note: if category ids array is not supplied, search is on all resources
     // Output => an array resource objects
-    // Example: ('exa', console.log) logs [{id: 1, user_id: '#', url: 'example.com', title: 'tadah'....},...]
-    getResourcesBySearch: (searchTerm, categoryIDs, callback) => {
+    // Example: ('exa', console.log, [1, 2]) logs [{id: 1, user_id: '#', url: 'example.com', title: 'tadah'....},...]
+    getResourcesBySearch: (searchTerm, callback, categoryIDs) => {
       const approximateTerm = `%${searchTerm}%`; // think about escaping searchTerm
       categoryIDs = categoryIDs || knex.select('id').from('categories');
-
-      // console.log(categoryIDs);
 
       return knex
       .distinct('resource_id').select().from('resource_categories').where('category_id', 'in', categoryIDs)
@@ -71,7 +71,6 @@ module.exports = (knex) => {
         result = result.map(obj => obj.resource_id);
         return knex.select('*').from('resources').where('id', 'in', result);
       }).then((r) => {
-        // console.log(r);
         let searchResult = r.filter(res => {
           return res.title.includes(searchTerm) ||
           res.url.includes(searchTerm) ||
@@ -79,39 +78,10 @@ module.exports = (knex) => {
         });
         console.log(searchResult);
       });
-      // knex
-      // .select('resources.id', 'resources.url', 'resources.title', 'resources.description', 'resources.likes_count', 'resources.avg_rating', 'resources.comments_count')
-      // .from('resource_categories')
-      // .innerJoin('resources', 'resources.id', 'resource_id')
-      // .innerJoin('categories', 'categories.id', 'category_id')
-      // .where('resources.title', 'like', approximateTerm)
-      // .orWhere('resources.description', 'like', approximateTerm)
-      // .orWhere('resources.url', 'like', approximateTerm)
-      // .orWhere('categories.name', 'like',approximateTerm)
-      // .then((catResourcesArr) => {
-      //   callback(catResourcesArr);
-      // });
-    },
-
-    getResourcesBySearchFiltered: (searchTerm, categoryIDS, callback) => {
-      const approximateTerm = `%${searchTerm}%`;
-      knex
-      .select('resources.id', 'resources.url', 'resources.title', 'resources.description', 'resources.likes_count', 'resources.avg_rating', 'resources.comments_count')
-      .from('resource_categories')
-      .innerJoin('resources', 'resources.id', 'resource_id')
-      .innerJoin('categories', 'categories.id', 'category_id')
-      .where('resources.title', 'like', approximateTerm)
-      .orWhere('resources.description', 'like', approximateTerm)
-      .orWhere('resources.url', 'like', approximateTerm)
-      .orWhere('categories.name', 'like',approximateTerm)
-      .andWhere('category_id', 'in', categoryIDS)
-      .then((catResourcesArr) => {
-        callback(catResourcesArr);
-      });
     },
 
     // getResourcesByUser returns an array resource objects filtered by owner of the resource
-    // Input => userID and a callback function to handle the result
+    // Input => userID e.g 1, and a callback function to handle the result
     // Output => an array resource objects
     // Example: (1, console.log) logs [{id: 1, user_id: '#', url: 'example.com', title: 'tadah'....},...]
     getResourcesByUser: (userID, callback) => {
@@ -124,8 +94,8 @@ module.exports = (knex) => {
       });
     },
 
-    // getResourcesByUser returns an array resource objects filtered by liked resources
-    // Input => userID and a callback function to handle the result
+    // getResourcesByUserLiked returns an array resource objects filtered by liked resources
+    // Input => userID e.g 1, and a callback function to handle the result
     // Output => an array resource objects
     // Example: (1, console.log) logs [{id: 1, user_id: '#', url: 'example.com', title: 'tadah'....},...]
     getResourcesByUserLiked: (userID, callback) => {
@@ -140,6 +110,9 @@ module.exports = (knex) => {
     },
 
     // Gets a user by email
+    // Input => email e.g. me@me.me, and a callback
+    // Output => a user object
+    // Example: (me@me.com, console.log) logs {id: , name: , email: , password: }
     getUserByEmail: (email, callback) => {
       knex
       .select('*')
@@ -152,8 +125,10 @@ module.exports = (knex) => {
 
     // Set / Save methods
 
+    // saves a new comment
     // Input => comment object e.g {user_id: 1, resource_id: 3, text: 'lorem'} and a callback
-    // Output => comment object (now including the id and created_at), then comments_count update on the resource
+    // Output => comment object (now including the id and created_at), andcomments_count update on the resource
+    // Example: (commentObj, console.log) logs [{id: , user_id: , resource_id: , text: , created_at: }, 42]
     saveComment: (comment, callback) => {
       knex
       .returning(['id', 'created_at'])
@@ -179,6 +154,11 @@ module.exports = (knex) => {
       });
     },
 
+    // saves a new resource
+    // Input => resource object {user_id: , url: , title: , description: } and a callback
+    // Output => saved resource Object
+    // Example: (resourceObj, console.log) logs {id: , url: , title: , description: ,...
+    // likes_count: , avg_rating: , comments_count: }
     saveResource: (resource, callback) => {
       resource.likes_count = 0;
       resource.avg_rating = 0;
@@ -207,6 +187,10 @@ module.exports = (knex) => {
       });
     },
 
+    // saves a new user from /register
+    // Input => user object e.g {name: , email: , password: } and a callback
+    // Output => saved user object now including db generated `id`
+    // Example: (user_object, callback) logs {id: , name: , email: , password: }
     saveUser: (user, callback) => {
       knex
       .returning('id')
@@ -226,6 +210,11 @@ module.exports = (knex) => {
 
 
     // Update Methods
+
+    // update likes: if a user hasn't like a resource before increments otherwise decrements
+    // Input => like object e.g. {user_id: , resource_id: } and a callback
+    // Output => new count of all likes e.g 42. Updates the likes table and the resource's `likes_count`
+    // Example: (likeObj, console.log) logs 42
     updateLikes: (likeObj, callback) => {
       knex
       .select('*')
@@ -252,6 +241,10 @@ module.exports = (knex) => {
       });
     },
 
+    // update rating: if a user hasn't rated a resource before increments otherwise decrements
+    // Input => rating object e.g. {user_id: , resource_id: , value: } and a callback
+    // Output => Integer new average of all ratings e.g 4. Updates the ratings table and the resource's `avg_rating`
+    // Example: (ratingObj, console.log) logs 4
     updateRating: (ratingObj, callback) => {
       knex
       .select('*')
@@ -280,8 +273,8 @@ module.exports = (knex) => {
             .update('avg_rating', rating).returning('avg_rating');
           });
         }
-      }).then((newCountArr) => {
-        callback(newCountArr[0]);
+      }).then((newMeanArr) => {
+        callback(newMeanArr[0]);
       });
     }
   };
