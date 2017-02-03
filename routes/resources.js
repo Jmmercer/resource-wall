@@ -13,14 +13,21 @@ module.exports = (knex) => {
     // What does get /resources do? Anything?
   })
 
+  router.get("/new/choice", (req, res) => {
+    const sources = req.query.sources;
+    const templateVars = {sources: sources}
+    res.render('new_choice', templateVars)
+
+  })
+
   router.get("/new/", (req, res) => {
     // Show 'new resource' page, including all images from webpage for selection
     // use scraper.js to get html from url, then send it back
 
     const url = req.query.new_url;
     console.log('url', url);
-    scraper_request(url, function(body){;
-    console.log('body', body);
+    scraper_request(url, function(body){
+    console.log('body', typeof body);
     //res.html = body;
     res.send(body);
     })

@@ -4,7 +4,7 @@ $(() => {
 $('.new-resource').click(function (event){
   event.preventDefault()
   //const new_url = $(RESOURCE-URL-INPUT).value();
-  const new_url = 'https://www.google.ca/'
+  const new_url = 'https://www.ctv.ca/'
   console.log('new_url', new_url);
 
 
@@ -14,13 +14,21 @@ $('.new-resource').click(function (event){
     context: document.body,
     data: {new_url: new_url},
     success: function(response){
-      const html = $.parseHTML(response);
-      console.log('html', html);
-      console.log($(html).find('#mngb'));
-      // console.log('response', response);
-      // console.log('HTML ' + JSON.stringify(html));
-      // $(location).attr('href', '/');
-    },
+      sources = [];
+      const imgs = $($.parseHTML(response)).find('img');
+
+      for (img in imgs) {
+        sources.push($(imgs[img]).attr('src'));
+      }
+
+        $.ajax({
+          method: "GET",
+          url: "resources/new/choice",
+          data: {sources: sources},
+          success: function(){},
+        });
+
+      },
     error: function( request, status, error ) {
       console.log( "Request failed: " + request.responseText );
     },

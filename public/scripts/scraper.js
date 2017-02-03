@@ -69,7 +69,7 @@ const request = require('request');
 
 
 const scraper_request = function (url, cb) {
-var url = 'http://www.google.ca';
+var url = 'http://www.ctv.ca';
 
 request.get(url, function (err, res, body) {
   console.log(res.statusCode);
