@@ -14,6 +14,7 @@ $('.new-resource').click(function (event){
     context: document.body,
     data: {new_url: new_url},
     success: function(response){
+
       sources = [];
       const imgs = $($.parseHTML(response)).find('img');
 
@@ -29,6 +30,7 @@ $('.new-resource').click(function (event){
         });
 
       },
+
     error: function( request, status, error ) {
       console.log( "Request failed: " + request.responseText );
     },
