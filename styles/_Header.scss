@@ -5,7 +5,7 @@ header {
   z-index: 1;
   width: 100%;
   color: #cacdd1;
-  background-color: #ef0000;
+  background: url(../images/asfalt--dark--851x315.png);
   border-color: #940000;
   border-bottom-style: solid;
   border-width: 0.5em;
@@ -122,6 +122,7 @@ img {
   width: 100%;
    }
 .login-content {
+  z-index: 1;
   a {
     font-size: 0.8em;
     text-decoration: none;
