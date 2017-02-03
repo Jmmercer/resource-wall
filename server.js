@@ -61,6 +61,7 @@ app.use("/users", users(knex));
 // Home page
 app.get("/", (req, res) => {
   if (req.session.error_message) {
+  // TODO Have a container for the error message
   console.log('error:', req.session.error_message);
   }
 
@@ -71,9 +72,9 @@ app.get("/", (req, res) => {
       // TODO Get user by req.session_id, display info on home page
       templateVars.resources = resources;
       res.render("index", templateVars);
-
     });
   } else {
+
     var templateVars = {placeholder: 0}; //no user info, revert to default
     res.render("index", templateVars);
   }
