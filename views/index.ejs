@@ -11,7 +11,10 @@
     <main>
     <h3>Here be text</h3>
     <section class="container">
-    <%= resources %>
+    <% for (i = 0; i < resources.length; i++) {%>
+    <%=  `${resources[i].id} ${resources[i].url} ${resources[i].title} ${resources[i].description} \n`%>
+    <%} %>
+    <% %>
     </section>
   </main>
   </body>

@@ -176,7 +176,54 @@ module.exports = (knex) => {
 
 
     // Update Methods
-    
+    updateLikes: (likeObj, callback) => {
+      knex
+      .select('*')
+      .from('likes')
+      .where('likes.user_id', '=', likeObj.user_id)
+      .then((likeArr) => {
+        if (likeArr.length < 1) {
+          return knex.insert(likeObj).into('likes')
+          .then(() => {
+            return knex('resources').where('id', likeObj.resource_id)
+            .increment('likes_count', 1).returning('likes_count');
+          });
+        } else {
+          return knex('likes').where('user_id', likeObj.user_id).del()
+          .then(() => {
+            return knex('resources').where('id', likeObj.resource_id)
+            .decrement('likes_count', 1).returning('likes_count');
+          });
+        }
+      }).then((newCountArr) => {
+        callback(newCountArr[0]);
+      });
+    },
+
+    updateRating: (ratingObj, callback) => {
+      knex
+      .select('*')
+      .from('ratings')
+      .where('ratings.user_id', '=', ratingObj.user_id)
+      .then((ratingArr) => {
+        if (ratingArr.length < 1) {
+          return knex.insert(ratingObj).into('ratings')
+            .select().avg('value as avgRating').where('resource_id', ratingObj.resource_id)
+            .returning('avgRating')
+          .then((avgRating) => {
+            return knex('resources').where('id', ratingObj.resource_id)
+            .update('avg_rating', avgRating[0]).returning('avg_rating');
+          });
+        } else {
+          // return knex('ratings').where('user_id', ratingObj.user_id).del()
+          // .then(() => {
+          //   return knex('resources').where('id', ratingObj.resource_id)
+          //   .decrement('ratings_count', 1).returning('likes_count');
+        }
+      }).then((newCountArr) => {
+        callback(newCountArr[0]);
+      });
+    }
   };
 
 }
