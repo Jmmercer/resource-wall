@@ -18,6 +18,7 @@ const cookieSession = require('cookie-session');
 // Query functions object with knex injection
 const db = require('./db/queries')(knex);
 
+db.updateLikes({user_id: 1, resource_id: 2}, console.log);
 // Seperated Routes for each Resource
 const resources = require("./routes/resources")
 const login = require("./routes/login")
