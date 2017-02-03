@@ -1,6 +1,6 @@
 "use strict";
 
-const queries = require('../db/queries.js');
+const db = require('../db/queries.js');
 
 const express = require('express');
 const router  = express.Router();
@@ -18,7 +18,19 @@ module.exports = (knex) => {
   })
 
   router.post("/new", (req, res) => {
-    // posts new resource. Popup with entry fields for url, title, description
+    const user_id = req.session_id;
+    const title = req.body.title;
+    const description = req.body.description;
+    const url = req.body.url;
+    const resource = {user_id:      user_id,
+                      url:          url,
+                      title:        title,
+                      description:  description,
+                    }
+    db.saveResource(resource, function(){
+      console.log(resource.id);
+    });
+    res.redirect("/");
   })
 
   router.get("/:resource_id", (req, res) => {
