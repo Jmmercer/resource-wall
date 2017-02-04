@@ -16,9 +16,8 @@ $(() => {
   // Handling Likes
   $("#maincontent").on("click", "a.r-action", function(event) {
     event.preventDefault();
-    console.log($(event.target).attr('class'));
     const action = ($(event.target).attr('class')).includes('likes') ? 'likes' : 'ratings'
-    console.log(action)
+    
   });
 
   //Handling Search
