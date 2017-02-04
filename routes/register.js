@@ -31,7 +31,7 @@ module.exports = (knex) => {
       } else {
 
         db.saveUser(new_user, function (user) {
-          req.session_id = user.id;
+          req.session.user = user;
           res.redirect('/');
         });
       }
