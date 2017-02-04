@@ -76,7 +76,7 @@ module.exports = (knex) => {
           res.url.includes(searchTerm) ||
           res.description.includes(searchTerm);
         });
-        console.log(searchResult);
+        callback(searchResult);
       });
     },
 

@@ -1,42 +1,50 @@
 <h1><a href="/"> This App</a></h1>
 <input type="checkbox" name="toggle" id="toggle"/>
 <label style="padding-right: 20px" for="toggle"><img src="../images/door-8-24.png"></label>
-<div class="login-content">
+<% if (user) { %> 
+    <span><%= user.name %></span>
+    <form action="/logout" method="POST" role="logout" style="all: initial;">
+      <button id="Go" type="submit">Logout</button>
+    </form>
 
-  <form action="/login" method="GET'" role="login" style="
-    all: initial;
-    /* align-items: initial; */
-">
-    <label for="login"></label>
-    <input type="username" placeholder="Username"/>
-    <input type="password" placeholder="Password"/>
-    <button id="Go"type="submit">Go!</button>
-  </form> <a href="#popup1">Get an account!</a>
-</div>
+<% } else {%>
+
+  <div class="login-content">
+    <form action="/login" method="POST" role="login" style="all: initial;">
+      <label for="login"></label>
+      <input type="email" name="email" placeholder="you@example.com"/>
+      <input type="password" name="password" placeholder="Password"/>
+      <button id="Go"type="submit">Go!</button>
+    </form>
+    <a href="#popup1">Get an account!</a>
+  </div>
+
+<% } %>
 <nav>
-<div class="dropdown">
-  <button class="dropbtn">Catagories</button>
-  <div class="dropdown-content">
-    <a href="#">Get Me</a>
-    <a href="#">Some</a>
-    <a href="#">Learn'n</a>
+  <div class="dropdown">
+    <button class="dropbtn">Catagories</button>
+    <div class="dropdown-content">
+      <a href="#">Get Me</a>
+      <a href="#">Some</a>
+      <a href="#">Learn'n</a>
+    </div>
   </div>
-</div>
-
-<div class="userPage">
-  <button class="userbtn">User</button>
-  <div class="user-content">
-    <a href="#" class = "new-resource">New Resource</a>
-    <a href="#">My</a>
-    <a href="#">Stuff</a>
+<% if (user) { %> 
+  <div class="userPage">
+    <button class="userbtn">User</button>
+    <div class="user-content">
+      <a href="#" class = "new-resource">New Resource</a>
+      <a href="#">My</a>
+      <a href="#">Stuff</a>
+    </div>
   </div>
-</div>
 
-<div class="notifyDD">
-  <button class="notifybtn">Notify</button>
-</div>
+  <div class="notifyDD">
+    <button class="notifybtn">Notify</button>
+  </div>
+<% } %>
 </nav>
-<form action="/" method="GET" role="search">
+<form id="search-form" action="/" method="GET" role="search">
   <label for="search"></label>
-  <input type="search" id="search" placeholder=" search goes here!!" />
+  <input type="search" id="search" name="search" placeholder=" search goes here!!" />
 </form>

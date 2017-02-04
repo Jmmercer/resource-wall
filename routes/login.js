@@ -8,16 +8,16 @@ const bcrypt  = require('bcrypt');
 const shortid = require('shortid')
 
 
-module.exports = function (knex) {
+module.exports = function (db) {
 
   router.post("/", (req, res) => {
     const email = req.body.email;
     db.getUserByEmail(email, function(user) {
 
-      if (bcrypt.compareSync(user.password)) {
+      if (bcrypt.compareSync(req.body.password, user.password)) {
 
-        req.session_id = user.user_id;
-
+        req.session.user = user; //changed it to user from user_id cos we will be needing email too
+        res.status(200).redirect("/");
       } else {
 
         req.session.error_message = 'Incorrect login information';
