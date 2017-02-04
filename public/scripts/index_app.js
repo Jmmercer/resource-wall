@@ -16,26 +16,39 @@ $('.new-resource').click(function (event){
 
       // console.log('response', response);
       console.log('index app first ajax')
-      let sources = [];
-      const imgs = $($.parseHTML(response)).find('img');
 
+      const parseHTML = function(str) {
+        var tmp = document.implementation.createHTMLDocument();
+        tmp.body.innerHTML = str;
+        return tmp.body.children;
+      };
+
+      const html = parseHTML(response);
+      const imgs = $(html).find('img');
+
+      let sources = [];
       for (let img in imgs) {
         if (imgs.hasOwnProperty(img) && !isNaN(Number(img))) {
-        console.log($(imgs[img]).attr('src'));
+        //console.log($(imgs[img]).attr('src'));
         sources.push($(imgs[img]).attr('src'));
         }
       }
       console.log('after for loop');
-      console.log('sources in first ajax', sources);
 
       $.ajax({
-        method: "GET",
+        method: "get",
         url: "resources/new/choice",
-        data: {sources: sources},
-        success: function(body){
-          console.log('body', body);
-          console.log('second ajax');
-        },
+        data: {sources: {butts: 544545, sttub: 653263}}
+        //data: {sources: sources}
+        // success: function(body){
+        //   console.log('body', typeof body);
+        //   $.load(body);
+        //   // document.open();
+        //   // document.write(XMLHttpRequest.body);
+        //   // document.close();
+        //   //console.log('body', body);
+        //   console.log('second ajax');
+        // },
       });
     },
 

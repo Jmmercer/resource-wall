@@ -1,3 +1,12 @@
 <div id="maincontent">
+  <% for (source in sources) { %>
+    <figure>
+      <img src=`${sources[source]}`>
+      <figcaption>to be figured out</figcaption>
+      <form method='post' action="/resources" class="choose">
+        <button class="choose-btn" value="select"></button>
+      </form>
+    </figure>
 
+  <% } %>
 </div>

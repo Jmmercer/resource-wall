@@ -15,10 +15,16 @@ module.exports = (knex) => {
 
   router.get("/new/choice", (req, res) => {
     console.log('new/choice');
-    const sources = req.query.sources;
+    console.log('req query', req.query);
+    const sources = req.query['sources'];
     console.log('sources', sources);
-    const templateVars = {sources: sources};
-    res.render('new_choice', templateVars);
+    req.session.templateVars = {sources: sources};
+    res.redirect("/resources/wenew/we");
+  })
+
+  router.get("/wenew/we", (req, res) => {
+
+    res.render("new_choice", req.session.templateVars);
   })
 
   router.get("/new", (req, res) => {
