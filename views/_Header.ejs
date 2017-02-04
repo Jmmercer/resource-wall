@@ -1,7 +1,7 @@
 <h1><a href="/"> This App</a></h1>
 <input type="checkbox" name="toggle" id="toggle"/>
 <label style="padding-right: 20px" for="toggle"><img src="../images/door-8-24.png"></label>
-<% if (user) { %> 
+<% if (user) { %>
     <span><%= user.name %></span>
     <form action="/logout" method="POST" role="logout" style="all: initial;">
       <button id="Go" type="submit">Logout</button>
@@ -29,11 +29,11 @@
       <a href="#">Learn'n</a>
     </div>
   </div>
-<% if (user) { %> 
+<% if (user) { %>
   <div class="userPage">
     <button class="userbtn">User</button>
     <div class="user-content">
-      <a href="#" class = "new-resource">New Resource</a>
+      <a href="#newcontentpopup" class = "new-resource">New Resource</a>
       <a href="#">My</a>
       <a href="#">Stuff</a>
     </div>
