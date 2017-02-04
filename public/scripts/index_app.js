@@ -5,32 +5,38 @@ const createResource = function(resource) {
       <figcaption>${resource.title}</figcaption>
       <p>${resource.description}</p>
       <a href="${resource.url}"><em>source</em></a>
-      <a class="r-action" href="#0"><span class="glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
+      <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
       <span><em>comments: ${resource.comments_count}</em><span>
-      <span>rating: <a class="r-action" href='#0' >${resource.avg_rating}</a><span>
+      <span>rating: <a class="r-action ratings" href='#0' >${resource.avg_rating}</a><span>
     </figure>`)
 }
 
 $(() => {
 
-// Handling Likes
+  // Handling Likes
+  $("#maincontent").on("click", "a.r-action", function(event) {
+    event.preventDefault();
+    console.log($(event.target).attr('class'));
+    const action = ($(event.target).attr('class')).includes('likes') ? 'likes' : 'ratings'
+    console.log(action)
+  });
 
-//Handling Search
-$("#search-form").on("submit", function(event) {
-  event.preventDefault();
-  let $this = $(this);
-  $.ajax({
-    url: "/resources/search",
-    method: "GET",
-    data: $this.serialize()
-  }).done(function(response) {
-    let $container = $('#maincontent');
-    $container.children().remove();
-    response.forEach(function(resrc) {
-      $container.append(createResource(resrc));
-    });
-  })
-})
+  //Handling Search
+  $("#search-form").on("submit", function(event) {
+    event.preventDefault();
+    let $this = $(this);
+    $.ajax({
+      url: "/resources/search",
+      method: "GET",
+      data: $this.serialize()
+    }).done(function(response) {
+      let $container = $('#maincontent');
+      $container.children().remove();
+      response.forEach(function(resrc) {
+        $container.append(createResource(resrc));
+      });
+    })
+  });
 
 
 });
