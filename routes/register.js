@@ -13,6 +13,7 @@ module.exports = (knex) => {
   router.post("/", (req,res) => {
 
     //register new user
+    console.log(req.body.password)
     const password_hash = bcrypt.hashSync(req.body.password, 10);
     const new_user = {name:     req.body.name,
                       email:    req.body.email,
