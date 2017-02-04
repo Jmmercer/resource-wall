@@ -1,9 +1,10 @@
 "use strict";
 
-const scraper = require('../public/scripts/scraper.js');
-const cheerio = require('cheerio');
-// const db      = require('../db/queries.js');
+const scraper         = require('../public/scripts/scraper.js');
+const cheerio         = require('cheerio');
+// const db           = require('../db/queries.js');
 const scraper_request = require('../public/scripts/scraper.js');
+const url_parser      = require('../public/scripts/url_parser');
 
 const express = require('express');
 const router  = express.Router();
@@ -26,28 +27,40 @@ module.exports = (db) => {
   // })
 
   router.post("/new", (req, res) => {
-    const url = req.body.url;
-    const user_id = req.session.user.id;
+    const url        = req.body.url;
+    const parsed_url = url_parser.getLocation(url);
+    const user_id    = req.session.user.id;
 
     scraper(url, function(body){
 
       const $ = cheerio.load(body);
 
       const imgs = $('img');
-      let img_sources = [];
+      const title = $('title').text();
+      const description = $('meta[name="description"]').attr('content');
 
+
+//Oh god
+      let img_sources = [];
       for (let img in imgs) {
         if (imgs[img].hasOwnProperty('attribs')) {
-          if (imgs[img].attribs.src) {
-            img_sources.push(imgs[img].attribs.src);
+          let img_url = imgs[img].attribs.src;
+          if (img_url) {
+            if (img_url.substr(0, 4) != 'http') {
+              img_url = 'http://' + parsed_url.hostname + img_url;
+              console.log('prepended hostname');
+            }
+            img_sources.push(img_url);
           }
         }
       }
 
       const templateVars = {img_sources: img_sources,
-                            user:    {user_id: user_id}
+                            title:       title,
+                            description: description,
+                            url:         url,
+                            user:        {user_id: user_id}
                            }
-
       res.render("new_choice", templateVars);
     })
   })
@@ -61,19 +74,20 @@ module.exports = (db) => {
 
   router.post("/", (req, res) => {
     //Create new resource
-    console.log(req.session.user.id);
-
     const user_id     = req.session.user.id;
     const title       = req.body.title;
     const url         = req.body.url;
     const description = req.body.description;
     const img_src     = req.body.img_src;
+    //const categories    = req.body.category;
+    const categories = [];
 
     const resource = {user_id:      user_id,
                       url:          url,
                       title:        title,
                       description:  description,
-                      media_src:      img_src
+                      media_src:    img_src,
+                      categories:   categories
                      }
     console.log('resource:', resource);
 
