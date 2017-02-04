@@ -3,10 +3,9 @@
     <h2>New Resource</h2>
     <a class="close" href="#">×</a>
     <div class="stuff">
-    <form>
-      <label for="yonk"></label>
-      <input name="yonk" type="yonk" placeholder="Gimme' some stuff!!"/>
-      <button id="new-resource" type="submit">Go!</button>
+    <form method = "POST" action = "/resources/new">
+      <input name="url" type="text" placeholder="Gimme' some stuff!!"/>
+      <input id="new-resource" type="submit" value = "Submit">
     </form>
   </div>
 </div>

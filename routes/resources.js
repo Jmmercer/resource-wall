@@ -1,7 +1,8 @@
 "use strict";
 
 const db      = require('../db/queries.js');
-const scraper_request = require('../public/scripts/scraper.js');
+const scraper = require('../public/scripts/scraper.js');
+const cheerio = require('cheerio');
 
 const express = require('express');
 const router  = express.Router();
@@ -22,22 +23,35 @@ module.exports = (knex) => {
     res.redirect("/resources/wenew/we");
   })
 
-  router.get("/wenew/we", (req, res) => {
 
-    res.render("new_choice", req.session.templateVars);
-  })
-
-  router.get("/new", (req, res) => {
+  router.post("/new", (req, res) => {
+    const url = req.body.url;
     console.log('resources/new');
-    // Show 'new resource' page, including all images from webpage for selection
-    // use scraper.js to get html from url, then send it back
-
-    const url = req.query.new_url;
     console.log('url', url);
-    console.log('/new/choice url to scraper', url);
-    scraper_request(url, function(body){
+
+    scraper(url, function(body){
+
+      const $ = cheerio.load(body);
+      // console.log('body appears to be', body);
+      // console.log("$ appears to be", $);
+      // console.log('imgs', $('img'));
+
+      const imgs = $('img');
+      console.log('imgs', imgs);
+
+      let sources = [];
+      for (let img in imgs) {
+        if (imgs[img].hasOwnProperty('attribs')) {
+          if (imgs[img].attribs.src) {
+            console.log('one image is', imgs[img]);
+            sources.push(imgs[img].attribs.src);
+          }
+        }
+      }
+
+      const templateVars = {sources: sources}
       console.log('in scraper callback');
-      res.send(body);
+      res.render("new_choice", templateVars);
     })
   })
 
@@ -64,13 +78,13 @@ module.exports = (knex) => {
     res.redirect("/");
   })
 
-  router.get("/:resource_id", (req, res) => {
-    resource_id = req.params.resource_id;
-    db.getResource(req.params.resource_id, function(resource) {
-      res.render('show', resource);
-    })
+  // router.get("/:resource_id", (req, res) => {
+  //   resource_id = req.params.resource_id;
+  //   db.getResource(req.params.resource_id, function(resource) {
+  //     res.render('show', resource);
+  //   })
 
-  });
+  // });
 
   router.get("/:resource_id/likes", (req, res) => {
     // returns number of likes for that resource
