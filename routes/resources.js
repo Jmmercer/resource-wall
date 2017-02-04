@@ -1,19 +1,19 @@
 "use strict";
 
-const db      = require('../db/queries.js');
+// const db      = require('../db/queries.js');
 const scraper_request = require('../public/scripts/scraper.js');
 
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (db) => {
 
 
   router.get("/", (req, res) => {
     // What does get /resources do? Anything?
   })
 
-  router.get("/new/choice", (req, res) => {
+  router.post("/new/choice", (req, res) => {
     console.log('new/choice');
     console.log('req query', req.query);
     const sources = req.query['sources'];
@@ -42,9 +42,10 @@ module.exports = (knex) => {
   })
 
   router.get("/search", (req, res) => {
-    // Takes search term, filters resources. Does not leave page.
-    // knex select query here
-    // ajax request for new resources
+    let searchTerm = req.query.search;
+    db.getResourcesBySearch(searchTerm, function(resources) {
+      res.json(resources);
+    })
   })
 
   router.post("/", (req, res) => {
