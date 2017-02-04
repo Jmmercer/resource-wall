@@ -1,7 +1,7 @@
 const createResource = function(resource) {
 
   return $(`<figure class="h-resource" data-res_id=${resource.id}>
-      <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
+      <img src="${resource.media_src}">
       <figcaption>${resource.title}</figcaption>
       <p>${resource.description}</p>
       <a href="${resource.url}"><em>source</em></a>
@@ -16,9 +16,15 @@ $(() => {
   // Handling Likes
   $("#maincontent").on("click", "a.r-action", function(event) {
     event.preventDefault();
-    console.log($(event.target).attr('class'));
-    const action = ($(event.target).attr('class')).includes('likes') ? 'likes' : 'ratings'
-    console.log(action)
+    const $this = $(event.target);
+    const action = ($this.attr('class')).includes('likes') ? 'likes' : 'ratings';
+    const res_id = $this.closest('.h-resource').data('res_id');
+
+    $.ajax({
+      url: `/resources/${res_id}/${action}`,
+    }).done(function(newValue) {
+      $this.text(newValue);
+    })
   });
 
   //Handling Search

@@ -12,7 +12,7 @@ module.exports = (db) => {
 
 
   router.get("/", (req, res) => {
-    // What does get /resources do? Anything?
+    res.redirect("/");
   })
 
   //Does this do anything anymore?
@@ -73,7 +73,7 @@ module.exports = (db) => {
                       url:          url,
                       title:        title,
                       description:  description,
-                      //img_src:      img_src
+                      media_src:      img_src
                      }
     console.log('resource:', resource);
 
@@ -92,6 +92,17 @@ module.exports = (db) => {
 
   router.get("/:resource_id/likes", (req, res) => {
     // returns number of likes for that resource
+    if (req.user) {
+      const likeObj = {};
+      likeObj.resource_id = req.params.resource_id;
+      likeObj.user_id = req.user.id
+      db.updateLikes(likeObj, function(newCount) {
+        res.status(200).send(`${newCount}`);
+      })
+    } else{
+      req.session.error_message = "Login first";
+      res.status(403).redirect("/");
+    }
   })
 
   router.get("/:resource_id/comments", (req, res) => {

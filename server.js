@@ -72,6 +72,7 @@ app.get("/", (req, res) => {
   if (req.session.error_message) {
   // TODO Have a container for the error message
   console.log('error:', req.session.error_message);
+  req.session.error_message = null;
   }
 
     db.getAllResources(function(resources) {

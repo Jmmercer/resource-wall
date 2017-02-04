@@ -18,9 +18,15 @@ exports.seed = function(knex, Promise) {
     }).then(function () {
       return Promise.all([
         // Inserts resources seed entries
-        knex('resources').insert({id: 1, user_id: 1, url: 'www.lighthouselabs.ca', title: 'We make developers!', description: 'Chocolate bar cake cotton candy oat cake dragée. Caramels pie bear claw gummi bears. Pie cake tootsie roll gingerbread marshmallow. Jujubes pie topping sugar plum cookie. Soufflé bear claw muffin carrot cake bonbon muffin marzipan pudding dragée.', likes_count: 2, avg_rating: 3, comments_count: 2}),
-        knex('resources').insert({id: 2, user_id: 3, url: 'www.yahoo.com', title: 'Yahoo!', description: 'Yahoo homepage yo!', likes_count: 2, avg_rating: 3, comments_count: 1}),
-        knex('resources').insert({id: 3, user_id: 1, url: 'http://mashable.com/', title: 'mashable  wtf - whats dis4', description: 'random mashable', likes_count: 0, avg_rating: 5, comments_count: 1})
+        knex('resources').insert({id: 1, user_id: 1, url: 'www.lighthouselabs.ca', title: 'We make developers!',
+          description: 'Chocolate bar cake cotton candy oat cake dragée. Caramels pie bear claw gummi bears. Pie cake tootsie roll gingerbread marshmallow. Jujubes pie topping sugar plum cookie. Soufflé bear claw muffin carrot cake bonbon muffin marzipan pudding dragée.',
+          likes_count: 2, avg_rating: 3, comments_count: 2, media_src: "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg"}),
+        knex('resources').insert({id: 2, user_id: 3, url: 'www.yahoo.com', title: 'Yahoo!',
+          description: 'Yahoo homepage yo!', likes_count: 2, avg_rating: 3, comments_count: 1,
+          media_src: "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg"}),
+        knex('resources').insert({id: 3, user_id: 1, url: 'http://mashable.com/', title: 'mashable  wtf - whats dis4',
+          description: 'random mashable', likes_count: 0, avg_rating: 5, comments_count: 1,
+          media_src: "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg"})
       ])
     }).then(function () {
       return Promise.all([

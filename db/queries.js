@@ -172,7 +172,8 @@ module.exports = (knex) => {
         description:    resource.description,
         likes_count:    resource.likes_count,
         avg_rating:     resource.avg_rating,
-        comments_count: resource.comments_count
+        comments_count: resource.comments_count,
+        media_src: resource.media_src
       }).into('resources')
       .then((idArr) => {
         resource.id = idArr[0];
