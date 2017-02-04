@@ -1,0 +1,19 @@
+<div id="confirmContentPopup" class="overlayConfirmContent">
+  <div class="confirmContentPopup">
+    <h2>Confirmation</h2>
+    <a class="close" href="#">×</a>
+    <div class="stuff">
+    <form method = "POST" action = "/resources/confirm">
+      <em>This is your resource. Or is it...</em> <br>
+      Title:
+      <input name="title" type="text" value = "" /> <br>
+      URL:
+      <input name="url" type="text" value = ""/> <br>
+      Image source:
+      <input name="img_src" type="text" value = ""/> <br>
+      Description:
+      <input name="description" class="description_box" type="text" value = ""/>
+      <input id="confirm-resource" type="submit" value = "Submit">
+    </form>
+  </div>
+</div>

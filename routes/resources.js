@@ -15,43 +15,40 @@ module.exports = (db) => {
     // What does get /resources do? Anything?
   })
 
-  router.post("/new/choice", (req, res) => {
-    console.log('new/choice');
-    console.log('req query', req.query);
-    const sources = req.query['sources'];
-    console.log('sources', sources);
-    req.session.templateVars = {sources: sources};
-    res.redirect("/resources/wenew/we");
-  })
-
+  //Does this do anything anymore?
+  // router.post("/new/choice", (req, res) => {
+  //   console.log('new/choice');
+  //   console.log('req query', req.query);
+  //   const sources = req.query['sources'];
+  //   console.log('sources', sources);
+  //   req.session.templateVars = {sources: sources};
+  //   res.redirect("/resources/wenew/we");
+  // })
 
   router.post("/new", (req, res) => {
     const url = req.body.url;
-    console.log('resources/new');
-    console.log('url', url);
+    const user_id = req.session.user_id;
 
     scraper(url, function(body){
 
       const $ = cheerio.load(body);
-      // console.log('body appears to be', body);
-      // console.log("$ appears to be", $);
-      // console.log('imgs', $('img'));
 
       const imgs = $('img');
-      console.log('imgs', imgs);
+      let img_sources = [];
 
-      let sources = [];
       for (let img in imgs) {
         if (imgs[img].hasOwnProperty('attribs')) {
           if (imgs[img].attribs.src) {
             console.log('one image is', imgs[img]);
-            sources.push(imgs[img].attribs.src);
+            img_sources.push(imgs[img].attribs.src);
           }
         }
       }
 
-      const templateVars = {sources: sources}
-      console.log('in scraper callback');
+      const templateVars = {img_sources: img_sources,
+                            user:    {user_id: user_id}
+                           }
+
       res.render("new_choice", templateVars);
     })
   })
@@ -66,15 +63,19 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     //Create new resource
 
-    const user_id = req.session_id;
-    const title = req.body.title;
+    const user_id     = req.session.user_id
+    const title       = req.body.title;
+    const url         = req.body.url;
     const description = req.body.description;
-    const url = req.body.url;
+    const img_src     = req.body.img_src;
+
     const resource = {user_id:      user_id,
                       url:          url,
                       title:        title,
                       description:  description,
-                    }
+                      //img_src:      img_src
+                     }
+
     db.saveResource(resource, function(resource){
     });
     res.redirect("/");
