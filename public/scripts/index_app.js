@@ -3,7 +3,7 @@ $(() => {
 
 $('.new-resource').click(function (event){
   event.preventDefault()
-  const new_url = 'https://www.ctv.ca/'
+  const new_url = 'https://www.cbc.ca/'
 
   $.ajax({
     method: "GET",
@@ -21,6 +21,7 @@ $('.new-resource').click(function (event){
 
       for (let img in imgs) {
         if (imgs.hasOwnProperty(img) && !isNaN(Number(img))) {
+        console.log($(imgs[img]).attr('src'));
         sources.push($(imgs[img]).attr('src'));
         }
       }
@@ -31,7 +32,8 @@ $('.new-resource').click(function (event){
         method: "GET",
         url: "resources/new/choice",
         data: {sources: sources},
-        success: function(){
+        success: function(body){
+          console.log('body', body);
           console.log('second ajax');
         },
       });

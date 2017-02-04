@@ -27,6 +27,7 @@ module.exports = (knex) => {
     // use scraper.js to get html from url, then send it back
 
     const url = req.query.new_url;
+    console.log('url', url);
     console.log('/new/choice url to scraper', url);
     scraper_request(url, function(body){
       console.log('in scraper callback');
