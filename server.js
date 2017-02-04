@@ -49,11 +49,19 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+
+// Factoring commonalities
+app.use("/*", (req, res, next) => {
+  req.user = req.session.user;
+  req.templateVars = {user: req.user};
+  next()
+})
+
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/resources", resources(knex));
-app.use("/login", login(knex));
+app.use("/resources", resources(db));
+app.use("/login", login(db));
 app.use("/logout", logout(knex));
 app.use("/register", register(knex));
 app.use("/users", users(knex));
@@ -66,20 +74,12 @@ app.get("/", (req, res) => {
   console.log('error:', req.session.error_message);
   }
 
-
-  if (!req.session_id) {
-    var templateVars = {placeholder: 0}; //knex request for user info
     db.getAllResources(function(resources) {
 
       // TODO Get user by req.session_id, display info on home page
-      templateVars.resources = resources;
-      res.render("index", templateVars);
+      req.templateVars.resources = resources;
+      res.render("index", req.templateVars);
     });
-  } else {
-
-    var templateVars = {placeholder: 0}; //no user info, revert to default
-    res.render("index", templateVars);
-  }
 });
 
 

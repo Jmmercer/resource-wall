@@ -1,52 +1,13 @@
 <div id="maincontent" >
-  <figure>
-    <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
-    <figcaption>This is the noble sunbear<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-heart-empty"></span> Default text here</a></figcaption>
-  </figure>
-
-  <figure>
-    <img src="https://qph.ec.quoracdn.net/main-qimg-2cf46a6650178e88787d2627690527c1-c?convert_to_webp=true">
-    <figcaption>Behold its glory!</figcaption>
-  </figure>
-
-  <figure>
-    <img src="http://image-cdn.dropr.com/image/dropr_69D5oTz9qsMS7i2xlghH8RoSxStsfljx_r1_920x1840.jpg">
-    <figcaption>And again..</figcaption>
-  </figure>
-
-  <figure>
-    <img src="http://blog.wwf.ca/wp-content/blogs.dir/1/files/2015/02/WEB_228519-600x398.jpg">
-    <figcaption>etc</figcaption>
-  </figure>
-
-  <figure>
-    <img src="http://twistedsifter.files.wordpress.com/2014/02/super-long-rainbow-laser-beam-colorgasm-scrolling-image-by-nina-geometrieva.png?w=725&h=24076">
-  <figcaption>hilarious length test. 24,000px height</figcaption>
-  </figure>
-
-  <figure>
-    <img src="https://s-media-cache-ak0.pinimg.com/originals/d9/fb/00/d9fb00343fd4d639cd8682e7b988edf6.jpg">
-    <figcaption>etc</figcaption>
-  </figure>
-
-  <figure>
-    <img src="http://media.treehugger.com/assets/images/2011/10/20100913-walrus.jpg">
-    <figcaption></figcaption>
-  </figure>
-
-  <figure>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Seine_wide.jpg">
-  <figcaption>wide test. 6,400px width</figcaption>
-  </figure>
-
-
-
-
-
-<!--  <figure>
-    <img src="">
-  <figcaption></figcaption>
-  </figure>
--->
-
+  <% resources.forEach(function(resource) { %>
+    <figure>
+      <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
+      <figcaption><%= resource.title %></figcaption>
+      <p><%= resource.description %></p>
+      <a href="<%= resource.url %>"><em>source</em></a>
+      <span>likes: <%= resource.likes_count %><span>
+      <span>rating: <%= resource.avg_rating %><span>
+      <span>comments: <%= resource.comments_count %><span>
+    </figure>
+  <% }) %>
 </div>
