@@ -14,21 +14,22 @@ module.exports = (knex) => {
   })
 
   router.get("/new/choice", (req, res) => {
+    console.log('new/choice');
     const sources = req.query.sources;
-    const templateVars = {sources: sources}
-    res.render('new_choice', templateVars)
-
+    console.log('sources', sources);
+    const templateVars = {sources: sources};
+    res.render('new_choice', templateVars);
   })
 
-  router.get("/new/", (req, res) => {
+  router.get("/new", (req, res) => {
+    console.log('resources/new');
     // Show 'new resource' page, including all images from webpage for selection
     // use scraper.js to get html from url, then send it back
 
     const url = req.query.new_url;
-    console.log('url', url);
+    console.log('/new/choice url to scraper', url);
     scraper_request(url, function(body){
-    console.log('body', typeof body);
-    //res.html = body;
+    console.log('in scraper');
     res.send(body);
     })
   })
