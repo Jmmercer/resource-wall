@@ -1,6 +1,6 @@
 const createResource = function(resource) {
 
-  return $(`<figure>
+  return $(`<figure class="h-resource">
       <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
       <figcaption>${resource.title}</figcaption>
       <p>${resource.description}</p>
@@ -12,6 +12,7 @@ const createResource = function(resource) {
 }
 
 $(() => {
+
 
 //Handling Search
 $("#search-form").on("submit", function(event) {
