@@ -2,7 +2,6 @@
 
 const scraper         = require('../public/scripts/scraper.js');
 const cheerio         = require('cheerio');
-// const db           = require('../db/queries.js');
 const scraper_request = require('../public/scripts/scraper.js');
 const url_parser      = require('../public/scripts/url_parser');
 
@@ -80,7 +79,7 @@ module.exports = (db) => {
     const description = req.body.description;
     const img_src     = req.body.img_src;
     //const categories    = req.body.category;
-    const categories = [];
+    const categories = [Math.ceil(Math.random() * 3)]; //Pending the categories being passed in
 
     const resource = {user_id:      user_id,
                       url:          url,
@@ -121,6 +120,10 @@ module.exports = (db) => {
 
   router.get("/:resource_id/comments", (req, res) => {
     // returns number and content of comments for that resource
+    let resource_id = req.params.resource_id;
+    db.getComments(resource_id, function(comments) {
+      res.status(200).json(comments);
+    });
   })
 
   router.get("/:resource_id/ratings", (req, res) => {

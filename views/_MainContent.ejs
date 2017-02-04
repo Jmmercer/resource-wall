@@ -4,7 +4,7 @@
       <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
       <figcaption><%= resource.title %></figcaption>
       <p><%= resource.description %></p>
-      <a href="<%= resource.url %>"><em>source</em></a>
+      <em><a class="res-url" href="<%= resource.url %>" target="_blank" >source</a></em>
       <figcaption><% include ../views/_Icons %></figcaption>
     </figure>
   <% }) %>
