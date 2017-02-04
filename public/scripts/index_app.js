@@ -2,7 +2,6 @@ $(() => {
 
 
 $('.new-resource').click(function (event){
-  console.log('on click');
   event.preventDefault()
   const new_url = 'https://www.ctv.ca/'
 
@@ -12,13 +11,15 @@ $('.new-resource').click(function (event){
     context: document.body,
     data: {new_url: new_url},
     success: function(response){
-      console.log('response', response);
+      // console.log('response', response);
       console.log('index app first ajax')
-      sources = [];
+      let sources = [];
       const imgs = $($.parseHTML(response)).find('img');
-
-      for (img in imgs) {
+      // console.log(imgs);
+      for (let img in imgs) {
+        if (imgs.hasOwnProperty(img) && !isNaN(Number(img))) {
         sources.push($(imgs[img]).attr('src'));
+        }
       }
       console.log('sources in first ajax', sources);
 

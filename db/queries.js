@@ -242,7 +242,7 @@ module.exports = (knex) => {
       });
     },
 
-    // update rating: if a user hasn't rated a resource before increments otherwise decrements
+    // update rating: if a user hasn't rated a resource before it increments otherwise decrements
     // Input => rating object e.g. {user_id: , resource_id: , value: } and a callback
     // Output => Integer new average of all ratings e.g 4. Updates the ratings table and the resource's `avg_rating`
     // Example: (ratingObj, console.log) logs 4
