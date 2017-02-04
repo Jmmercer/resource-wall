@@ -8,7 +8,6 @@
 div#maincontent figure:hover{
   box-shadow: 9px 11px 10px 0px rgba(111, 37, 37, 0.58);
   padding: 5px;
-
 }
 div#maincontent:hover figure:not(:hover) {
   opacity: 0.4;
@@ -41,4 +40,15 @@ div#maincontent:hover figure:not(:hover) {
 @media screen and (max-width: 750px) {
   #columns { column-gap: 0px; }
   #columns figure { width: 100%; }
+}
+.test {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
 }
