@@ -3,7 +3,7 @@
     <h2>Confirmation</h2>
     <a class="close" href="#">×</a>
     <div class="stuff">
-    <form method = "POST" action = "/resources/confirm">
+    <form method = "POST" action = "/resources/" name = "resource_details" onsubmit="return validateForm()">
       <em>This is your resource. Or is it...</em> <br>
       Title:
       <input name="title" type="text" value = "" /> <br>

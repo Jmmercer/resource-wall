@@ -27,7 +27,7 @@ module.exports = (db) => {
 
   router.post("/new", (req, res) => {
     const url = req.body.url;
-    const user_id = req.session.user_id;
+    const user_id = req.session.user.id;
 
     scraper(url, function(body){
 
@@ -39,7 +39,6 @@ module.exports = (db) => {
       for (let img in imgs) {
         if (imgs[img].hasOwnProperty('attribs')) {
           if (imgs[img].attribs.src) {
-            console.log('one image is', imgs[img]);
             img_sources.push(imgs[img].attribs.src);
           }
         }
@@ -62,8 +61,9 @@ module.exports = (db) => {
 
   router.post("/", (req, res) => {
     //Create new resource
+    console.log(req.session.user.id);
 
-    const user_id     = req.session.user_id
+    const user_id     = req.session.user.id;
     const title       = req.body.title;
     const url         = req.body.url;
     const description = req.body.description;
@@ -75,6 +75,7 @@ module.exports = (db) => {
                       description:  description,
                       //img_src:      img_src
                      }
+    console.log('resource:', resource);
 
     db.saveResource(resource, function(resource){
     });

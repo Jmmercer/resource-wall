@@ -7,15 +7,21 @@
 //   console.log(body);
 // });
 
+console.log('before new_resource_app.js')
+
+
 $(() => {
+  console.log('in new_resource_app.js')
+
   function validateForm() {
-    var a=document.forms["Form"]["answer_a"].value;
-    var b=document.forms["Form"]["answer_b"].value;
-    var c=document.forms["Form"]["answer_c"].value;
-    var d=document.forms["Form"]["answer_d"].value;
+    console.log('in validateForm')
+    const a=document.forms["resource_details"]["title"].value;
+    const b=document.forms["resource_details"]["url"].value;
+    const c=document.forms["resource_details"]["img_src"].value;
+    const d=document.forms["resource_details"]["description"].value;
     if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="")
       {
-      alert("Please Fill All Required Field");
+      alert("Make sure all fields are filled in");
       return false;
       }
     }
