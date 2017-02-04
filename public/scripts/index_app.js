@@ -1,17 +1,19 @@
 const createResource = function(resource) {
 
-  return $(`<figure>
+  return $(`<figure class="h-resource" data-res_id=${resource.id}>
       <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
       <figcaption>${resource.title}</figcaption>
       <p>${resource.description}</p>
       <a href="${resource.url}"><em>source</em></a>
-      <span>likes: ${resource.likes_count}<span>
-      <span>rating: ${resource.avg_rating}<span>
-      <span>comments: ${resource.comments_count}<span>
+      <a class="r-action" href="#0"><span class="glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
+      <span><em>comments: ${resource.comments_count}</em><span>
+      <span>rating: <a class="r-action" href='#0' >${resource.avg_rating}</a><span>
     </figure>`)
 }
 
 $(() => {
+
+// Handling Likes
 
 //Handling Search
 $("#search-form").on("submit", function(event) {
