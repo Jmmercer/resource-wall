@@ -2,6 +2,20 @@
 module.exports = (knex) => {
   return {
 
+    // getComments returns the comments
+    // Output => array of comment objects e.g. {commenter: , commenter_id: , text: , created_at: }
+    getComments: (resourceID, callback) => {
+      knex
+        .select('users.name as commenter', 'users.id as commenter_id',
+          'comments.text as text', 'comments.created_at as created_at')
+        .from('comments')
+        .innerJoin('users', 'comments.user_id', 'users.id')
+        .where('resource_id', resourceID)
+      .then((commentsArr) => {
+        callback(commentsArr);
+      });
+    },
+
     // getResource returns a resource object
     // Input => resourceID and a callback function to handle the result
     // Output => a resource object including the comments array
@@ -172,8 +186,7 @@ module.exports = (knex) => {
         description:    resource.description,
         likes_count:    resource.likes_count,
         avg_rating:     resource.avg_rating,
-        comments_count: resource.comments_count,
-        media_src: resource.media_src
+        comments_count: resource.comments_count
       }).into('resources')
       .then((idArr) => {
         resource.id = idArr[0];
