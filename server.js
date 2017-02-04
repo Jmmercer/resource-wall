@@ -75,8 +75,6 @@ app.get("/", (req, res) => {
   }
 
     db.getAllResources(function(resources) {
-
-      // TODO Get user by req.session_id, display info on home page
       req.templateVars.resources = resources;
       res.render("index", req.templateVars);
     });

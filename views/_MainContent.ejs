@@ -1,13 +1,10 @@
 <div id="maincontent" >
   <% resources.forEach(function(resource) { %>
-    <figure>
+    <figure class="h-resource" data-res_id=<%=resource.id%>>
       <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
       <figcaption><%= resource.title %></figcaption>
       <p><%= resource.description %></p>
       <a href="<%= resource.url %>"><em>source</em></a>
-      <span>likes: <%= resource.likes_count %><span>
-      <span>rating: <%= resource.avg_rating %><span>
-      <span>comments: <%= resource.comments_count %><span>
       <figcaption><% include ../views/_Icons %></figcaption>
     </figure>
   <% }) %>

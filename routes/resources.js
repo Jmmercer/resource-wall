@@ -50,9 +50,9 @@ module.exports = (db) => {
         }
       }
 
-      const templateVars = {sources: sources}
+      req.templateVars.sources = sources;
       console.log('in scraper callback');
-      res.render("new_choice", templateVars);
+      res.render("new_choice", req.templateVars);
     })
   })
 
