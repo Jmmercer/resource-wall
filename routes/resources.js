@@ -12,7 +12,7 @@ module.exports = (db) => {
 
 
   router.get("/", (req, res) => {
-    // What does get /resources do? Anything?
+    res.redirect("/");
   })
 
   router.post("/new/choice", (req, res) => {
