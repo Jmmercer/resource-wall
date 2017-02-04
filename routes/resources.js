@@ -73,7 +73,7 @@ module.exports = (db) => {
                       url:          url,
                       title:        title,
                       description:  description,
-                      //img_src:      img_src
+                      media_src:      img_src
                      }
 
     db.saveResource(resource, function(resource){
