@@ -14,12 +14,14 @@ module.exports = (knex) => {
 
   router.get("/:user_id", (req, res) => {
     // Show user page
-    const user_id = req.params.user_id;
+    const user = {id: req.params.user_id}
 
-    db.getResourcesByUser(user_id, function (resources) {
+    db.getResourcesByUser(user.id, function (resources) {
+
       const templateVars = {resources: resources,
-                            user_id: user_id}
-      res.render('user', resources);
+                            user: user}
+
+      res.render('user', templateVars);
     })
 
   });

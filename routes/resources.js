@@ -27,9 +27,14 @@ module.exports = (db) => {
   // })
 
   router.post("/new", (req, res) => {
-    const url        = req.body.url;
-    const parsed_url = url_parser.getLocation(url);
     const user_id    = req.session.user.id;
+    let url        = req.body.url;
+
+    if (url.substr(0, 4) != 'http') {
+      url = 'http://www.' + url;
+    }
+
+    const parsed_url = url_parser.getLocation(url);
 
     scraper(url, function(body){
 
@@ -41,6 +46,7 @@ module.exports = (db) => {
 
 
 //Oh god
+//Prepend hostname if not present
       let img_sources = [];
       for (let img in imgs) {
         if (imgs[img].hasOwnProperty('attribs')) {
@@ -48,7 +54,6 @@ module.exports = (db) => {
           if (img_url) {
             if (img_url.substr(0, 4) != 'http') {
               img_url = 'http://' + parsed_url.hostname + img_url;
-              console.log('prepended hostname');
             }
             img_sources.push(img_url);
           }

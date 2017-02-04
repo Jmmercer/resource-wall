@@ -3,7 +3,7 @@
   <div class="new">
   </div>
   <% for (source in img_sources) { %>
-    <figure>
+    <figure class="possible_img">
       <img src= <%= `${img_sources[source]}` %> >
       <form method='post' action="/resources" class="choose">
         <button class="choose-btn" value="select"></button>
