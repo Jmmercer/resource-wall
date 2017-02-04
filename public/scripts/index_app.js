@@ -16,8 +16,15 @@ $(() => {
   // Handling Likes
   $("#maincontent").on("click", "a.r-action", function(event) {
     event.preventDefault();
-    const action = ($(event.target).attr('class')).includes('likes') ? 'likes' : 'ratings'
-    
+    const $this = $(event.target);
+    const action = ($this.attr('class')).includes('likes') ? 'likes' : 'ratings';
+    const res_id = $this.closest('.h-resource').data('res_id');
+
+    $.ajax({
+      url: `/resources/${res_id}/${action}`,
+    }).done(function(newValue) {
+      $this.text(newValue);
+    })
   });
 
   //Handling Search
