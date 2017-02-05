@@ -83,9 +83,10 @@ $(() => {
     const $thisResource = $target.closest('.h-resource');
     if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
     } else {
-      $("#maincontent").children().remove();
+      $("#maincontent").empty();
       $thisResource.css("min-width","650px");
-      $("#maincontent").append($thisResource)
+      $("#maincontent").append($thisResource);
+      $("#maincontent").css("opacity", 1);
 
       $.ajax({
         url: `/resources/${$thisResource.data('res_id')}/comments`,
@@ -100,7 +101,6 @@ $(() => {
         });
       });
     }
-    $("#maincontent").off("click");
   });
 
   //Handling Search
