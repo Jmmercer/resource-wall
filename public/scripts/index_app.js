@@ -6,7 +6,7 @@ const createResource = function(resource) {
       <p>${resource.description}</p>
       <em><a class="res-url" href="${resource.url}" target="_blank">source</a></em>
       <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
-      <span><em>comments: ${resource.comments_count}</em><span>
+      <span>comments: <em class="comment-count">${resource.comments_count}</em><span>
       <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span>
     </figure>`)
 }
@@ -23,15 +23,34 @@ const createComment = function(comment) {
       </dl>`);
 }
 
-const newCommentForm = $(`<form method="POST" action="http://localhost:8080/tweets">
-          <label for="tweet-text" style="display:none;">New comment</label>
-          <textarea id="tweet-text" name="text" placeholder="What are you humming about?"  required></textarea>
+const newCommentForm = $(`<form method="POST" action="" class="new-comment">
+          <label for="comment-text" style="display:none;">New comment</label>
+          <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  required></textarea>
           <button>Go</button>
         </form>`);
 
 // const loggedInState = function(isLoggedIn) { return $(`<input type="checkbox" checked=${isLoggedIn}`) }
 
 $(() => {
+
+  // Handling new comment
+  $('#maincontent').on('submit', '.new-comment', function(event) {
+    event.preventDefault();
+    const $this = $(event.target);
+    const $thisResource = $this.closest('.h-resource');
+    const resource_id = $thisResource.data('res_id');
+    $.ajax({
+      url: `/resources/${resource_id}/comments`,
+      method: 'POST',
+      data: $this.serialize()
+    }).done(function(commentInfo) {
+      console.log(commentInfo)
+      $('#comments').prepend(createComment(commentInfo[0]));
+      const $counter = $thisResource.find('.comment-count')
+      $counter.text(`${commentInfo[1]}`);
+      $this[0].reset();
+    })
+  })
 
   // Handling Likes TODO: handle rating
   $("#maincontent").on("click", ".r-action", function(event) {
@@ -57,8 +76,6 @@ $(() => {
     return false;
   });
 
-  // Stop propagation 
-
   // Show a resource
   $("#maincontent").on("click", ".h-resource", function(event) {
     const $target = $(event.target);
@@ -76,12 +93,14 @@ $(() => {
         if(result.isLoggedIn) {
           $thisResource.find('.wrapper').show();
           $thisResource.append(newCommentForm);
+          $thisResource.append($('<section id="comments"></section>'));
         }
         result.comments.forEach(function(comment) {
-          $thisResource.append(createComment(comment));
+          $('#comments').append(createComment(comment));
         });
       });
     }
+    $("#maincontent").off("click");
   });
 
   //Handling Search

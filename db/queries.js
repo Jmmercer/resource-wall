@@ -144,6 +144,7 @@ module.exports = (knex) => {
     // Output => comment object (now including the id and created_at), andcomments_count update on the resource
     // Example: (commentObj, console.log) logs [{id: , user_id: , resource_id: , text: , created_at: }, 42]
     saveComment: (comment, callback) => {
+      const returnedObj = {};
       knex
       .returning(['id', 'created_at'])
       .insert({
@@ -152,16 +153,18 @@ module.exports = (knex) => {
         text:           comment.text
       }).into('comments')
       .then((returnedArr) => {
-        const returnedObj = returnedArr[0];
-        comment.id = returnedObj.id;
-        comment.created_at = returnedObj.created_at;
+        returnedObj.id = returnedArr[0].id;
+        returnedObj.created_at = returnedArr[0].created_at
+        returnedObj.commenter_id = comment.user_id;
+        returnedObj.resource_id = comment.resource_id;
+        returnedObj.text = comment.text;
       })
       .then(() => {
         return knex('resources').where('id', comment.resource_id)
             .increment('comments_count', 1).returning('comments_count');
       })
       .then((count) => {
-        callback([comment, count[0]]);
+        callback([returnedObj, count[0]]);
       })
       .catch(function(err){
         console.log('Error', err.message);

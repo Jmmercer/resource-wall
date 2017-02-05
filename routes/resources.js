@@ -123,6 +123,24 @@ module.exports = (db) => {
     }
   })
 
+  router.post("/:resource_id/comments", (req, res) => {
+    // returns number and content of comments for that resource
+    if (req.user) {
+      const commentObj = {
+        user_id:        req.user.id,
+        resource_id:    req.params.resource_id,
+        text:           req.body.text
+      };
+      db.saveComment(commentObj, function(commentInfo) {
+        commentInfo[0].commenter = req.user.name;
+        res.status(200).json(commentInfo)
+      });
+    } else{
+      req.session.error_message = "Login first";
+      res.status(403).redirect("/");
+    }
+  })
+
   router.get("/:resource_id/comments", (req, res) => {
     // returns number and content of comments for that resource
     let resource_id = req.params.resource_id;
