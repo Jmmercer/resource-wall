@@ -297,6 +297,17 @@ module.exports = (knex) => {
           });
         }
       })
+    },
+
+    // update user
+    updateUser: (userObj, callback) => {
+      const thisId = userObj.id;
+      userObj.id = undefined;
+      knex('users').where('id', thisId).update(userObj)
+      .then(function(updatedUser) {
+        updatedUser.id = thisId;
+        callback(updatedUser);
+      });
     }
 
   };
