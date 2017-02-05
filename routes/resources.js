@@ -27,11 +27,11 @@ module.exports = (db) => {
   // })
 
   router.post("/new", (req, res) => {
-    const user_id    = req.session.user.id;
-    let url        = req.body.url;
+    const user_id = req.session.user.id;
+    let url       = req.body.url;
 
     if (url.substr(0, 4) != 'http') {
-      url = 'http://www.' + url;
+      url = 'http://' + url;
     }
 
     const parsed_url = url_parser.getLocation(url);
