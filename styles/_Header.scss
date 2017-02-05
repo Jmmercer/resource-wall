@@ -1,28 +1,31 @@
 header {
-    display: flex;
+  display: flex;
   align-items: center;
   top: 0;
   z-index: 1;
   width: 100%;
   color: #cacdd1;
   background: url(../images/asfalt--dark--851x315.png);
-  border-color: #940000;
+/*  border-color: #940000;
   border-bottom-style: solid;
   border-width: 0.5em;
-  border-bottom-width: 15px;
+  border-bottom-width: 15px;*/
   border-bottom-right-radius: 2em;
   border-bottom-left-radius: 2em;
+
 form {
   display: flex;
   align-items: center;
   padding: 13px;
   padding-top: 40px;
+
 #search {
     border-color: none;
     padding: 5px;
     border-radius: 1em;
   }
 }
+
 h1 {
   font-size: 1.6em;
   margin: 0;

@@ -4,9 +4,6 @@
   <% for (source in img_sources) { %>
     <figure class="possible_img">
       <img src= <%= `${img_sources[source]}` %> >
-      <form method='post' action="/resources" class="choose">
-        <button class="choose-btn" value="select"></button>
-      </form>
     </figure>
 
   <% } %>
