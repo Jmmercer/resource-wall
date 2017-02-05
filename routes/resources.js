@@ -127,12 +127,24 @@ module.exports = (db) => {
     // returns number and content of comments for that resource
     let resource_id = req.params.resource_id;
     db.getComments(resource_id, function(comments) {
-      res.status(200).json(comments);
+      const result = {comments: comments, isLoggedIn: !!req.user}
+      res.status(200).json(result);
     });
   })
 
   router.get("/:resource_id/ratings", (req, res) => {
     // returns ratings and average rating for that resource
+    if (req.user) {
+      const ratingObj = {};
+      ratingObj.resource_id = req.params.resource_id;
+      ratingObj.user_id = req.user.id
+      db.updateRating(ratingObj, function(newMean) {
+        res.status(200).send(`${newMean}`);
+      })
+    } else{
+      req.session.error_message = "Login first";
+      res.status(403).redirect("/");
+    }
   })
 
   return router;

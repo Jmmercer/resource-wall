@@ -31,9 +31,24 @@ exports.seed = function(knex, Promise) {
     }).then(function () {
       return Promise.all([
         // Inserts categories seed entries
-        knex('categories').insert({id: 1, name: 'foo'}),
-        knex('categories').insert({id: 2, name: 'bar'}),
-        knex('categories').insert({id: 3, name: 'bazz'})
+        knex('categories').insert({id: 1, name: 'Agriculture'}),
+        knex('categories').insert({id: 2, name: 'Architecture'}),
+        knex('categories').insert({id: 3, name: 'Biological and Biomedical Sciences'}),
+        knex('categories').insert({id: 4, name: 'Business'}),
+        knex('categories').insert({id: 5, name: 'Communications and Journalism'}),
+        knex('categories').insert({id: 6, name: 'Computer Sciences'}),
+        knex('categories').insert({id: 7, name: 'Culinary Arts'}),
+        knex('categories').insert({id: 8, name: 'Education'}),
+        knex('categories').insert({id: 9, name: 'Engineering'}),
+        knex('categories').insert({id: 10, name: 'Legal'}),
+        knex('categories').insert({id: 11, name: 'Liberal Arts and Humanities'}),
+        knex('categories').insert({id: 12, name: 'Mechanic and Repair Technologies'}),
+        knex('categories').insert({id: 13, name: 'Medical and Health Professions'}),
+        knex('categories').insert({id: 14, name: 'Physical Sciences'}),
+        knex('categories').insert({id: 15, name: 'Project Management'}),
+        knex('categories').insert({id: 16, name: 'Psychology'}),
+        knex('categories').insert({id: 17, name: 'Transportation and Distribution'}),
+        knex('categories').insert({id: 18, name: 'Visual and Performing Arts'})
       ])
     }).then(function () {
       return Promise.all([
