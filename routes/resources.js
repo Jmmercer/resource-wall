@@ -26,6 +26,19 @@ module.exports = (db) => {
   // })
 
   router.post("/new", (req, res) => {
+    let templateVars = {};
+    if (req.session.error_message) {
+
+      templateVars.error_message = req.session.error_message;
+      console.log('error:', req.session.error_message);
+
+      req.session.error_message = null;
+    } else {
+
+      templateVars.error_message = '';
+
+    }
+
     const user_id = req.session.user.id;
     let url       = req.body.url;
 
@@ -61,12 +74,12 @@ module.exports = (db) => {
 
       img_sources.push(url);
 
-      const templateVars = {img_sources: img_sources,
-                            title:       title,
-                            description: description,
-                            url:         url,
-                            user:        {user_id: user_id}
-                           }
+      templateVars.img_sources   = img_sources;
+      templateVars.title         = title;
+      templateVars.description   = description;
+      templateVars.url           = url;
+      templateVars.user          = {user_id: user_id};
+
       res.render("new_choice", templateVars);
     })
   })

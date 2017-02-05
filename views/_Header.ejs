@@ -1,54 +1,3 @@
-<!-- <h1><a href="/">Reezorz</a></h1>
-
-<label for="toggle"><img src="../images/door-8-24.png"></label>
-<% if (user) { %>
-    <span><%= user.name %></span>
-    <form action="/logout" method="POST" role="logout" style="all: initial;">
-      <button id="Go" type="submit">Logout</button>
-    </form>
-<% } else {%>
-
-  <div class="login-content">
-    <form action="/login" method="POST" role="login" style="all: initial;">
-      <label for="login"></label>
-      <input type="email" name="email" placeholder="you@example.com"/>
-      <input type="password" name="password" placeholder="Password"/>
-      <button id="Go"type="submit">Go!</button>
-    </form>
-    <a href="#popup1">Get an account!</a>
-  </div>
-
-<% } %>
-
-<nav>
-  <div class="dropdown">
-    <button class="dropbtn">Categories</button>
-    <div class="dropdown-content">
-      <a href="#">Get Me</a>
-      <a href="#">Some</a>
-      <a href="#">Learn'n</a>
-    </div>
-  </div>
-
-<% if (user) { %>
-  <div class="userPage">
-    <button class="userbtn">User</button>
-    <div class="user-content">
-      <a href="#newcontentpopup" class = "new-resource">New Reezorz</a>
-      <a href="/users/<%=user.id%>">My Reezorz</a>
-    </div>
-  </div>
-
-  <div class="notifyDD">
-    <button class="notifybtn">Notify</button>
-  </div>
-<% } %>
-</nav>
-<form id="search-form" action="/" method="GET" role="search">
-  <label for="search"></label>
-  <input type="search" id="search" name="search" placeholder=" search goes here!!" />
-</form>
- -->
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -60,7 +9,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <% if (user) { %>
-        <li class="active"><a href="#"> New Reezorz <span class="sr-only">(current)</span></a></li>
+        <li><a href="#newcontentpopup"> New Reezorz <span class="sr-only">(current)</span></a></li>
         <li><a href="/users/<%=user.id%>">My Reezorz</a></li>
         <% } %>
         <!-- <li class="dropdown"> -->
@@ -96,8 +45,9 @@
       </ul>
       <% } %>
       <div class="login-error-container">
-         <% if (!user) { %>
-<% } %>
+         <% if (error_message) { %>
+         <%= error_message %>
+         <% } %>
 
       </div>
     </div><!-- /.navbar-collapse -->

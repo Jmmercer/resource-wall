@@ -77,6 +77,10 @@ app.get("/", (req, res) => {
     console.log('error:', req.session.error_message);
 
     req.session.error_message = null;
+  } else {
+
+    req.templateVars.error_message = '';
+
   }
 
     db.getAllResources(function(resources) {
