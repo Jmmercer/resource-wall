@@ -29,6 +29,33 @@ const newCommentForm = $(`<form method="POST" action="" class="new-comment">
           <button>Go</button>
         </form>`);
 
+const showResource = function(event) {
+  const $target = $(event.target);
+  const $this = $(this);
+  const $thisResource = $target.closest('.h-resource');
+  if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
+  } else {
+    $("#maincontent").empty();
+    $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
+    $("#maincontent").append($thisResource);
+    $("#maincontent").css({"opacity": "1", "column-width": "auto"});
+
+    $.ajax({
+      url: `/resources/${$thisResource.data('res_id')}/comments`,
+    }).done(function(result) {
+      if(result.isLoggedIn) {
+        $thisResource.find('.wrapper').show();
+        $thisResource.append(newCommentForm);
+        $thisResource.append($('<section id="comments"></section>'));
+      }
+      result.comments.forEach(function(comment) {
+        $('#comments').append(createComment(comment));
+      });
+    });
+  }
+  $("#maincontent").off("resource:show");
+}
+
 // const loggedInState = function(isLoggedIn) { return $(`<input type="checkbox" checked=${isLoggedIn}`) }
 
 $(() => {
@@ -77,30 +104,10 @@ $(() => {
   });
 
   // Show a resource
-  $("#maincontent").on("click", ".h-resource", function(event) {
-    const $target = $(event.target);
-    const $this = $(this);
-    const $thisResource = $target.closest('.h-resource');
-    if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
-    } else {
-      $("#maincontent").empty();
-      $thisResource.css("min-width","650px");
-      $("#maincontent").append($thisResource);
-      $("#maincontent").css("opacity", 1);
+  $("#maincontent").on("resource:show", ".h-resource", showResource);
 
-      $.ajax({
-        url: `/resources/${$thisResource.data('res_id')}/comments`,
-      }).done(function(result) {
-        if(result.isLoggedIn) {
-          $thisResource.find('.wrapper').show();
-          $thisResource.append(newCommentForm);
-          $thisResource.append($('<section id="comments"></section>'));
-        }
-        result.comments.forEach(function(comment) {
-          $('#comments').append(createComment(comment));
-        });
-      });
-    }
+  $("#maincontent").on("click", ".h-resource", function(event) {
+    $(event.target).closest('.h-resource').trigger("resource:show");
   });
 
   //Handling Search
