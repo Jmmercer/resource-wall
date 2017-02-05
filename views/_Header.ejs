@@ -53,14 +53,14 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Reezorz</a>
+      <a class="navbar-brand" href="/">Reezorz</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <% if (user) { %>
-        <li class="active"><a href="#"> New Reezorz <span class="sr-only">(current)</span></a></li>
+        <li><a href="#newcontentpopup"> New Reezorz <span class="sr-only">(current)</span></a></li>
         <li><a href="/users/<%=user.id%>">My Reezorz</a></li>
         <% } %>
         <!-- <li class="dropdown"> -->

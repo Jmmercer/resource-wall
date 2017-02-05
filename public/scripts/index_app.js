@@ -3,11 +3,12 @@ const createResource = function(resource) {
   return $(`<figure class="h-resource" data-res_id=${resource.id}>
       <img src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg">
       <figcaption>${resource.title}</figcaption>
+                <a class="close" href="/">x</a>
       <p>${resource.description}</p>
       <em><a class="res-url" href="${resource.url}" target="_blank">source</a></em>
-      <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
-      <span>comments: <em class="comment-count">${resource.comments_count}</em><span>
-      <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span>
+      <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>          <a class="close" href="/">x</a>
+      <span>comments: <em class="comment-count">${resource.comments_count}</em><span>          <a class="close" href="/">x</a>
+      <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span>          <a class="close" href="/">x</a>
     </figure>`)
 }
 

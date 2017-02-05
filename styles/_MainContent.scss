@@ -36,7 +36,10 @@ div#maincontent:hover figure:not(:hover) {
     line-height: 1.5;
   }
 }
-
+.close{
+  opacity: 0.1;
+  padding-bottom: 15px;
+}
 
 @media screen and (max-width: 750px) {
   #columns { column-gap: 0px; }
