@@ -51,6 +51,8 @@ const showResource = function(event) {
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
       if(result.isLoggedIn) {
+        const inputId = `#st${result.ratedValue}`;
+        $(inputId).prop('checked', true);
         $thisResource.find('.wrapper').show();
         $thisResource.append(newCommentForm);
         $thisResource.append($('<section id="comments"></section>'));
@@ -86,7 +88,7 @@ $(() => {
     })
   })
 
-  // Handling Likes TODO: handle rating
+  // Handling Likes & rating
   $("#maincontent").on("click", ".r-action", function(event) {
     const $this = $(event.target);
     const action = $this.hasClass('likes') ? 'likes' : 'ratings';

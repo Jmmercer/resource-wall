@@ -159,8 +159,8 @@ module.exports = (db) => {
   router.get("/:resource_id/comments", (req, res) => {
     // returns number and content of comments for that resource
     let resource_id = req.params.resource_id;
-    db.getComments(resource_id, function(comments) {
-      const result = {comments: comments, isLoggedIn: !!req.user}
+    db.getComments([resource_id, req.user.id], function(results) {
+      const result = {comments: results.comments, ratedValue: results.ratedValue, isLoggedIn: !!req.user}
       res.status(200).json(result);
     });
   })
