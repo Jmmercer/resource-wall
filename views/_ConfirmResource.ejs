@@ -1,18 +1,17 @@
 <div id="confirmContentPopup" class="overlayConfirmContent">
   <div class="confirmContentPopup">
-    <h2>Confirmation</h2>
-    <a class="close" href="#">×</a>
+    <h3>Please confirm your resource details. You can select an image from below to represent your resource.</h3>
     <div class="stuff">
     <form method = "POST" action = "/resources/" name = "resource_details" onsubmit="return validateForm()">
-      <em>This is your resource. Or is it...</em> <br>
+      <br>
       <span class="submit-form-label"></span><span class="submit-form-label">Title:</span>
-      <input name="title" type="text" value = "<%=title%>" /> <br>
+      <input class="resource-submit-input" name="title" type="text" value = "<%=title%>" /> <br>
       <span class="submit-form-label">URL:</span>
-      <input name="url" type="text" value = "<%=url%>"/> <br>
-      <span class="submit-form-label"></span>Image source:<span class="submit-form-label"></span>
-      <input name="img_src" class = "imgSourceInput" type="text" value = ""/> <br>
+      <input class="resource-submit-input" name="url" type="text" value = "<%=url%>"/> <br>
+      <span class="submit-form-label">Image source:</span>
+      <input class="resource-submit-input imgSourceInput" name="img_src" type="text" value = "http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/Q-Z/sun-bear-tongue.jpg"/> <br>
       <span class="submit-form-label">Description:</span>
-      <input name="description" class="description_box" type="text" value = "<%=description%>"/> <br>
+      <input class="resource-submit-input" name="description" class="description_box" type="text" value = "<%=description%>"/> <br>
       <span class="submit-form-label">Category:</span>
       <select>
         <option value="Default">Default</option>
@@ -34,7 +33,7 @@
         <option value="Transportation and Distribution">Transportation and Distribution</option>
         <option value="Visual and Performing Arts">Visual and Performing Arts</option>
       <select> <br>
-      <input id="confirm-resource" type="submit" value = "Submit">
+      <input id="confirm-resource" class="btn btn-danger btn-lg btn-block" type="submit" value = "Submit">
 
     </form>
   </div>

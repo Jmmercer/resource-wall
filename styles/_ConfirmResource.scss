@@ -1,10 +1,21 @@
-form {
-
+#confirm-resource {
+    width: 80%;
+    margin: auto;
 }
 
-input[type=text] {
+h3 {
+  padding: 0.5em;
+}
+
+.submit-form-label {
+    font-size: 1.5em;
+    padding: 1.5em;
+}
+
+.resource-submit-input {
     width: 80%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    height: 1.5em;
+    padding: 1em 1em;
+    margin: auto;
     box-sizing: border-box;
 }

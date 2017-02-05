@@ -15,6 +15,7 @@ $(document).ready(function() {
     }
 
   $(".possible_img").click(function() {
+    console.log('click');
     // Change image url input to selected image
     const source = $(this).find('img').attr('src');
     $('.imgSourceInput').val(source);
