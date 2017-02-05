@@ -1,9 +1,11 @@
 header {
   .navbar{
+    .caret {
+      visibility: hidden;
+    }
     .dropdown-menu a {
           background-color: white;
           color: black;
-          background-color: transparent;
         }
     .navbar-left a{
       color: white;
@@ -11,8 +13,14 @@ header {
     .navbar-right a{
       color: white;
     }
-  .navbar-nav .dropdown-toggle{
+  .navbar-nav .dropdown-toggle {
       color: white;
+      background-color: transparent;
+    }
+    :focus {
+      background-color: transparent;
+    }
+    a {
       background-color: transparent;
     }
     background-color: black;
@@ -34,6 +42,7 @@ header {
     color: white;
   }
   .navbar-default .navbar-brand{
+
     color: white;
   }
   .navbar-default .navbar-brand:hover {
@@ -75,7 +84,7 @@ nav {
 }
   .dropdown-content {
     a{
-      color: white;
+      color: black;
     }
       display: none;
       position: absolute;
