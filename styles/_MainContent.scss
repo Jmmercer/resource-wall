@@ -7,7 +7,7 @@
 }
 div#maincontent figure:hover{
   box-shadow: 9px 11px 10px 0px rgba(111, 37, 37, 0.58);
-  padding: 5px;
+  /*padding: 5px;*/
 }
 div#maincontent:hover figure:not(:hover) {
   opacity: 0.4;
@@ -16,11 +16,11 @@ div#maincontent:hover figure:not(:hover) {
   font-family: 'Cormorant Garamond', serif;
 	background: url(../images/xv.png);
 	border: 2px solid #e0d7d7;
-//  box-shadow: 9px 11px 10px 0px rgba(111, 37, 37, 0.58);
+  box-shadow: 9px 11px 10px 0px rgba(111, 37, 37, 0.58);
 	margin: 0 2px 15px;
 	padding: 20px;
 	padding-bottom: 10px;
-	transition: opacity 0.5s, box-shadow 0.5s, padding 0.5s ease-in-out;
+	/*transition: opacity 0.5s, box-shadow 0.5s, padding 0.5s ease-in-out;*/
   display: inline-block;
   column-break-inside: avoid;
     img {
@@ -35,8 +35,8 @@ div#maincontent:hover figure:not(:hover) {
     color: white;
     line-height: 1.5;
   }
-
 }
+
 
 @media screen and (max-width: 750px) {
   #columns { column-gap: 0px; }

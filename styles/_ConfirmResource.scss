@@ -3,8 +3,8 @@
     margin: auto;
 }
 
-h3 {
-  padding-left: 0.5em;
+#confirm-instructions {
+  box-sizing: border-box;
 }
 
 .submit-form-label {
@@ -18,4 +18,14 @@ h3 {
     padding: 1em 1em;
     margin: auto;
     box-sizing: border-box;
+}
+
+.figure-clicked {
+    box-shadow: 9px 11px 10px 0px rgba(111, 37, 37, 0.58);
+    opacity: 1 !important;
+}
+
+.form-group {
+    width: 80%;
+    margin:auto;
 }

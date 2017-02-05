@@ -19,6 +19,10 @@ $(document).ready(function() {
     // Change image url input to selected image
     const source = $(this).find('img').attr('src');
     $('.imgSourceInput').val(source);
+  })
 
+  $("figure").click(function () {
+    $(".figure-clicked").removeClass("figure-clicked");
+    $(this).addClass("figure-clicked");
   })
 })
