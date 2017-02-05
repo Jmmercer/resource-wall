@@ -305,9 +305,11 @@ module.exports = (knex) => {
       userObj.id = undefined;
       console.log('thisId', thisId);
       knex('users').where('id', thisId).update(userObj)
-      .then(function(updatedUser) {
-        updatedUser.id = thisId;
-        callback(updatedUser);
+      .then(function(isUpdated) {
+        if (isUpdated) {
+          userObj.id = thisId;
+          callback(userObj);
+        }
       });
     }
 
