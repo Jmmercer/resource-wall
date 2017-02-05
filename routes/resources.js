@@ -44,8 +44,8 @@ module.exports = (db) => {
       const description = $('meta[name="description"]').attr('content');
 
 
-//Oh god
-//Prepend hostname if not present
+      //Oh god
+      //Prepend hostname if not present
       let img_sources = [];
       for (let img in imgs) {
         if (imgs[img].hasOwnProperty('attribs')) {
@@ -58,6 +58,8 @@ module.exports = (db) => {
           }
         }
       }
+
+      img_sources.push(url);
 
       const templateVars = {img_sources: img_sources,
                             title:       title,
