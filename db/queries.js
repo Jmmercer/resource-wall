@@ -4,7 +4,9 @@ module.exports = (knex) => {
 
     // getComments returns the comments
     // Output => array of comment objects e.g. {commenter: , commenter_id: , text: , created_at: }
-    getComments: (resourceID, callback) => {
+    getComments: (resourceUserArr, callback) => {
+      const [resourceID, userID] = resourceUserArr;
+      const result = {}
       knex
         .select('users.name as commenter', 'users.id as commenter_id',
           'comments.text as text', 'comments.created_at as created_at')
@@ -12,7 +14,17 @@ module.exports = (knex) => {
         .innerJoin('users', 'comments.user_id', 'users.id')
         .where('resource_id', resourceID)
       .then((commentsArr) => {
-        callback(commentsArr);
+        result.comments = commentsArr;
+        if (userID) {
+          knex('ratings').select('value').where('resource_id', resourceID).andWhere('user_id', userID)
+          .then(function(valueArr) {
+            result.ratedValue = valueArr[0].value;
+            callback(result);
+          });
+        } else { 
+          result.ratedValue = undefined;
+          callback(result);
+        }
       });
     },
 
