@@ -1,15 +1,9 @@
-#maincontent figure > img {
-  width: 100%; height: auto;
-  max-height: 1000px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 15px;
-  margin-bottom: 5px;
-//#maincontent {
-//  column-width: 320px;
-//  column-gap: 15px;
-//  width: 90%;
-//  max-width: 1100px;
-//  margin: 50px auto;
+#maincontent {
+  column-width: 320px;
+  column-gap: 15px;
+  width: 90%;
+  max-width: 1100px;
+  margin: 50px auto;
 }
 div#maincontent figure:hover{
   box-shadow: 9px 11px 10px 0px rgba(111, 37, 37, 0.58);
@@ -29,15 +23,21 @@ div#maincontent:hover figure:not(:hover) {
 	/*transition: opacity 0.5s, box-shadow 0.5s, padding 0.5s ease-in-out;*/
   display: inline-block;
   column-break-inside: avoid;
-    figure figcaption {
+    img {
+    width: 100%; height: auto;
+    max-height: 1000px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+  }
+  figure figcaption {
     font-size: 1.2rem;
     color: white;
     line-height: 1.5;
   }
 }
 .close{
-  opacity: 0.1;
-  padding-bottom: 15px;
+  opacity: 0.1
 }
 
 @media screen and (max-width: 750px) {
