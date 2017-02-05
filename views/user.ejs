@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <% include ../views/_Head %>
-  <script type="text/javascript" src="/scripts/index_app.js"></script>
+  <script type="text/javascript" src="/scripts/user_app.js"></script>
 </head>
 <body>
   <header>
@@ -15,9 +15,10 @@
       <% include ../views/_Regpop %>
     </div>
   <main>
+  <br>
   <div class"row">
-    <div class="col-md-6 col-md-offset-4"> <button>My Submitted Resources</button> </div>
-    <div class="col-md-6 col-md-offset-4"> <button>My Liked Resources</button> </div>
+  <button type="button" class="btn btn-primary btn-lg btn-block submitted-button">My Submitted Resources</button>
+  <button type="button" class="btn btn-primary btn-lg btn-block liked-button">My Liked Resources</button>
   </div>
     <% include ../views/partials/_UserContent %>
     <section class="container">
