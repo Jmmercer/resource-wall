@@ -28,9 +28,5 @@ module.exports = function (db) {
     })
   })
 
-  router.get("/", (req, res) => {
-    res.render("login_test");
-  });
-
   return router;
 }
