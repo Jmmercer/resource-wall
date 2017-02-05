@@ -184,6 +184,7 @@ module.exports = (knex) => {
         url:            resource.url,
         title:          resource.title,
         description:    resource.description,
+        media_src:      resource.media_src,
         likes_count:    resource.likes_count,
         avg_rating:     resource.avg_rating,
         comments_count: resource.comments_count
@@ -275,10 +276,12 @@ module.exports = (knex) => {
             const rating = Math.round(Number(avgRatingArr[0].avgRating));
             return knex('resources').where('id', ratingObj.resource_id)
             .update('avg_rating', rating).returning('avg_rating');
+          }).then((newMeanArr) => {
+            callback(newMeanArr[0]);
           });
         } else {
           return knex('ratings').where('user_id', ratingObj.user_id)
-            .andWhere('ratings.resource_id', '=', ratingObj.resource_id).del()
+            .andWhere('ratings.resource_id', '=', ratingObj.resource_id).update('value', ratingObj.value)
           .then(() => {
           return knex('ratings').avg('value as avgRating').where('resource_id', ratingObj.resource_id)
             .returning('avgRating'); })
@@ -286,11 +289,11 @@ module.exports = (knex) => {
             const rating = Math.round(Number(avgRatingArr[0].avgRating));
             return knex('resources').where('id', ratingObj.resource_id)
             .update('avg_rating', rating).returning('avg_rating');
+          }).then((newMeanArr) => {
+            callback(newMeanArr[0]);
           });
         }
-      }).then((newMeanArr) => {
-        callback(newMeanArr[0]);
-      });
+      })
     }
 
   };

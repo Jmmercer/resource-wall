@@ -38,16 +38,16 @@ $(() => {
     const $this = $(event.target);
     const action = $this.hasClass('likes') ? 'likes' : 'ratings';
     const res_id = $this.closest('.h-resource').data('res_id');
-    const inputId = $this.attr('for');
-    const data = (action === 'ratings') ? (6 - Number(inputId[2])) : undefined;
+    const inputId = '#' + $this.attr('for');
+    const data = (action === 'ratings') ? (6 - Number(inputId[3])) : undefined;
 
     $.ajax({
       url: `/resources/${res_id}/${action}`,
       data: {value: data}
     }).done(function(newValue) {
       if (data) {
-        const $wrapper = $this.closest('.wrapper')
-        $wrapper.next('.avg-rating').text(newValue);
+        const $wrapper = $this.closest('.h-resource')
+        $wrapper.find('.avg-rating').text(newValue);
         $wrapper.find('input').prop('checked', false);
         $(inputId).prop('checked', true);
       } else {
