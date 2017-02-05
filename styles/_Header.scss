@@ -3,6 +3,7 @@ header {
     .dropdown-menu a {
           background-color: white;
           color: black;
+          background-color: transparent;
         }
     .navbar-left a{
       color: white;
@@ -12,6 +13,7 @@ header {
     }
   .navbar-nav .dropdown-toggle{
       color: white;
+      background-color: transparent;
     }
     background-color: black;
     display: flex;
