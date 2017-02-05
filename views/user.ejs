@@ -18,16 +18,21 @@
   <br>
   <div class="container-fluid user-details">
     <div class="row">
-      <div class="col-md-3"><%= user.name%></div>
-      <div class="col-md-3"><%= user.email%></div>
-      <div class="col-md-3">Some kind of profile updater here</div>
-      <div class="col-md-3"></div>
+      <div class="col-md-12 user-info">Reezorz for <%= user.name%></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 user-info"><%= user.email%></div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"><a href="#update-user-popup">Update profile</a></div>
     </div>
   </div>
   <div class"row">
+  <% include ../views/partials/_UpdateUserPop.ejs %>
+  </div>
+  <br>
   <button type="button" class="btn btn-primary btn-lg btn-block submitted-button">My Submitted Resources</button>
   <button type="button" class="btn btn-primary btn-lg btn-block liked-button">My Liked Resources</button>
-  </div>
     <% include ../views/partials/_UserContent %>
     <section class="container">
 

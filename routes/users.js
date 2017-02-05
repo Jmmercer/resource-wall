@@ -30,16 +30,30 @@ module.exports = (knex) => {
 
   router.get("/:user_id", (req, res) => {
     // Show user page
-    const user = {id: req.params.user_id}
+    console.log('user', req.user);
 
-    db.getResourcesByUser(user.id, function (resources) {
+    db.getResourcesByUser(req.user.id, function (resources) {
 
-      const templateVars = {resources: resources,
-                            user: user}
-
-      res.render('user', templateVars);
+      req.templateVars.resources = resources;
+      console.log('templateVars', req.templateVars);
+      res.render('user', req.templateVars);
     })
 
+  });
+
+  router.post("/", (req, res) => {
+    // Update user profile info
+    console.log(req.body);
+    if (req.user.name == req.body.name && req.user.email == req.body.email) {
+      res.redirect(`/users/${req.user.id}`);
+    } else {
+      req.user.name = req.body.name;
+      req.user.email = req.user.email;
+
+      db.updateUser(req.user, function () {
+        res.redirect(`/users/${req.user.id}`)
+      })
+    }
   });
 
   return router;

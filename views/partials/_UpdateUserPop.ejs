@@ -1,0 +1,12 @@
+<div id="update-user-popup" class="overlaynewcontent">
+  <div class="newcontentpopup">
+    <h2>Update your info</h2>
+    <a class="close" href="#">×</a>
+    <div class="stuff">
+    <form method = "POST" action = "/users">
+      <input name="name" type="text" value="<%=user.name%>"/>
+      <input name="email" type="email" value="<%=user.email %>"/>
+      <input id="update-user-btn" type="submit" value = "Submit">
+    </form>
+  </div>
+</div>

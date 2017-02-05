@@ -1,17 +1,42 @@
 header {
-  display: flex;
-  align-items: center;
-  top: 0;
-  z-index: 1;
-  width: 100%;
-  color: #cacdd1;
-  background: url(../images/asfalt--dark--851x315.png);
-/*  border-color: #940000;
-  border-bottom-style: solid;
-  border-width: 0.5em;
-  border-bottom-width: 15px;*/
-  border-bottom-right-radius: 2em;
-  border-bottom-left-radius: 2em;
+  .navbar{
+    .dropdown-menu a {
+          background-color: white;
+          color: black;
+          background-color: transparent;
+        }
+    .navbar-left a{
+      color: white;
+    }
+    .navbar-right a{
+      color: white;
+    }
+  .navbar-nav .dropdown-toggle{
+      color: white;
+      background-color: transparent;
+    }
+    background-color: black;
+    display: block;
+    align-items: center;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    color: white;
+    background: url(../images/asfalt--dark--851x315.png);
+  /*  border-color: #940000;
+    border-bottom-style: solid;
+    border-width: 0.5em;
+    border-bottom-width: 15px;*/
+    border-bottom-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+  }
+  .navbar-default .navbar-brand{
+    color: white;
+  }
+  .navbar-default .navbar-brand:hover {
+    color: lightgrey;
+  }
+
 
 form {
   display: flex;
