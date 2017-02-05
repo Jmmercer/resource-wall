@@ -13,21 +13,27 @@ const createResource = function(resource) {
 
 const createComment = function(comment) {
 
-  return $(`<dl class="comment">
-        <dt class="commenter" data-commenter_id=${comment.commenter_id}>
-          ${comment.commenter}
-        </dt>
-        <dd class="comment-text">
-          ${comment.text}
-        </dd>
-      </dl>`);
+  return $(`<article class="comment">
+    <a class="comment-img" href="#0">
+      <img src="" alt="${comment.commenter}" width="50" height="50">
+    </a>
+    <div class="comment-body">
+      <div class="text">
+        <p>${comment.text}</p>
+      </div>
+      <p class="attribution">by <a href="#0" data-commenter_id=${comment.commenter_id}>
+          ${comment.commenter}</a> at ${formatTime(comment.created_at)}</p>
+    </div>
+  </article>`);
 }
 
 const newCommentForm = $(`<form method="POST" action="" class="new-comment">
-          <label for="comment-text" style="display:none;">New comment</label>
-          <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  required></textarea>
-          <button>Go</button>
-        </form>`);
+    <div class="form-group" style="width: 100%;">
+      <label for="comment-text" style="display:none;">New comment</label>
+      <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  class="form-control" rows="3" required></textarea>
+      <button type="submit" class="btn btn-default">Send</button>
+    </div>
+  </form>`);
 
 const showResource = function(event) {
   const $target = $(event.target);
