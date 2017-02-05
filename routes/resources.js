@@ -137,7 +137,8 @@ module.exports = (db) => {
     if (req.user) {
       const ratingObj = {};
       ratingObj.resource_id = req.params.resource_id;
-      ratingObj.user_id = req.user.id
+      ratingObj.user_id = req.user.id;
+      ratingObj.value = req.query.value;
       db.updateRating(ratingObj, function(newMean) {
         res.status(200).send(`${newMean}`);
       })
