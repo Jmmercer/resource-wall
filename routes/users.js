@@ -30,18 +30,18 @@ module.exports = (knex) => {
 
   router.get("/:user_id", (req, res) => {
     // Show user page
-  if (req.session.error_message) {
+    if (req.session.error_message) {
 
-    req.templateVars.error_message = req.session.error_message;
-    console.log('error:', req.session.error_message);
+      req.templateVars.error_message = req.session.error_message;
+      console.log('error:', req.session.error_message);
 
-    req.session.error_message = null;
-  } else {
+      req.session.error_message = null;
+    } else {
 
-    req.templateVars.error_message = '';
+      req.templateVars.error_message = '';
 
-  }
-
+    }
+console.log(req.user)
     db.getResourcesByUser(req.user.id, function (resources) {
 
       req.templateVars.resources = resources;
@@ -61,8 +61,9 @@ module.exports = (knex) => {
       req.user.name = req.body.name;
       req.user.email = req.user.email;
 
-      db.updateUser(req.user, function () {
-        res.redirect(`/users/${req.user.id}`)
+      db.updateUser(req.user, function (user) {
+        console.log('user', user);
+        res.redirect(`/users/${user.id}`)
       })
     }
   });

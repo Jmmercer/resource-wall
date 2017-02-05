@@ -303,6 +303,7 @@ module.exports = (knex) => {
     updateUser: (userObj, callback) => {
       const thisId = userObj.id;
       userObj.id = undefined;
+      console.log('thisId', thisId);
       knex('users').where('id', thisId).update(userObj)
       .then(function(updatedUser) {
         updatedUser.id = thisId;
