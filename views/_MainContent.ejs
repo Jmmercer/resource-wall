@@ -13,12 +13,17 @@
   .next {
     float: right;
   }
+  #next-prev a {
+    font-size: 72px;
+    font-weight: 300;
+    padding: 20px;
+  }
 </style>
 
 <div id="maincontent" >
   <ul id="next-prev">
-    <li class="prev"><a href="#0">Prev</a></li>
-    <li class="next"><a href="#0">Next</a></li>
+    <li class="prev"><a href="#0"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+    <li class="next"><a href="#0"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
   </ul>
   <% resources.forEach(function(resource) { %>
     <figure class="h-resource" data-res_id=<%=resource.id%>>
