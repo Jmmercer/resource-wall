@@ -87,8 +87,10 @@ module.exports = (db) => {
   })
 
   router.get("/search", (req, res) => {
-    let searchTerm = req.query.search;
-    db.getResourcesBySearch(searchTerm, function(resources) {
+
+    let searchArr = req.query;
+    console.log('searchArr in route', searchArr);
+    db.getResourcesBySearch(searchArr, function(resources) {
       res.json(resources);
     })
   })
@@ -100,15 +102,14 @@ module.exports = (db) => {
     const url         = req.body.url;
     const description = req.body.description;
     const img_src     = req.body.img_src;
-    //const categories    = req.body.category;
-    const categories = [Math.ceil(Math.random() * 3)]; //Pending the categories being passed in
+    const categories  = req.body.category;
 
     const resource = {user_id:      user_id,
                       url:          url,
                       title:        title,
                       description:  description,
                       media_src:    img_src,
-                      categories:   categories
+                      categories:   [categories]
                      }
     console.log('resource:', resource);
 

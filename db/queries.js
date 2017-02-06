@@ -21,7 +21,7 @@ module.exports = (knex) => {
             result.ratedValue = valueArr[0].value;
             callback(result);
           });
-        } else { 
+        } else {
           result.ratedValue = undefined;
           callback(result);
         }
@@ -87,21 +87,31 @@ module.exports = (knex) => {
     // Note: if category ids array is not supplied, search is on all resources
     // Output => an array resource objects
     // Example: ('exa', console.log, [1, 2]) logs [{id: 1, user_id: '#', url: 'example.com', title: 'tadah'....},...]
-    getResourcesBySearch: (searchTerm, callback, categoryIDs) => {
+    getResourcesBySearch: (data, callback) => {
+      console.log('data in query', data);
+
+      let categoryIDs = data.categoryIDs;
+      let searchTerm = data.search;
+      console.log('categoryIDs', categoryIDs);
       const approximateTerm = `%${searchTerm}%`.toLowerCase(); // think about escaping searchTerm
       categoryIDs = categoryIDs || knex.select('id').from('categories');
 
       return knex
       .distinct('resource_id').select().from('resource_categories').where('category_id', 'in', categoryIDs)
       .then((result) => {
+        console.log('result', result);
         result = result.map(obj => obj.resource_id);
         return knex.select('*').from('resources').where('id', 'in', result);
       }).then((r) => {
+          console.log('r', r);
         let searchResult = r.filter(res => {
-          return res.title.toLowerCase().includes(searchTerm) ||
-          res.url.toLowerCase().includes(searchTerm) ||
-          res.description.toLowerCase().includes(searchTerm);
+          console.log('res', res);
+          return (
+          (res.title && res.title.toLowerCase().includes(searchTerm)) ||
+          (res.url && res.url.toLowerCase().includes(searchTerm)) ||
+          (res.description && res.description.toLowerCase().includes(searchTerm)));
         });
+
         callback(searchResult);
       });
     },
