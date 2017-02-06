@@ -40,7 +40,7 @@ const newCommentForm = $(`<form method="POST" action="" class="new-comment">
 
 const processResource = function($thisResource) {
   $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
-<<<<<<< HEAD
+
   if ($thisResource.find('#comments').length < 1) {
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
@@ -55,23 +55,6 @@ const processResource = function($thisResource) {
       result.comments.forEach(function(comment) {
         $thisResource.find('#comments').append(createComment(comment));
       });
-=======
-
-  $("#maincontent").css({"opacity": "1", "column-width": "auto"});
-
-  $.ajax({
-    url: `/resources/${$thisResource.data('res_id')}/comments`,
-  }).done(function(result) {
-    if(result.isLoggedIn) {
-      const inputId = `#st${result.ratedValue}`;
-      $thisResource.find(inputId).prop('checked', true);
-      $thisResource.find('.wrapper').show();
-      $thisResource.append(newCommentForm);
-      $thisResource.append($('<section id="comments"></section>'));
-    }
-    result.comments.forEach(function(comment) {
-      $thisResource.find('#comments').append(createComment(comment));
->>>>>>> 31f0d0a7a32f902fb45488fc27c4b83341e2160a
     });
   }
 }
