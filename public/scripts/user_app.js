@@ -14,10 +14,10 @@ $(() => {
       url: "/users/liked"
       })
       .done(function(resources) {
-        $('#maincontent').empty();
+        $('#maincontent .h-resource').remove();
+        $('#next-prev').hide();
 
         resources.forEach(function (resource) {
-          console.log('resource', resource);
           $('#maincontent').append(createResource(resource));
         });
       });
@@ -34,7 +34,8 @@ $(() => {
       url: "/users/submitted"
       })
       .done(function(resources) {
-        $('#maincontent').empty();
+        $('#maincontent .h-resource').remove();
+        $('#next-prev').hide();
 
         resources.forEach(function (resource) {
           $('#maincontent').append(createResource(resource));
