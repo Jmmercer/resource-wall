@@ -69,7 +69,6 @@ const showResource = function(event) {
   let $close = $this.find('.close');
   console.log('$close', $close);
   $close.css('display', 'block');
-  $close.css('opacity', 1);
   console.log($close.css('display'));
   console.log($close.css('opacity'));
 
@@ -79,7 +78,7 @@ const showResource = function(event) {
     $("#maincontent").children().hide();
     $("#next-prev").show();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"})
-    $("#punch").css({"visibility": "visible", "z-index": "1"});
+    $(".close").css({"visibility": "visible", "z-index": "1"});
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
