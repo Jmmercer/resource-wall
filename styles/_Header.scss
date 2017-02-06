@@ -63,8 +63,8 @@ header {
   .navbar-default {
     border: 0px;
   }
-  .navbar-default .navbar-nav .header-button{
-    color: white;
+  .navbar-default .navbar-nav .header-button:hover{
+    color: lightgrey;
   }
   .navbar-default .navbar-brand{
   font-size: 2em;
@@ -151,6 +151,7 @@ nav {
   }
   .dropdown-content a:hover {
     background-color: #ef0000;
+    color: lightgrey;
   }
   .dropdown:hover .dropdown-content {
     display: block;
