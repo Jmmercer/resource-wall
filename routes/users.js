@@ -41,8 +41,11 @@ module.exports = (knex) => {
       req.templateVars.error_message = '';
 
     }
-
-    db.getResourcesByUser(req.user.id, function (resources) {
+    const owner_id = req.params.user_id;
+    const owner = req.query.owner;
+    console.log(owner);
+    req.templateVars.owner = owner;
+    db.getResourcesByUser(req.params.user_id, function (resources) {
 
       req.templateVars.resources = resources;
       res.render('user', req.templateVars);
