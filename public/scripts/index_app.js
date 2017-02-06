@@ -1,8 +1,9 @@
 const createResource = function(resource) {
   return $(`<figure class="h-resource" data-res_id=${resource.id}>
+      <a class="close" href="/">x</a>
       <img src=${resource.media_src}>
       <figcaption>${resource.title}</figcaption>
-      <a class="close" href="/">x</a>
+
       <p>${resource.description}</p>
       <figcaption>
       <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
@@ -39,6 +40,7 @@ const newCommentForm = $(`<form method="POST" action="" class="new-comment">
 
 const processResource = function($thisResource) {
   $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
+<<<<<<< HEAD
   if ($thisResource.find('#comments').length < 1) {
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
@@ -53,6 +55,23 @@ const processResource = function($thisResource) {
       result.comments.forEach(function(comment) {
         $thisResource.find('#comments').append(createComment(comment));
       });
+=======
+
+  $("#maincontent").css({"opacity": "1", "column-width": "auto"});
+
+  $.ajax({
+    url: `/resources/${$thisResource.data('res_id')}/comments`,
+  }).done(function(result) {
+    if(result.isLoggedIn) {
+      const inputId = `#st${result.ratedValue}`;
+      $thisResource.find(inputId).prop('checked', true);
+      $thisResource.find('.wrapper').show();
+      $thisResource.append(newCommentForm);
+      $thisResource.append($('<section id="comments"></section>'));
+    }
+    result.comments.forEach(function(comment) {
+      $thisResource.find('#comments').append(createComment(comment));
+>>>>>>> 31f0d0a7a32f902fb45488fc27c4b83341e2160a
     });
   }
 }
@@ -69,6 +88,26 @@ const showResource = function(event) {
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
   } else {
+    $("#maincontent").empty();
+    $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
+    $("#maincontent").append($thisResource);
+    $("#maincontent").css({"opacity": "1", "column-width": "auto"})
+    $("#punch").css({"visibility": "visible", "z-index": "1"});
+
+    $.ajax({
+      url: `/resources/${$thisResource.data('res_id')}/comments`,
+    }).done(function(result) {
+      if(result.isLoggedIn) {
+        const inputId = `#st${result.ratedValue}`;
+        $(inputId).prop('checked', true);
+        $thisResource.find('.wrapper').show();
+        $thisResource.append(newCommentForm);
+        $thisResource.append($('<section id="comments"></section>'));
+      }
+      result.comments.forEach(function(comment) {
+        $('#comments').append(createComment(comment));
+      });
+    });
     $("#maincontent").children().hide();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"});
     $("#maincontent").find("#next-prev").css("display", "inline-block");

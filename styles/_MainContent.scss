@@ -30,7 +30,9 @@ div#maincontent:hover figure:not(:hover) {
     line-height: 1.5;
       }
 }
-
+#punch {
+  visibility: hidden;
+}
 #maincontent figcaption span {
   padding-left: 0.3em;
   padding-right: 0.3em;
