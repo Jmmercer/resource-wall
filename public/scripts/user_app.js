@@ -6,6 +6,7 @@ $(() => {
     // To show the clicked resource
     $("#maincontent").off("resource:show");
     $("#maincontent").on("resource:show", ".h-resource", showResource);
+    $("#maincontent").css({"column-width": "320px"});
     $(".submitted-button").removeClass("active");
 
     $.ajax({
@@ -26,6 +27,7 @@ $(() => {
     // To show the clicked resource
     $("#maincontent").off("resource:show");
     $("#maincontent").on("resource:show", ".h-resource", showResource);
+    $("#maincontent").css({"column-width": "320px"});
 
     $.ajax({
       method: "GET",

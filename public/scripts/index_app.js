@@ -37,6 +37,27 @@ const newCommentForm = $(`<form method="POST" action="" class="new-comment">
     </div>
   </form>`);
 
+const processResource = function($thisResource) {
+  $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
+
+  $("#maincontent").css({"opacity": "1", "column-width": "auto"});
+
+  $.ajax({
+    url: `/resources/${$thisResource.data('res_id')}/comments`,
+  }).done(function(result) {
+    if(result.isLoggedIn) {
+      const inputId = `#st${result.ratedValue}`;
+      $thisResource.find(inputId).prop('checked', true);
+      $thisResource.find('.wrapper').show();
+      $thisResource.append(newCommentForm);
+      $thisResource.append($('<section id="comments"></section>'));
+    }
+    result.comments.forEach(function(comment) {
+      $thisResource.find('#comments').append(createComment(comment));
+    });
+  });
+}
+
 const showResource = function(event) {
   const $target = $(event.target);
   const $this = $(this);
@@ -72,6 +93,9 @@ const showResource = function(event) {
         $('#comments').append(createComment(comment));
       });
     });
+    $("#maincontent").children().hide();
+    $("#maincontent").find("#next-prev").css("display", "inline-block");
+    processResource($thisResource);
   }
   $("#maincontent").off("resource:show");
 }
@@ -79,6 +103,23 @@ const showResource = function(event) {
 // const loggedInState = function(isLoggedIn) { return $(`<input type="checkbox" checked=${isLoggedIn}`) }
 
 $(() => {
+
+
+  // Next / Prev show
+  $("#maincontent").on('click', '.next, .prev', function(event) {
+    event.preventDefault();
+    let $target = $(event.target)
+    console.log()
+    const $old = $('#maincontent').find('.h-resource:visible');
+    const isNext = $target.is('.next');
+    let $new = isNext ? $old.next() : $old.prev();
+    $old.hide();
+    if ($new.length < 1) {
+      $new = isNext ? $('#maincontent .h-resource:first') : $('#maincontent .h-resource:last');
+    }
+    processResource($new);
+    $("#maincontent").off("resource:show");
+  })
 
   $('.close').css('display', 'none');
 
@@ -117,7 +158,7 @@ $(() => {
         const $wrapper = $this.closest('.h-resource')
         $wrapper.find('.avg-rating').text(newValue);
         $wrapper.find('input').prop('checked', false);
-        $(inputId).prop('checked', true);
+        $wrapper.find(inputId).prop('checked', true);
       } else {
         $this.text(newValue);
       }
@@ -142,7 +183,7 @@ $(() => {
       data: $this.serialize()
     }).done(function(response) {
       let $container = $('#maincontent');
-      $container.children().remove();
+      $container.empty();
       response.forEach(function(resrc) {
         $container.append(createResource(resrc));
       });
