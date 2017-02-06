@@ -158,12 +158,11 @@ $(() => {
     event.preventDefault();
 
     let categoryIDs = [Number($('.dropdown-toggle').data('thisid'))];
-    if (categoryIDs[0] == 30) {
+    if (categoryIDs[0] == 20) {
       categoryIDs = undefined;
     }
     let search = $('.form-control').val();
     let data = {search: search, categoryIDs: categoryIDs};
-    console.log('data', data);
 
     $.ajax({
       url: "/resources/search",
@@ -177,6 +176,12 @@ $(() => {
       });
     })
   });
+
+  // Filter / Search on select category
+  $('#falcon').on('click', '.category-selector', function(event) {
+    event.preventDefault();
+    $('#search-form').trigger('submit');
+  })
 
   //Select category value
   $('.category-selector').click(function (event){
