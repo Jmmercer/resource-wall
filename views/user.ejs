@@ -16,11 +16,11 @@
     </div>
   <main>
   <br>
-  <div class="container-fluid user-details">
+  <div id="user-show" class="container-fluid user-details">
     
   <% if (user) { %>
     <div class="row">
-      <div class="col-md-12 user-info">Reezorz for <%= user.name%></div>
+      <div id="own-id-info" class="col-md-12 user-info" data-ownerID="<%= user.id %>">Reezorz for <%= user.name%></div>
     </div>
     <div class="row">
       <div class="col-md-12 user-info"><%= user.email%></div>
@@ -30,7 +30,7 @@
     </div>
   <% } else { %>
     <div class="row">
-      <div class="col-md-12 user-info">Reezorz for <%= owner %></div>
+      <div id="own-id-info" class="col-md-12 user-info" data-ownerID="<%= owner_id %>">Reezorz for <%= owner %></div>
     </div>
   <% } %>
   </div>
@@ -38,9 +38,11 @@
   <% include ../views/partials/_UpdateUserPop.ejs %>
   </div>
   <br>
-  <button type="button" class="btn btn-danger btn-lg btn-block submitted-button">Submitted Resources</button>
-  <button type="button" class="btn btn-danger btn-lg btn-block liked-button">Liked Resources</button>
-    <% include ../views/_MainContent %>
+  <div id="btn-container">
+    <button id="btn-submitted" type="button" class="btn btn-danger btn-lg btn-block submitted-button">Submitted Resources</button>
+    <button id="btn-liked" type="button" class="btn btn-danger btn-lg btn-block liked-button">Liked Resources</button>
+  </div>
+  <% include ../views/_MainContent %>
     <section class="container">
 
     </section>

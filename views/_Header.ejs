@@ -24,12 +24,12 @@
       <% if (!user) { %>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="#popup1">Register</a>
+          <a href="/#popup1">Register</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-        <a href="#login-pop">Login</a>
+        <a href="/#login-pop">Login</a>
         </li>
       </ul>
       <% } else {%>
@@ -43,12 +43,11 @@
         <!-- <li><a href="#">Logout</a></li> -->
       </ul>
       <% } %>
-      <div class="login-error-container">
-         <% if (error_message) { %>
-         <%= error_message %>
-         <% } %>
-
-      </div>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<% if (error_message) { %>
+  <div class="login-error-container alert alert-danger" role="alert">
+    <%= error_message %>
+  </div>
+<% } %>

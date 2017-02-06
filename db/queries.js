@@ -1,4 +1,8 @@
 // database helper functions
+function sortNewest(a, b) {
+  return b.created_at - a.created_at;
+}
+
 module.exports = (knex) => {
   return {
 
@@ -14,7 +18,7 @@ module.exports = (knex) => {
         .innerJoin('users', 'comments.user_id', 'users.id')
         .where('resource_id', resourceID)
       .then((commentsArr) => {
-        result.comments = commentsArr;
+        result.comments = commentsArr.sort(sortNewest);
         if (userID) {
           knex('ratings').select('value').where('resource_id', resourceID).andWhere('user_id', userID)
           .then(function(valueArr) {
@@ -48,7 +52,7 @@ module.exports = (knex) => {
         .from('comments')
         .where('resource_id', resourceID)
         .then((commentsArr) => {
-          resrc.comments = commentsArr;
+          resrc.comments = commentsArr.sort(sortNewest);
           callback(resrc);
         })
       });
@@ -63,7 +67,7 @@ module.exports = (knex) => {
       .select('*')
       .from('resources')
       .then((allResourcesArr) => {
-        callback(allResourcesArr);
+        callback(allResourcesArr.sort(sortNewest));
       });
     },
 
@@ -78,7 +82,7 @@ module.exports = (knex) => {
       .innerJoin('resource_categories', 'resources.id', 'resource_id')
       .where('category_id', categoryID)
       .then((catResourcesArr) => {
-        callback(catResourcesArr);
+        callback(catResourcesArr.sort(sortNewest));
       });
     },
 
@@ -113,7 +117,7 @@ module.exports = (knex) => {
           (res.description && res.description.toLowerCase().includes(searchTerm)));
         });
 
-        callback(searchResult);
+        callback(searchResult.sort(sortNewest));
       });
     },
 
@@ -127,7 +131,7 @@ module.exports = (knex) => {
       .from('resources')
       .where('user_id', userID)
       .then((userResourcesArr) => {
-        callback(userResourcesArr);
+        callback(userResourcesArr.sort(sortNewest));
       });
     },
 
@@ -142,7 +146,7 @@ module.exports = (knex) => {
       .innerJoin('likes', 'likes.resource_id', 'resources.id')
       .where('likes.user_id', userID)
       .then((userLikedResourcesArr) => {
-        callback(userLikedResourcesArr);
+        callback(userLikedResourcesArr.sort(sortNewest));
       });
     },
 

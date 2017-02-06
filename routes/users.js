@@ -7,10 +7,10 @@ module.exports = (knex) => {
 
   router.get("/liked", (req, res) => {
     // Returns the resources that a user has liked
-    const user = {id: req.session.user.id}
-    console.log('user', user);
+    console.log('query submit',req.query)
+    let user_id = req.session.user ? req.session.user.id : req.query.ownid;
 
-    db.getResourcesByUserLiked(user.id, function (resources) {
+    db.getResourcesByUserLiked(user_id, function (resources) {
       res.send(resources);
     })
 
@@ -19,10 +19,10 @@ module.exports = (knex) => {
   router.get("/submitted", (req, res) => {
     // Returns the resources that a user has liked
     // Similar to get /:user_id, but using ajax for speed
-    const user = {id: req.session.user.id}
-    console.log('user', user);
+    console.log('query submit',req.query)
+    let user_id = req.session.user ? req.session.user.id : req.query.ownid;
 
-    db.getResourcesByUser(user.id, function (resources) {
+    db.getResourcesByUser(user_id, function (resources) {
       res.send(resources);
     })
 
@@ -41,10 +41,8 @@ module.exports = (knex) => {
       req.templateVars.error_message = '';
 
     }
-    const owner_id = req.params.user_id;
-    const owner = req.query.owner;
-    console.log(owner);
-    req.templateVars.owner = owner;
+    req.templateVars.owner_id = req.params.user_id;
+    req.templateVars.owner = req.query.owner;
     db.getResourcesByUser(req.params.user_id, function (resources) {
 
       req.templateVars.resources = resources;
