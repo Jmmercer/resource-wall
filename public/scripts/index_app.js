@@ -56,9 +56,9 @@ const processResource = function($thisResource) {
         $thisResource.find(inputId).prop('checked', true);
         $thisResource.find('.wrapper').show();
         $thisResource.find('.new-comment').show();
-        $thisResource.append($('<section id="comments"></section>'));
       }
       result.comments.forEach(function(comment) {
+        $thisResource.append($('<section id="comments"></section>'));
         $thisResource.find('#comments').append(createComment(comment));
       });
     });
@@ -100,7 +100,7 @@ $(() => {
     const $old = $('#maincontent').find('.h-resource:visible');
     const isNext = $target.is('.next');
     let $new = isNext ? $old.next() : $old.prev();
-    $old.fadeOut(500);
+    $old.hide();
     if (!$new.is('.h-resource')) {
       $new = isNext ? $('#maincontent .h-resource').first() : $('#maincontent .h-resource').last();
     }
@@ -163,7 +163,7 @@ $(() => {
     event.preventDefault();
 
     let categoryIDs = [Number($('.dropdown-toggle').data('thisid'))];
-    if (categoryIDs[0] == 20) {
+    if (!categoryIDs || (categoryIDs.length < 1) || (categoryIDs[0] == 20) || (categoryIDs[0] == 30)) {
       categoryIDs = undefined;
     }
     let search = $('.form-control').val();

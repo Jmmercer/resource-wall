@@ -88,14 +88,30 @@ form {
 #search-form {
   height: 40px;
   min-width: 300px;
-  // width: 40%;
+  vertical-align: middle;
+  width: 40%;
   .form-group, button {
+    font-size: 0.8em;
     height: 100%;
     margin: 0;
+    width: 80%;
+    min-width: 200px;
   }
 
   input {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    font-size: 0.8em;
     height: 100%;
+    width: 100%;
+  }
+
+  button {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    padding: 0 7px;
+    width: 20%;
+    min-width: 60px;
   }
 }
 
