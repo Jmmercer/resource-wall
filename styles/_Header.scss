@@ -13,6 +13,7 @@ header {
   }
   font-size: 1.5em;
   .navbar{
+    margin-bottom: 0;
     .caret {
       visibility: hidden;
     }
@@ -83,7 +84,37 @@ form {
 #search {
     border-color: none;
     padding: 5px;
-    border-radius: 1em;
+    // border-radius: 1em;
+  }
+}
+
+#search-form {
+  height: 40px;
+  min-width: 300px;
+  vertical-align: middle;
+  width: 40%;
+  .form-group, button {
+    font-size: 0.8em;
+    height: 100%;
+    margin: 0;
+    width: 80%;
+    min-width: 200px;
+  }
+
+  input {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    font-size: 0.8em;
+    height: 100%;
+    width: 100%;
+  }
+
+  button {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    padding: 0 7px;
+    width: 20%;
+    min-width: 60px;
   }
 }
 
@@ -209,10 +240,19 @@ img {
   box-sizing: border-box;
 }
 #Go {
+  background-color: #fff;
+  color: red;
+  font-size: 1.5em;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px #888;
+}
+#Go:hover {
   background-color: #ef0000;
-  color: white;
-  border-radius: 1em;
-  border-color: #cc2222;
+  color: #fff;
+  box-shadow: 0px 0px 5px #888;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 #toggle {
   position: absolute;
@@ -245,5 +285,12 @@ img {
 }
 
 .login-error-container {
-  font-size: 1.6em;
+  font-size: 1em;
+  margin: -5px 15px 0;
+  position: absolute;
+  text-align: center;
+  line-height: 1.7;
+  padding: 0;
+  width: 96%;
+  z-index: 10;
 }

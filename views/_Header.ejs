@@ -43,11 +43,11 @@
         <!-- <li><a href="#">Logout</a></li> -->
       </ul>
       <% } %>
-      <div class="login-error-container">
-         <% if (error_message) { %>
-         <%= error_message %>
-         <% } %>
-      </div>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<% if (error_message) { %>
+  <div class="login-error-container alert alert-danger" role="alert">
+    <%= error_message %>
+  </div>
+<% } %>

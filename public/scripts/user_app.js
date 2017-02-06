@@ -3,6 +3,9 @@ $(() => {
   $(".submitted-button").addClass("active");
 
   $(".liked-button").click(function () {
+    $("#btn-submitted").removeClass("active");
+    $("#btn-liked").addClass("active");
+
     // To show the clicked resource
     $("#maincontent").off("resource:show");
     $("#maincontent").on("resource:show", ".h-resource", showResource);
@@ -26,6 +29,8 @@ $(() => {
   })
 
   $(".submitted-button").click(function () {
+    $("#btn-submitted").addClass("active");
+    $("#btn-liked").removeClass("active");
     // To show the clicked resource
     $("#maincontent").off("resource:show");
     $("#maincontent").on("resource:show", ".h-resource", showResource);

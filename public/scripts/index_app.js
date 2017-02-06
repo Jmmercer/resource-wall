@@ -11,6 +11,13 @@ const createResource = function(resource) {
       <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span>
       <em><a class="res-url res-source" href="${resource.url}" target="_blank">source</a></em>
       </figcaption>
+      <form method="POST" action="" class="new-comment" style="display: none;">
+        <div class="form-group" style="width: 100%;">
+          <label for="comment-text" style="display:none;">New comment</label>
+          <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  class="form-control" rows="3" required></textarea>
+          <button type="submit" class="btn btn-default">Send</button>
+        </div>
+      </form>
     </figure>`)
 }
 
@@ -30,16 +37,15 @@ const createComment = function(comment) {
   </article>`);
 }
 
-const newCommentForm = $(`<form method="POST" action="" class="new-comment">
-    <div class="form-group" style="width: 100%;">
-      <label for="comment-text" style="display:none;">New comment</label>
-      <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  class="form-control" rows="3" required></textarea>
-      <button type="submit" class="btn btn-default">Send</button>
-    </div>
-  </form>`);
-
 const processResource = function($thisResource) {
-  $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
+  $thisResource.fadeIn(1000).css({
+    "display": "block",
+    "margin": "0 auto",
+    "max-width": "1000px",
+    "min-width":"450px",
+    "opacity": "1",
+    "width": "80%"
+  });
 
   if ($thisResource.find('#comments').length < 1) {
     $.ajax({
@@ -49,7 +55,7 @@ const processResource = function($thisResource) {
         const inputId = `#st${result.ratedValue}`;
         $thisResource.find(inputId).prop('checked', true);
         $thisResource.find('.wrapper').show();
-        $thisResource.append(newCommentForm);
+        $thisResource.find('.new-comment').show();
       }
       result.comments.forEach(function(comment) {
         $thisResource.append($('<section id="comments"></section>'));
@@ -62,8 +68,9 @@ const processResource = function($thisResource) {
 const showResource = function(event) {
   const $target = $(event.target);
   const $this = $(this);
+  $('#maincontent:hover figure').css('opacity', 1);
 
-  $this.css('opacity', 1);
+  // $this.css('opacity', 1);
   let $close = $this.find('.close');
   console.log('$close', $close);
   $close.css('display', 'block');
@@ -73,7 +80,7 @@ const showResource = function(event) {
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
   } else {
-    $("#maincontent").children().hide();
+    $("#maincontent .h-resource").hide();
     $("#next-prev").show();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"})
     $(".close").css({"visibility": "visible", "z-index": "1"});
@@ -132,7 +139,6 @@ $(() => {
       method: 'POST',
       data: $this.serialize()
     }).done(function(commentInfo) {
-      console.log(commentInfo)
       $('#comments').prepend(createComment(commentInfo[0]));
       const $counter = $thisResource.find('.comment-count')
       $counter.text(`${commentInfo[1]}`);
@@ -176,12 +182,11 @@ $(() => {
     event.preventDefault();
 
     let categoryIDs = [Number($('.dropdown-toggle').data('thisid'))];
-    if (categoryIDs[0] == 30) {
+    if (!categoryIDs || (categoryIDs.length < 1) || (categoryIDs[0] == 20) || (categoryIDs[0] == 30)) {
       categoryIDs = undefined;
     }
     let search = $('.form-control').val();
     let data = {search: search, categoryIDs: categoryIDs};
-    console.log('data', data);
 
     $.ajax({
       url: "/resources/search",
@@ -195,6 +200,12 @@ $(() => {
       });
     })
   });
+
+  // Filter / Search on select category
+  $('#falcon').on('click', '.category-selector', function(event) {
+    event.preventDefault();
+    $('#search-form').trigger('submit');
+  })
 
   //Select category value
   $('.category-selector').click(function (event){
