@@ -23,18 +23,20 @@ div#maincontent:hover figure:not(:hover) {
 	/*transition: opacity 0.5s, box-shadow 0.5s, padding 0.5s ease-in-out;*/
   display: inline-block;
   column-break-inside: avoid;
-    img {
-    width: 100%; height: auto;
-    max-height: 1000px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 15px;
-    margin-bottom: 5px;
-  }
+    
   figure figcaption {
     font-size: 1.2rem;
     color: white;
     line-height: 1.5;
   }
+}
+
+#maincontent figure > img {
+  width: 100%; height: auto;
+  max-height: 1000px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+  margin-bottom: 5px;
 }
 .close{
   opacity: 0.1
