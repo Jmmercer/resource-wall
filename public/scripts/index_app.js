@@ -74,12 +74,12 @@ const showResource = function(event) {
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
   } else {
-    $("#maincontent").empty();
-    $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
-    $("#maincontent").append($thisResource);
+    $("#maincontent").children().hide();
+    $("#next-prev").show();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"})
     $("#punch").css({"visibility": "visible", "z-index": "1"});
 
+<<<<<<< HEAD
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
@@ -96,6 +96,8 @@ const showResource = function(event) {
     });
     $("#maincontent").children().hide();
     $("#maincontent").find("#next-prev").css("display", "inline-block");
+=======
+>>>>>>> master
     processResource($thisResource);
   }
   $("#maincontent").off("resource:show");
@@ -205,4 +207,5 @@ $(() => {
     event.preventDefault();
     $('.dropdown-toggle').data('thisid', $(this).data('id'));
 })
+
 });
