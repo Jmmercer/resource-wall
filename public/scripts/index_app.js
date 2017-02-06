@@ -1,14 +1,15 @@
 const createResource = function(resource) {
-
   return $(`<figure class="h-resource" data-res_id=${resource.id}>
       <img src=${resource.media_src}>
       <figcaption>${resource.title}</figcaption>
-                <a class="close" href="/">x</a>
+      <a class="close" href="/">x</a>
       <p>${resource.description}</p>
-      // <em><a class="res-url" href="${resource.url}" target="_blank">source</a></em>
+      <figcaption>
       <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
       <span>comments: <em class="comment-count">${resource.comments_count}</em><span>
-      <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span> <em><a class="res-url res-source" href="${resource.url}" target="_blank">source</a></em>
+      <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span>
+      <em><a class="res-url res-source" href="${resource.url}" target="_blank">source</a></em>
+      </figcaption>
     </figure>`)
 }
 
@@ -39,6 +40,15 @@ const newCommentForm = $(`<form method="POST" action="" class="new-comment">
 const showResource = function(event) {
   const $target = $(event.target);
   const $this = $(this);
+
+  $this.css('opacity', 1);
+  let $close = $this.find('.close');
+  console.log('$close', $close);
+  $close.css('display', 'block');
+  $close.css('opacity', 1);
+  console.log($close.css('display'));
+  console.log($close.css('opacity'));
+
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
   } else {
@@ -68,6 +78,8 @@ const showResource = function(event) {
 // const loggedInState = function(isLoggedIn) { return $(`<input type="checkbox" checked=${isLoggedIn}`) }
 
 $(() => {
+
+  $('.close').css('display', 'none');
 
   // Handling new comment
   $('#maincontent').on('submit', '.new-comment', function(event) {
