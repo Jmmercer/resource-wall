@@ -173,11 +173,19 @@ $(() => {
   //Handling Search
   $("#search-form").on("submit", function(event) {
     event.preventDefault();
-    let $this = $(this);
+
+    let categoryIDs = [Number($('.dropdown-toggle').data('thisid'))];
+    if (categoryIDs[0] == 30) {
+      categoryIDs = undefined;
+    }
+    let search = $('.form-control').val();
+    let data = {search: search, categoryIDs: categoryIDs};
+    console.log('data', data);
+
     $.ajax({
       url: "/resources/search",
       method: "GET",
-      data: $this.serialize()
+      data: data
     }).done(function(response) {
       let $container = $('#maincontent');
       $container.empty();
@@ -186,6 +194,16 @@ $(() => {
       });
     })
   });
+
+  //Select category value
+  $('.category-selector').click(function (event){
+    console.log('$(this).data(\'id\')', $(this).data('id'));
+    event.preventDefault();
+    $('.dropdown-toggle').data('thisid', $(this).data('id'));
+
+
+  })
+
 
 
 });
