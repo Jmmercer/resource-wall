@@ -49,6 +49,9 @@ exports.seed = function(knex, Promise) {
         knex('categories').insert({id: 16, name: 'Psychology'}),
         knex('categories').insert({id: 17, name: 'Transportation and Distribution'}),
         knex('categories').insert({id: 18, name: 'Visual and Performing Arts'})
+        knex('categories').insert({id: 19, name: 'Environmental Sciences'}),
+        knex('categories').insert({id: 19, name: 'Other'})
+
       ])
     }).then(function () {
       return Promise.all([
@@ -67,7 +70,7 @@ exports.seed = function(knex, Promise) {
         knex('ratings').insert({resource_id: 1, user_id: 3, value: 1})
       ])
     }).then(function () {
-      return Promise.all([ 
+      return Promise.all([
         // Inserts resource_categories seed entries
         knex('resource_categories').insert({resource_id: 3, category_id: 1}),
         knex('resource_categories').insert({resource_id: 1, category_id: 2}),
@@ -75,13 +78,13 @@ exports.seed = function(knex, Promise) {
         knex('resource_categories').insert({resource_id: 1, category_id: 3})
       ])
     }).then(function () {
-      return Promise.all([  
+      return Promise.all([
         // Inserts comments seed entries
         knex('comments').insert({id: 1, resource_id: 3, user_id: 1, text: 'Great resource thanks - i can only wonder'}),
         knex('comments').insert({id: 2, resource_id: 1, user_id: 2, text: 'That absolutely suck -wtf are u thinkin'}),
         knex('comments').insert({id: 3, resource_id: 2, user_id: 3, text: 'meh'}),
         knex('comments').insert({id: 4, resource_id: 1, user_id: 3, text: 'feels like sushi from cosco'})
-      
+
       ]);
     });
 };
