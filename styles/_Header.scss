@@ -1,4 +1,5 @@
 header {
+  font-size: 1.5em;
   .navbar{
     .dropdown-menu a {
           background-color: white;
@@ -27,14 +28,15 @@ header {
     border-bottom-style: solid;
     border-width: 0.5em;
     border-bottom-width: 15px;*/
-    border-bottom-right-radius: 2em;
-    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
   }
   .navbar-default .navbar-nav .header-button{
     color: white;
   }
   .navbar-default .navbar-brand{
     color: white;
+    font-size: 2em;
   }
   .navbar-default .navbar-brand:hover {
     color: lightgrey;
@@ -209,4 +211,8 @@ img {
 #toggle:checked + label:after {
   content:''
 }
+}
+
+.login-error-container {
+  font-size: 1.6em;
 }
