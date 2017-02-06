@@ -35,6 +35,13 @@
         <% include ../views/_Icons %>
         <span><em><a class="res-url res-source" href="<%= resource.url %>" target="_blank" >source</a></em></span>
       </figcaption>
+      <form method="POST" action="" class="new-comment" style="display: none;">
+        <div class="form-group" style="width: 100%;">
+          <label for="comment-text" style="display:none;">New comment</label>
+          <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  class="form-control" rows="3" required></textarea>
+          <button type="submit" class="btn btn-default">Send</button>
+        </div>
+      </form>      
     </figure>
   <% }) %>
 </div>

@@ -11,6 +11,13 @@ const createResource = function(resource) {
       <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span>
       <em><a class="res-url res-source" href="${resource.url}" target="_blank">source</a></em>
       </figcaption>
+      <form method="POST" action="" class="new-comment" style="display: none;">
+        <div class="form-group" style="width: 100%;">
+          <label for="comment-text" style="display:none;">New comment</label>
+          <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  class="form-control" rows="3" required></textarea>
+          <button type="submit" class="btn btn-default">Send</button>
+        </div>
+      </form>
     </figure>`)
 }
 
@@ -30,18 +37,13 @@ const createComment = function(comment) {
   </article>`);
 }
 
-const newCommentForm = $(`<form method="POST" action="" class="new-comment">
-    <div class="form-group" style="width: 100%;">
-      <label for="comment-text" style="display:none;">New comment</label>
-      <textarea id="comment-text" name="text" placeholder="What do you think of this resource?"  class="form-control" rows="3" required></textarea>
-      <button type="submit" class="btn btn-default">Send</button>
-    </div>
-  </form>`);
+const newCommentForm = $(``);
 
 const processResource = function($thisResource) {
   $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
 
   if ($thisResource.find('#comments').length < 1) {
+    console.log("i'm doing ajax")
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
@@ -49,10 +51,10 @@ const processResource = function($thisResource) {
         const inputId = `#st${result.ratedValue}`;
         $thisResource.find(inputId).prop('checked', true);
         $thisResource.find('.wrapper').show();
-        $thisResource.append(newCommentForm);
+        $thisResource.find('.new-comment').show();
+        $thisResource.append($('<section id="comments"></section>'));
       }
       result.comments.forEach(function(comment) {
-        $thisResource.append($('<section id="comments"></section>'));
         $thisResource.find('#comments').append(createComment(comment));
       });
     });
@@ -71,7 +73,7 @@ const showResource = function(event) {
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
   } else {
-    $("#maincontent").children().hide();
+    $("#maincontent .h-resource").hide();
     $("#next-prev").show();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"})
     $("#punch").css({"visibility": "visible", "z-index": "1"});
@@ -113,7 +115,6 @@ $(() => {
       method: 'POST',
       data: $this.serialize()
     }).done(function(commentInfo) {
-      console.log(commentInfo)
       $('#comments').prepend(createComment(commentInfo[0]));
       const $counter = $thisResource.find('.comment-count')
       $counter.text(`${commentInfo[1]}`);
