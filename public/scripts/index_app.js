@@ -1,6 +1,6 @@
 const createResource = function(resource) {
   return $(`<figure class="h-resource" data-res_id=${resource.id}>
-      <a class="close" href="/">x</a>
+      <a class="close" href="/">X</a>
       <img src=${resource.media_src}>
       <figcaption>${resource.title}</figcaption>
 

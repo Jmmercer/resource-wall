@@ -19,7 +19,7 @@
   margin: 120px auto;
   padding: 20px;
   border-radius: 5px;
-  width: 30%;
+  width: 50%;
   position: relative;
 }
 .newcontentpopup h2 {
@@ -27,6 +27,7 @@
   color: white;
   font-family: Tahoma, Arial, sans-serif;
 }
+
 .newcontentpopup .clo {
   position: absolute;
   top: 20px;
@@ -43,6 +44,7 @@
     border-color: black;
     color: white;
   }
-  max-height: 30%;
+  max-height: 50%;
   overflow: auto;
 }
+
