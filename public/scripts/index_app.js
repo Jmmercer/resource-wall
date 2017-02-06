@@ -39,23 +39,22 @@ const newCommentForm = $(`<form method="POST" action="" class="new-comment">
 
 const processResource = function($thisResource) {
   $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
-    
-  $("#maincontent").css({"opacity": "1", "column-width": "auto"});
-
-  $.ajax({
-    url: `/resources/${$thisResource.data('res_id')}/comments`,
-  }).done(function(result) {
-    if(result.isLoggedIn) {
-      const inputId = `#st${result.ratedValue}`;
-      $thisResource.find(inputId).prop('checked', true);
-      $thisResource.find('.wrapper').show();
-      $thisResource.append(newCommentForm);
-      $thisResource.append($('<section id="comments"></section>'));
-    }
-    result.comments.forEach(function(comment) {
-      $thisResource.find('#comments').append(createComment(comment));
+  if ($thisResource.find('#comments').length < 1) {
+    $.ajax({
+      url: `/resources/${$thisResource.data('res_id')}/comments`,
+    }).done(function(result) {
+      if(result.isLoggedIn) {
+        const inputId = `#st${result.ratedValue}`;
+        $thisResource.find(inputId).prop('checked', true);
+        $thisResource.find('.wrapper').show();
+        $thisResource.append(newCommentForm);
+        $thisResource.append($('<section id="comments"></section>'));
+      }
+      result.comments.forEach(function(comment) {
+        $thisResource.find('#comments').append(createComment(comment));
+      });
     });
-  });
+  }
 }
 
 const showResource = function(event) {
@@ -64,16 +63,14 @@ const showResource = function(event) {
 
   $this.css('opacity', 1);
   let $close = $this.find('.close');
-  console.log('$close', $close);
   $close.css('display', 'block');
   $close.css('opacity', 1);
-  console.log($close.css('display'));
-  console.log($close.css('opacity'));
 
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
   } else {
     $("#maincontent").children().hide();
+    $("#maincontent").css({"opacity": "1", "column-width": "auto"});
     $("#maincontent").find("#next-prev").css("display", "inline-block");
     processResource($thisResource);
   }
@@ -88,17 +85,15 @@ $(() => {
   // Next / Prev show
   $("#maincontent").on('click', '.next, .prev', function(event) {
     event.preventDefault();
-    let $target = $(event.target)
-    console.log()
+    let $target = $(event.target).closest('li');
     const $old = $('#maincontent').find('.h-resource:visible');
     const isNext = $target.is('.next');
     let $new = isNext ? $old.next() : $old.prev();
     $old.hide();
-    if ($new.length < 1) {
-      $new = isNext ? $('#maincontent .h-resource:first') : $('#maincontent .h-resource:last');
+    if (!$new.is('.h-resource')) {
+      $new = isNext ? $('#maincontent .h-resource').first() : $('#maincontent .h-resource').last();
     }
     processResource($new);
-    $("#maincontent").off("resource:show");
   })
 
   $('.close').css('display', 'none');
