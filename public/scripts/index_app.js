@@ -40,7 +40,7 @@ const createComment = function(comment) {
 const newCommentForm = $(``);
 
 const processResource = function($thisResource) {
-  $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
+  $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "opacity": "1", "width": "80%" });
 
   if ($thisResource.find('#comments').length < 1) {
     console.log("i'm doing ajax")
@@ -65,7 +65,7 @@ const showResource = function(event) {
   const $target = $(event.target);
   const $this = $(this);
 
-  $this.css('opacity', 1);
+  // $this.css('opacity', 1);
   let $close = $this.find('.close');
   $close.css('display', 'block');
   $close.css('opacity', 1);
