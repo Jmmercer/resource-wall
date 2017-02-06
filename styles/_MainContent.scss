@@ -18,17 +18,22 @@ div#maincontent:hover figure:not(:hover) {
 	border: 2px solid #e0d7d7;
   box-shadow: 9px 11px 10px 0px rgba(111, 37, 37, 0.58);
 	margin: 0 2px 15px;
-	padding: 20px;
+	padding: 1.6em;
 	padding-bottom: 10px;
 	/*transition: opacity 0.5s, box-shadow 0.5s, padding 0.5s ease-in-out;*/
   display: inline-block;
   column-break-inside: avoid;
-    
+
   figure figcaption {
     font-size: 1.2rem;
     color: white;
     line-height: 1.5;
-  }
+      }
+}
+
+#maincontent figcaption span {
+  padding-left: 0.3em;
+  padding-right: 0.3em;
 }
 
 #maincontent figure > img {

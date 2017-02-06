@@ -5,8 +5,10 @@
       <img src="<%= resource.media_src %>">
       <figcaption class='resourceTitle'><%= resource.title %></figcaption>
       <p><%= resource.description %></p>
-      <em><a class="res-url" href="<%= resource.url %>" target="_blank" >source</a></em>
-      <figcaption><% include ../views/_Icons %></figcaption>
+      <figcaption>
+        <% include ../views/_Icons %>
+        <span><em><a class="res-url res-source" href="<%= resource.url %>" target="_blank" >source</a></em></span>
+      </figcaption>
     </figure>
   <% }) %>
 </div>

@@ -5,10 +5,10 @@ const createResource = function(resource) {
       <figcaption>${resource.title}</figcaption>
                 <a class="close" href="/">x</a>
       <p>${resource.description}</p>
-      <em><a class="res-url" href="${resource.url}" target="_blank">source</a></em>
-      <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>          <a class="close" href="/">x</a>
-      <span>comments: <em class="comment-count">${resource.comments_count}</em><span>          <a class="close" href="/">x</a>
-      <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span>          <a class="close" href="/">x</a>
+      // <em><a class="res-url" href="${resource.url}" target="_blank">source</a></em>
+      <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
+      <span>comments: <em class="comment-count">${resource.comments_count}</em><span>
+      <span>rating: <a class="" href='#0' >${resource.avg_rating}</a><span> <em><a class="res-url res-source" href="${resource.url}" target="_blank">source</a></em>
     </figure>`)
 }
 
