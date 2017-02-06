@@ -45,7 +45,8 @@ const showResource = function(event) {
     $("#maincontent").empty();
     $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "width": "80%" });
     $("#maincontent").append($thisResource);
-    $("#maincontent").css({"opacity": "1", "column-width": "auto"});
+    $("#maincontent").css({"opacity": "1", "column-width": "auto"})
+    $("#punch").css({"visibility": "visible", "z-index": "1"});
 
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
