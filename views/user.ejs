@@ -20,7 +20,7 @@
     
   <% if (user) { %>
     <div class="row">
-      <div class="col-md-12 user-info">Reezorz for <%= user.name%></div>
+      <div id="own-id-info" class="col-md-12 user-info" data-ownerID="<%= user.id %>">Reezorz for <%= user.name%></div>
     </div>
     <div class="row">
       <div class="col-md-12 user-info"><%= user.email%></div>
@@ -30,7 +30,7 @@
     </div>
   <% } else { %>
     <div class="row">
-      <div class="col-md-12 user-info">Reezorz for <%= owner %></div>
+      <div id="own-id-info" class="col-md-12 user-info" data-ownerID="<%= owner_id %>">Reezorz for <%= owner %></div>
     </div>
   <% } %>
   </div>

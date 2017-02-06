@@ -24,7 +24,7 @@ const createComment = function(comment) {
       <div class="text">
         <p>${comment.text}</p>
       </div>
-      <p class="attribution">by <a href="users/${comment.commenter_id}?owner=${comment.commenter}">
+      <p class="attribution">by <a href="/users/${comment.commenter_id}?owner=${comment.commenter}">
           ${comment.commenter}</a> about ${formatTime(comment.created_at)}</p>
     </div>
   </article>`);
@@ -45,9 +45,7 @@ const processResource = function($thisResource) {
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
-      console.log(result)
       if(result.isLoggedIn) {
-        console.log('im logged in')
         const inputId = `#st${result.ratedValue}`;
         $thisResource.find(inputId).prop('checked', true);
         $thisResource.find('.wrapper').show();
@@ -141,7 +139,7 @@ $(() => {
         $wrapper.find('input').prop('checked', false);
         $wrapper.find(inputId).prop('checked', true);
       } else {
-        $this.text(newValue);
+        if (Number(newValue)) $this.text(newValue);
       }
     });
     return false;
