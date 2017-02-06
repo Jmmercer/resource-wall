@@ -1,5 +1,4 @@
 header {
-
   #falcon {
     border-style: solid;
     border-width: thick;
@@ -60,9 +59,6 @@ header {
     border-bottom-width: 15px;*/
     border-bottom-right-radius: 1em;
     border-bottom-left-radius: 1em;
-  }
-  .navbar-default {
-    border: 0px;
   }
   .navbar-default .navbar-nav .header-button{
     color: white;
@@ -295,10 +291,4 @@ img {
   padding: 0;
   width: 96%;
   z-index: 10;
-}
-a.white {
-  color: white!important;
-}
-a.white:hover {
-  color: lightgrey!important;
 }

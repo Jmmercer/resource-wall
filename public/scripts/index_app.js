@@ -1,6 +1,6 @@
 const createResource = function(resource) {
   return $(`<figure class="h-resource" data-res_id=${resource.id}>
-      <a class="close" href="/">X</a>
+      <a class="close" href="/">x</a>
       <img src=${resource.media_src}>
       <figcaption>${resource.title}</figcaption>
 
@@ -62,7 +62,7 @@ const processResource = function($thisResource) {
         $thisResource.find('#comments').append(createComment(comment));
       });
     });
-  };
+  }
 }
 
 const showResource = function(event) {
@@ -72,10 +72,8 @@ const showResource = function(event) {
 
   // $this.css('opacity', 1);
   let $close = $this.find('.close');
-  console.log('$close', $close);
   $close.css('display', 'block');
-  console.log($close.css('display'));
-  console.log($close.css('opacity'));
+  $close.css('opacity', 1);
 
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
@@ -83,23 +81,8 @@ const showResource = function(event) {
     $("#maincontent .h-resource").hide();
     $("#next-prev").show();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"})
-    $(".close").css({"visibility": "visible", "z-index": "1"});
-    $.ajax({
-      url: `/resources/${$thisResource.data('res_id')}/comments`,
-    }).done(function(result) {
-      if(result.isLoggedIn) {
-        const inputId = `#st${result.ratedValue}`;
-        $(inputId).prop('checked', true);
-        $thisResource.find('.wrapper').show();
-        $thisResource.append(newCommentForm);
-        $thisResource.append($('<section id="comments"></section>'));
-      }
-      result.comments.forEach(function(comment) {
-        $('#comments').append(createComment(comment));
-      });
-    });
-    $("#maincontent").children().hide();
-    $("#maincontent").find("#next-prev").css("display", "inline-block");
+    $("#punch").css({"visibility": "visible", "z-index": "1"});
+
     processResource($thisResource);
   }
   $("#maincontent").off("resource:show");
@@ -113,17 +96,15 @@ $(() => {
   // Next / Prev show
   $("#maincontent").on('click', '.next, .prev', function(event) {
     event.preventDefault();
-    let $target = $(event.target)
-    console.log()
+    let $target = $(event.target).closest('li');
     const $old = $('#maincontent').find('.h-resource:visible');
     const isNext = $target.is('.next');
     let $new = isNext ? $old.next() : $old.prev();
     $old.hide();
-    if ($new.length < 1) {
-      $new = isNext ? $('#maincontent .h-resource:first') : $('#maincontent .h-resource:last');
+    if (!$new.is('.h-resource')) {
+      $new = isNext ? $('#maincontent .h-resource').first() : $('#maincontent .h-resource').last();
     }
     processResource($new);
-    $("#maincontent").off("resource:show");
   })
 
   $('.close').css('display', 'none');
@@ -212,6 +193,6 @@ $(() => {
     console.log('$(this).data(\'id\')', $(this).data('id'));
     event.preventDefault();
     $('.dropdown-toggle').data('thisid', $(this).data('id'));
-})
+  });
 
 });
