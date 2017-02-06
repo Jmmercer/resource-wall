@@ -18,7 +18,8 @@ module.exports = (knex) => {
         if (userID) {
           knex('ratings').select('value').where('resource_id', resourceID).andWhere('user_id', userID)
           .then(function(valueArr) {
-            result.ratedValue = valueArr[0].value;
+            console.log('valueArr', valueArr)
+            result.ratedValue = (valueArr.length > 0) ? valueArr[0].value : undefined;
             callback(result);
           });
         } else {

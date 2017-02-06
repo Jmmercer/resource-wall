@@ -165,6 +165,7 @@ module.exports = (db) => {
     const user_id = req.user ? req.user.id : undefined
     db.getComments([resource_id, user_id], function(results) {
       const result = {comments: results.comments, ratedValue: results.ratedValue, isLoggedIn: !!req.user}
+      console.log(result.isLoggedIn)
       res.status(200).json(result);
     });
   })

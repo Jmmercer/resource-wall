@@ -45,7 +45,9 @@ const processResource = function($thisResource) {
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
+      console.log(result)
       if(result.isLoggedIn) {
+        console.log('im logged in')
         const inputId = `#st${result.ratedValue}`;
         $thisResource.find(inputId).prop('checked', true);
         $thisResource.find('.wrapper').show();
