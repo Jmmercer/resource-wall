@@ -88,7 +88,7 @@ module.exports = (knex) => {
     // Output => an array resource objects
     // Example: ('exa', console.log, [1, 2]) logs [{id: 1, user_id: '#', url: 'example.com', title: 'tadah'....},...]
     getResourcesBySearch: (searchTerm, callback, categoryIDs) => {
-      const approximateTerm = `%${searchTerm}%`; // think about escaping searchTerm
+      const approximateTerm = `%${searchTerm}%`.toLowerCase(); // think about escaping searchTerm
       categoryIDs = categoryIDs || knex.select('id').from('categories');
 
       return knex
@@ -98,9 +98,9 @@ module.exports = (knex) => {
         return knex.select('*').from('resources').where('id', 'in', result);
       }).then((r) => {
         let searchResult = r.filter(res => {
-          return res.title.includes(searchTerm) ||
-          res.url.includes(searchTerm) ||
-          res.description.includes(searchTerm);
+          return res.title.toLowerCase().includes(searchTerm) ||
+          res.url.toLowerCase().includes(searchTerm) ||
+          res.description.toLowerCase().includes(searchTerm);
         });
         callback(searchResult);
       });
