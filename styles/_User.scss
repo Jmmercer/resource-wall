@@ -1,3 +1,50 @@
 .user-info {
   font-size: 1.3em;
 }
+
+#btn-container {
+  display: flex;
+  width: 60%;
+  min-width: 150px;
+  margin: 0 auto;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #aaa;
+}
+#btn-liked,
+#btn-submitted {
+  flex: 1;
+  margin: 0 5px;
+  background-color: transparent;
+  color: #ef0000;
+}
+
+#btn-liked.active,
+#btn-submitted.active {
+  background-color: #ef0000;
+  color: #eee;
+}
+
+#btn-liked:focus,
+#btn-submitted:focus {
+  outline: none;
+}
+
+#btn-liked:hover,
+#btn-submitted:hover {
+  background-color: #ef0000;
+  color: #fff;
+  box-shadow: 0px 0px 5px #888;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#own-id-info {
+  font-size: 2.3em
+}
+
+#user-show {
+  margin: 0 auto;
+  max-width: 1100px;
+  width: 90%;
+  padding: 0;
+}

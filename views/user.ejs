@@ -16,7 +16,7 @@
     </div>
   <main>
   <br>
-  <div class="container-fluid user-details">
+  <div id="user-show" class="container-fluid user-details">
     
   <% if (user) { %>
     <div class="row">
@@ -38,9 +38,11 @@
   <% include ../views/partials/_UpdateUserPop.ejs %>
   </div>
   <br>
-  <button type="button" class="btn btn-danger btn-lg btn-block submitted-button">Submitted Resources</button>
-  <button type="button" class="btn btn-danger btn-lg btn-block liked-button">Liked Resources</button>
-    <% include ../views/_MainContent %>
+  <div id="btn-container">
+    <button id="btn-submitted" type="button" class="btn btn-danger btn-lg btn-block submitted-button">Submitted Resources</button>
+    <button id="btn-liked" type="button" class="btn btn-danger btn-lg btn-block liked-button">Liked Resources</button>
+  </div>
+  <% include ../views/_MainContent %>
     <section class="container">
 
     </section>
