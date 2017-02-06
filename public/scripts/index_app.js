@@ -78,8 +78,6 @@ const showResource = function(event) {
     $("#next-prev").show();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"})
     $("#punch").css({"visibility": "visible", "z-index": "1"});
-
-<<<<<<< HEAD
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
@@ -96,8 +94,6 @@ const showResource = function(event) {
     });
     $("#maincontent").children().hide();
     $("#maincontent").find("#next-prev").css("display", "inline-block");
-=======
->>>>>>> master
     processResource($thisResource);
   }
   $("#maincontent").off("resource:show");
