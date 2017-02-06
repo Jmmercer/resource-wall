@@ -204,10 +204,5 @@ $(() => {
     console.log('$(this).data(\'id\')', $(this).data('id'));
     event.preventDefault();
     $('.dropdown-toggle').data('thisid', $(this).data('id'));
-
-
-  })
-
-
-
+})
 });
