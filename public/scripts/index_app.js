@@ -1,8 +1,9 @@
 const createResource = function(resource) {
   return $(`<figure class="h-resource" data-res_id=${resource.id}>
+      <a class="close" href="/">x</a>
       <img src=${resource.media_src}>
       <figcaption>${resource.title}</figcaption>
-      <a class="close" href="/">x</a>
+
       <p>${resource.description}</p>
       <figcaption>
       <a class="" href="#0"><span class="r-action likes glyphicon glyphicon-heart-empty">${resource.likes_count}</span></a>
@@ -66,9 +67,7 @@ const showResource = function(event) {
   let $close = $this.find('.close');
   console.log('$close', $close);
   $close.css('display', 'block');
-  $close.css('opacity', 1);
   console.log($close.css('display'));
-  console.log($close.css('opacity'));
 
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
