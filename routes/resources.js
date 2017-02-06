@@ -26,6 +26,8 @@ module.exports = (db) => {
   // })
 
   router.post("/new", (req, res) => {
+    console.log('req.user: ',  req.user);
+    let user = req.user;
     let templateVars = {};
     if (req.session.error_message) {
 
@@ -39,7 +41,7 @@ module.exports = (db) => {
 
     }
 
-    const user_id = req.session.user.id;
+    //const user_id = req.session.user.id;
     let url       = req.body.url;
 
     if (url.substr(0, 4) != 'http') {
@@ -78,7 +80,7 @@ module.exports = (db) => {
       templateVars.title         = title;
       templateVars.description   = description;
       templateVars.url           = url;
-      templateVars.user          = {user_id: user_id};
+      templateVars.user          = user;
 
       res.render("new_choice", templateVars);
     })

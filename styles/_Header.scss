@@ -1,24 +1,44 @@
 header {
+  #falcon {
+    border-style: solid;
+    border-width: thick;
+    border-color: #efefef;
+    background:url(../images/rice-paper.png);
+    box-shadow: 19px 20px 13px 0px rgba(105, 72, 72, 0.75);
+
+  }
+  #falcon li:hover {
+    border-style: solid;
+    border-color: transparent;
+  }
+  font-size: 1.5em;
   .navbar{
     .caret {
       visibility: hidden;
     }
     .dropdown-menu a {
-          background-color: white;
-          color: black;
+          background-color: transparent;
+          color: #5c1a1a;
         }
+            .dropdown-menu a:hover {
+              text-decoration: none;
+              color: red;
+              padding: 5px;
+            }
     .navbar-left a{
       color: white;
     }
-    .navbar-right a{
+    .navbar-right {
       color: white;
+      padding: 0.2em;
     }
   .navbar-nav .dropdown-toggle {
       color: white;
       background-color: transparent;
     }
-    :focus {
+    .navbar-nav .dropdown-toggle:focus {
       background-color: transparent;
+    color: white;
     }
     a {
       background-color: transparent;
@@ -35,15 +55,16 @@ header {
     border-bottom-style: solid;
     border-width: 0.5em;
     border-bottom-width: 15px;*/
-    border-bottom-right-radius: 2em;
-    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
   }
   .navbar-default .navbar-nav .header-button{
     color: white;
   }
   .navbar-default .navbar-brand{
-
+  font-size: 2em;
     color: white;
+    font-size: 2em;
   }
   .navbar-default .navbar-brand:hover {
     color: lightgrey;
@@ -218,4 +239,8 @@ img {
 #toggle:checked + label:after {
   content:''
 }
+}
+
+.login-error-container {
+  font-size: 1.6em;
 }

@@ -14,13 +14,21 @@ module.exports = function (db) {
     const email = req.body.email;
     db.getUserByEmail(email, function(user) {
 
-      if (bcrypt.compareSync(req.body.password, user.password)) {
+      if (user) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
 
-        req.session.user = user; //changed it to user from user_id cos we will be needing email too
-        res.status(200).redirect("/");
+          req.session.user = user;
+          res.status(200).redirect("/");
+
+        } else {
+            req.session.error_message = 'Wrong email or password';
+            res.status(401).redirect('/');
+            return;
+
+        }
       } else {
 
-        req.session.error_message = 'Incorrect login information';
+        req.session.error_message = 'Wrong email or password';
         res.status(401).redirect('/');
         return;
 
