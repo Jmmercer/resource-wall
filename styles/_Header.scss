@@ -1,4 +1,5 @@
 header {
+
   #falcon {
     border-style: solid;
     border-width: thick;
@@ -293,4 +294,10 @@ img {
   padding: 0;
   width: 96%;
   z-index: 10;
+}
+a.white {
+  color: white!important;
+}
+a.white:hover {
+  color: lightgrey!important;
 }
