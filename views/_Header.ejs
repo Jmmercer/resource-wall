@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <% if (user) { %>
-        <li><a class = "header-button" href="#newcontentpopup"> New Reezorz <span class="sr-only">(current)</span></a></li>
+        <li><a class = "header-button" href="/#newcontentpopup"> New Reezorz <span class="sr-only">(current)</span></a></li>
         <li><a class = "header-button" href="/users/<%=user.id%>">My Reezorz</a></li>
         <% } %>
         </li>
@@ -40,7 +40,7 @@
         <form action="/logout" method="POST" role="logout" style="all: initial;">
           <button id="Go" type="submit">Logout</button>
         </form>
-        <!-- <li><a href="#">Logout</a></li> -->
+        <!-- <li><a href="#0">Logout</a></li> -->
       </ul>
       <% } %>
     </div><!-- /.navbar-collapse -->
