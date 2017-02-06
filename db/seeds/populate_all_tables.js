@@ -48,9 +48,9 @@ exports.seed = function(knex, Promise) {
         knex('categories').insert({id: 15, name: 'Project Management'}),
         knex('categories').insert({id: 16, name: 'Psychology'}),
         knex('categories').insert({id: 17, name: 'Transportation and Distribution'}),
-        knex('categories').insert({id: 18, name: 'Visual and Performing Arts'})
+        knex('categories').insert({id: 18, name: 'Visual and Performing Arts'}),
         knex('categories').insert({id: 19, name: 'Environmental Sciences'}),
-        knex('categories').insert({id: 19, name: 'Other'})
+        knex('categories').insert({id: 20, name: 'Other'})
 
       ])
     }).then(function () {

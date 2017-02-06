@@ -24,8 +24,8 @@ const createComment = function(comment) {
       <div class="text">
         <p>${comment.text}</p>
       </div>
-      <p class="attribution">by <a href="#0" data-commenter_id=${comment.commenter_id}>
-          ${comment.commenter}</a> at ${formatTime(comment.created_at)}</p>
+      <p class="attribution">by <a href="users/${comment.commenter_id}?owner=${comment.commenter}">
+          ${comment.commenter}</a> about ${formatTime(comment.created_at)}</p>
     </div>
   </article>`);
 }
@@ -50,9 +50,9 @@ const processResource = function($thisResource) {
         $thisResource.find(inputId).prop('checked', true);
         $thisResource.find('.wrapper').show();
         $thisResource.append(newCommentForm);
-        $thisResource.append($('<section id="comments"></section>'));
       }
       result.comments.forEach(function(comment) {
+        $thisResource.append($('<section id="comments"></section>'));
         $thisResource.find('#comments').append(createComment(comment));
       });
     });
