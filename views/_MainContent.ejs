@@ -27,7 +27,7 @@
   </ul>
   <% resources.forEach(function(resource) { %>
     <figure class="h-resource" data-res_id=<%=resource.id%>>
-      <a id="punch" class="close" href="/">X</a>
+      <a class="close" href="/">X</a>
       <img src="<%= resource.media_src %>">
       <figcaption class='resourceTitle'><%= resource.title %></figcaption>
       <p><%= resource.description %></p>

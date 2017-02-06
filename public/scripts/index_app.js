@@ -56,7 +56,7 @@ const processResource = function($thisResource) {
         $thisResource.find('#comments').append(createComment(comment));
       });
     });
-  }
+  };
 }
 
 const showResource = function(event) {
@@ -65,8 +65,10 @@ const showResource = function(event) {
 
   $this.css('opacity', 1);
   let $close = $this.find('.close');
+  console.log('$close', $close);
   $close.css('display', 'block');
-  $close.css('opacity', 1);
+  console.log($close.css('display'));
+  console.log($close.css('opacity'));
 
   const $thisResource = $target.closest('.h-resource');
   if ($target.hasClass("res-url") || $target.is('input') || $target.is('label')) {
@@ -74,8 +76,23 @@ const showResource = function(event) {
     $("#maincontent").children().hide();
     $("#next-prev").show();
     $("#maincontent").css({"opacity": "1", "column-width": "auto"})
-    $("#punch").css({"visibility": "visible", "z-index": "1"});
-
+    $(".close").css({"visibility": "visible", "z-index": "1"});
+    $.ajax({
+      url: `/resources/${$thisResource.data('res_id')}/comments`,
+    }).done(function(result) {
+      if(result.isLoggedIn) {
+        const inputId = `#st${result.ratedValue}`;
+        $(inputId).prop('checked', true);
+        $thisResource.find('.wrapper').show();
+        $thisResource.append(newCommentForm);
+        $thisResource.append($('<section id="comments"></section>'));
+      }
+      result.comments.forEach(function(comment) {
+        $('#comments').append(createComment(comment));
+      });
+    });
+    $("#maincontent").children().hide();
+    $("#maincontent").find("#next-prev").css("display", "inline-block");
     processResource($thisResource);
   }
   $("#maincontent").off("resource:show");
@@ -89,15 +106,17 @@ $(() => {
   // Next / Prev show
   $("#maincontent").on('click', '.next, .prev', function(event) {
     event.preventDefault();
-    let $target = $(event.target).closest('li');
+    let $target = $(event.target)
+    console.log()
     const $old = $('#maincontent').find('.h-resource:visible');
     const isNext = $target.is('.next');
     let $new = isNext ? $old.next() : $old.prev();
     $old.hide();
-    if (!$new.is('.h-resource')) {
-      $new = isNext ? $('#maincontent .h-resource').first() : $('#maincontent .h-resource').last();
+    if ($new.length < 1) {
+      $new = isNext ? $('#maincontent .h-resource:first') : $('#maincontent .h-resource:last');
     }
     processResource($new);
+    $("#maincontent").off("resource:show");
   })
 
   $('.close').css('display', 'none');
@@ -182,6 +201,6 @@ $(() => {
     console.log('$(this).data(\'id\')', $(this).data('id'));
     event.preventDefault();
     $('.dropdown-toggle').data('thisid', $(this).data('id'));
-  });
+})
 
 });
