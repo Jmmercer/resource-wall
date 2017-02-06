@@ -37,13 +37,17 @@ const createComment = function(comment) {
   </article>`);
 }
 
-const newCommentForm = $(``);
-
 const processResource = function($thisResource) {
-  $thisResource.css({"display": "block", "margin": "0 auto", "max-width": "1000px", "min-width":"450px", "opacity": "1", "width": "80%" });
+  $thisResource.fadeIn(1000).css({
+    "display": "block",
+    "margin": "0 auto",
+    "max-width": "1000px",
+    "min-width":"450px",
+    "opacity": "1",
+    "width": "80%"
+  });
 
   if ($thisResource.find('#comments').length < 1) {
-    console.log("i'm doing ajax")
     $.ajax({
       url: `/resources/${$thisResource.data('res_id')}/comments`,
     }).done(function(result) {
@@ -64,6 +68,7 @@ const processResource = function($thisResource) {
 const showResource = function(event) {
   const $target = $(event.target);
   const $this = $(this);
+  $('#maincontent:hover figure').css('opacity', 1);
 
   // $this.css('opacity', 1);
   let $close = $this.find('.close');
@@ -95,7 +100,7 @@ $(() => {
     const $old = $('#maincontent').find('.h-resource:visible');
     const isNext = $target.is('.next');
     let $new = isNext ? $old.next() : $old.prev();
-    $old.hide();
+    $old.fadeOut(500);
     if (!$new.is('.h-resource')) {
       $new = isNext ? $('#maincontent .h-resource').first() : $('#maincontent .h-resource').last();
     }
